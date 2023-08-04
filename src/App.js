@@ -1,9 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 
+import { Messages } from './components/common/Messages.jsx';
+
 function App() {
   return (
     <div className="App">
+      <Messages />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
