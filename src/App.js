@@ -1,12 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
-import { Messages } from './components/common/Messages.jsx';
+import { Campaigns } from './components/common/Campaigns.jsx';
 
 function App() {
   return (
     <div className="App">
-      <Messages />
+      <Campaigns />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
