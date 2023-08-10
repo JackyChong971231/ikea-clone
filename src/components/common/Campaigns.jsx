@@ -1,6 +1,8 @@
 import { Carousel } from 'bootstrap';
 import React, { useEffect, useState } from 'react';
 
+
+
 const dummy = {
     'Order by phone': {'logo': '! ', 'link': 'https://www.ikea.com/ca/en/customer-service/support/a/5a47Y4JWTxWKBV5DM0zgDc/'},
     'Join IKEA Family': {'logo': '! ', 'link': 'https://www.ikea.com/ca/en/profile/signup/family/'},
@@ -19,7 +21,6 @@ export const Campaigns = () => {
     const handleResize = () => {
         clearInterval(intervalID);
         setIsMobile(window.innerWidth <768);
-
     }
 
     useEffect(() => {
@@ -48,7 +49,7 @@ export const Campaigns = () => {
             <div>{currentIndex}</div> */}
             <div className='campaigns__content py-2'>
                 {toDisplayOrder.slice(0,(isMobile? 1: 3)).map((displayName) => (
-                    <a className='campaigns__content__item__link--white mx-5' href={dummy[displayName]['link']}
+                    <a className='campaigns__content__item--white mx-5' href={dummy[displayName]['link']}
                     data-tracking-label='campaigns-local'>
                         <span>{dummy[displayName]['logo']}</span>
                         <span>{displayName}</span>

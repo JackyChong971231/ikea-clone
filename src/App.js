@@ -2,13 +2,16 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import { Campaigns } from './components/common/Campaigns.jsx';
+import { Campaigns } from './components/common/campaigns.jsx';
+import { NavBar} from './components/common/navbar.jsx';
 
 function App() {
   return (
-    <div className="App">
+    <div className="ikea-clone">
       <Campaigns />
-      <header className="App-header"></header>
+      <header className="ikea-clone__header">
+        <NavBar />
+      </header>
     </div>
   );
 }

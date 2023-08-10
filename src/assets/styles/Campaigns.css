@@ -1,4 +1,9 @@
 .campaigns__content {
     position: relative;
-    display: flex;
+    background-color: black;
+}
+
+.campaigns__content__item--white span {
+    color: white;
+    text-decoration: underline;
 }

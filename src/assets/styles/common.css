@@ -1,0 +1,15 @@
+.tooltip {
+    background-color: rgb(var(--colour-interactive-primary-bg-default));
+    border-radius: 4px;
+    bottom: -2.75rem;
+    color: rgb(var(--colour-neutral-1));
+    display: none;
+    flex: 0 0 7.5rem;
+    font-size: .75rem;
+    left: 0;
+    max-width: 60vw;
+    padding: 0.5rem 0.75rem;
+    position: absolute;
+    width: max-content;
+    z-index: 9999;
+}
