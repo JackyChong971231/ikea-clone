@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 export const Home = () => {
-    // return (
-        
-    // )
+    return (
+        <div>
+            <p>home</p>
+        </div>
+    )
 }

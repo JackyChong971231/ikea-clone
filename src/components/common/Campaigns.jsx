@@ -51,8 +51,8 @@ export const Campaigns = () => {
                 {toDisplayOrder.slice(0,(isMobile? 1: 3)).map((displayName) => (
                     <a className='campaigns__content__item--white mx-5' href={dummy[displayName]['link']}
                     data-tracking-label='campaigns-local'>
-                        <span>{dummy[displayName]['logo']}</span>
-                        <span>{displayName}</span>
+                        <span><small>{dummy[displayName]['logo']}</small></span>
+                        <span><small>{displayName}</small></span>
                     </a>
                 ))}
             </div>
