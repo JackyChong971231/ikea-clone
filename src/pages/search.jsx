@@ -63,7 +63,7 @@ export const Search = () => {
                         </span>
                     </p>
                 </div>
-                <div className='search__container__image-type py-2'>
+                <div className='search__container__image-type pt-4 pb-2'>
                     <span></span>
                     <div className='search__container__image-type__inner'>
                         <button 
@@ -74,10 +74,16 @@ export const Search = () => {
                         onClick={() => {setImageDisplayType('room')}}>Room</button>
                     </div>
                 </div>
-                <div className='search__container__compare'>
-                    <span>Compare</span>
-                    <input className='search__container__compare__checkbox' type='checkbox' name='switchname'
-                    aria-label='Activate product comparison selection'></input>
+                <div className='search__container__compare py-3'>
+                    <span></span>
+                    <div>
+                        <span className='px-2'>Compare</span>
+                        <label className='search__container__compare__toggle-switch'>
+                            <input className='search__container__compare__checkbox' type='checkbox' name='switchname'
+                            aria-label='Activate product comparison selection'></input>
+                            <span className='slider round'></span>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
