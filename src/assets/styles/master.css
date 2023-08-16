@@ -1,9 +1,14 @@
 @import url('campaigns.css');
 @import url('navbar.css');
+@import url('profileDropdown.css');
 
 @import url('search.css');
 
 :root {
+
+    --ikea-font: 'Noto IKEA', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
+    font-family: var(--ikea-font);
+
     --colour-text-and-icon-1: 17, 17, 17;
     --colour-text-and-icon-2: 72, 72, 72;
     --colour-text-and-icon-3: 118, 118, 118;

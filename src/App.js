@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { Campaigns } from './components/common/campaigns.jsx';
 import { NavBar } from './components/common/navbar.jsx';
+import { ProfileDropdown } from './components/common/profileDropdown.jsx';
 
 import { Home } from './pages/home.jsx';
 import { Search } from './pages/search.jsx';
@@ -24,6 +25,7 @@ function App() {
             <Route path='/search' element={<Search />} />
           </Routes>
         </BrowserRouter>
+        <ProfileDropdown />
       </main>
     </div>
   );

@@ -1,0 +1,88 @@
+.profileDropdown {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    top: 0;
+}
+
+@media (min-width: 37.5em) {
+    .profileDropdown {
+        width: 31.25rem;
+        right: 0;
+    }
+}
+
+.profileDropdown__header {
+    width: 100%;
+    background-color: rgb(var(--colour-static-ikea-brand-blue, 0, 88, 163));
+}
+
+.profileDropdown__header__closeBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.profileDropdown__header__closeBtn > button {
+    border-radius: 100%;
+    border: 0;
+    background-color: white;
+    color: black;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.profileDropdown__header__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profileDropdown__header__content > h2 {
+    color: white;
+    font-family: var(--ikea-font);
+    text-align: left;
+}
+
+.profileDropdown__header__content__signIn {
+    position: relative;
+    border: 0;
+    border-radius: 1.4rem;
+    padding-inline: 1.5rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.5rem;
+    color: black;
+    background-color: white;
+    font-size: 0.8rem;
+}
+
+.profileDropdown__header__content__btn {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-top:   1px solid rgb(var(--colour-commercial-message-ikea-family, 0, 124, 193));
+    color: white;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profileDropdown__header__content__btn > p {
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin-bottom: 0px;
+    vertical-align: middle;
+    color: white;
+}
+
+.profileDropdown__header__content__btn > button {
+    background-color: white;
+    border: 0px;
+    border-radius: 100%;
+    width: 2.5rem;
+    height: 2.5rem;
+}
