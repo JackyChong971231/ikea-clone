@@ -11,23 +11,28 @@ import { ProfileDropdown } from './components/common/profileDropdown.jsx';
 import { Home } from './pages/home.jsx';
 import { Search } from './pages/search.jsx';
 
+import { SharedProvider } from './SharedContext';
+
 function App() {
+
   return (
-    <div className="ikea-clone">
-      <Campaigns />
-      <header className="ikea-clone__header">
-        <NavBar />
-      </header>
-      <main className='ikea-clone__main'>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/search' element={<Search />} />
-          </Routes>
-        </BrowserRouter>
-        <ProfileDropdown />
-      </main>
-    </div>
+    <SharedProvider>
+      <div className="ikea-clone">
+        <Campaigns />
+        <header className="ikea-clone__header">
+          <NavBar />
+        </header>
+        <main className='ikea-clone__main'>
+          <BrowserRouter>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/search' element={<Search />} />
+            </Routes>
+          </BrowserRouter>
+          <ProfileDropdown />
+        </main>
+      </div>
+    </SharedProvider>
   );
 }
 

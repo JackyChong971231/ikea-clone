@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
+import { useSharedContext } from '../../SharedContext';
+
 import ikeaLogo from '../../assets/images/ikeaLogo.svg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faHeart, faShoppingCart, faBars, faArrowLeft, faXmark, faMagnifyingGlass, faLayerGroup, faTruck, faStore } from "@fortawesome/free-solid-svg-icons"
+
+import { ProfileDropdown } from './profileDropdown.jsx';
 
 const searchSuggestions = {
     'keywords': [
@@ -21,6 +25,8 @@ const searchSuggestions = {
 }
 
 export const NavBar = () => {
+    const { isProfileDropdownOpen, setIsProfileDropdownOpen } = useSharedContext();
+
     const [isInputFieldOnFocus, setIsInputFieldOnFocus] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
@@ -76,7 +82,7 @@ export const NavBar = () => {
                     </div>
                 </div>
                 <ul className='navbar__icons'>
-                    <a className='navbar__icons__item profile px-3'><FontAwesomeIcon icon={faUser} /></a>
+                    <a className='navbar__icons__item profile px-3' onClick={() => {setIsProfileDropdownOpen(true)}}><FontAwesomeIcon icon={faUser} /></a>
                     <a className='navbar__icons__item wishlist px-3'><FontAwesomeIcon icon={faHeart} /></a>
                     <a className='navbar__icons__item cart px-3'><FontAwesomeIcon icon={faShoppingCart} /></a>
                     <a className='navbar__icons__item bars px-3'><FontAwesomeIcon icon={faBars} /></a>
