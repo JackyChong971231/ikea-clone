@@ -109,6 +109,15 @@ This IKEA clone website is built with the below add-ons, frameworks and librarie
 * [![React][React.js]][React-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
+<table>
+    <tr>
+        <td>ER Diagram</td>
+    </tr>
+    <tr>
+        <td><img src="./README_images/er-diagram-first-draft.jpg"></td>
+    </tr>
+</table>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
