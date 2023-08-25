@@ -1,4 +1,4 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+<!-- Improved compatibility of back to top link: See: https://github.com/JackyChong971231/ikea-react/pull/73 -->
 <a name="readme-top"></a>
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
@@ -22,7 +22,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+<!-- [![MIT License][license-shield]][license-url] -->
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
@@ -30,7 +30,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/JackyChong971231/ikea-react">
     <img src="./README_images/ikea-logo.png" alt="Logo" height="80">
   </a>
 
@@ -39,14 +39,14 @@
   <!-- <p align="center">
     Welcome to my IKEA Website Clone project!
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/JackyChong971231/ikea-react"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="#about-the-project">About the project</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Description</a>
+    <a href="https://github.com/JackyChong971231/ikea-react/issues">Description</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Getting started</a>
+    <a href="https://github.com/JackyChong971231/ikea-react/issues">Getting started</a>
   </p> -->
 </div>
 
@@ -69,12 +69,12 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <!-- <li><a href="#usage">Usage</a></li> -->
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
+    <!-- <li><a href="#license">License</a></li> -->
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <!-- <li><a href="#acknowledgments">Acknowledgments</a></li> -->
   </ol>
 </details>
 
@@ -174,7 +174,7 @@ This is an example of how to list things you need to use the software and how to
     - [ ] Chinese
     - [ ] English
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/JackyChong971231/ikea-react/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -199,11 +199,11 @@ Don't forget to give the project a star! Thanks again!
 
 
 <!-- LICENSE -->
-## License
+<!-- ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 
 
@@ -236,18 +236,18 @@ Use this space to list resources you find helpful and would like to give credit 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/JackyChong971231/ikea-react.svg?style=for-the-badge
+[contributors-url]: https://github.com/JackyChong971231/ikea-react/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/JackyChong971231/ikea-react.svg?style=for-the-badge
+[forks-url]: https://github.com/JackyChong971231/ikea-react/network/members
+[stars-shield]: https://img.shields.io/github/stars/JackyChong971231/ikea-react.svg?style=for-the-badge
+[stars-url]: https://github.com/JackyChong971231/ikea-react/stargazers
+[issues-shield]: https://img.shields.io/github/issues/JackyChong971231/ikea-react.svg?style=for-the-badge
+[issues-url]: https://github.com/JackyChong971231/ikea-react/issues
+[license-shield]: https://img.shields.io/github/license/JackyChong971231/ikea-react.svg?style=for-the-badge
+[license-url]: https://github.com/JackyChong971231/ikea-react/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+[linkedin-url]: https://linkedin.com/in/jacky-chong-kin-ye
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
