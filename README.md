@@ -165,11 +165,11 @@ This is an example of how to list things you need to use the software and how to
 
 - [x] Add common components e.g. Navbar
 - [x] Add search page
-- [ ] Add home page
 - [ ] Add backend server
-    - [ ] Database setup
+    - [x] Database setup
     - [ ] Membership register and login
     - [ ] Add product table
+- [ ] Add home page
 - [ ] Multi-language Support
     - [ ] Chinese
     - [ ] English
