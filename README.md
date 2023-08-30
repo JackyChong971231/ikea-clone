@@ -109,6 +109,9 @@ This IKEA clone website is built with the below add-ons, frameworks and librarie
 * [![React][React.js]][React-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
+* [![SpringBoot][SpringBoot.com]][SpringBoot-url]
+* [![MySQL][MySQL.com]][MySQL-url]
+
 <table>
     <tr>
         <td>ER Diagram</td>
@@ -263,5 +266,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [Laravel-url]: https://laravel.com
 [Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+[SpringBoot.com]: https://img.shields.io/badge/SpringBoot-6DB33F?style=flat-square&logo=Spring&logoColor=white
+[SpringBoot-url]: https://spring.io/projects/spring-boot
+[MySQL.com]: https://shields.io/badge/MySQL-lightgrey?logo=mysql&style=plastic&logoColor=white&labelColor=blue
+[MySQL-url]: https://www.mysql.com/
