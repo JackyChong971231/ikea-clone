@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.auth.AuthenticationRequest;
-import com.example.demo.auth.AuthenticationResponse;
-import com.example.demo.auth.RegisterRequest;
+import com.example.demo.request.auth.AuthenticationRequest;
+import com.example.demo.response.AuthenticationResponse;
+import com.example.demo.request.auth.RegisterRequest;
 import com.example.demo.model.Membership;
 import com.example.demo.model.Role;
 import com.example.demo.repository.ConsentRepository;

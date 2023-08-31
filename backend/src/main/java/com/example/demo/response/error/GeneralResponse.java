@@ -1,4 +1,4 @@
-package com.example.demo.auth;
+package com.example.demo.response.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
-
-    private String email;
-    String password;
+public class GeneralResponse {
+    private String errorCode;
+    private String responseMessage;
 }
