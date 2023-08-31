@@ -21,7 +21,7 @@ public class MembershipController {
     }
 
     @GetMapping
-    public List<String> getMembership() {
+    public List<Membership> getMembership() {
         return membershipService.getMemberships();
     }
 }
