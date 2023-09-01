@@ -5,13 +5,17 @@ import com.example.demo.model.Role;
 import com.example.demo.repository.ConsentRepository;
 import com.example.demo.repository.MembershipRepository;
 import com.example.demo.repository.StoreRepository;
-import com.example.demo.request.membership.NewMembershipRequest;
-import com.example.demo.response.error.GeneralResponse;
+import com.example.demo.request.membership.SignUpMembershipRequest;
+import com.example.demo.request.membership.SignInMembershipRequest;
+import com.example.demo.response.membership.SignInMembershipResponse;
+import com.example.demo.response.membership.SignUpMembershipResponse;
+import com.example.demo.response.error.ErrorResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -21,18 +25,16 @@ public class MembershipService {
     private final MembershipRepository membershipRepository;
     private final StoreRepository storeRepository;
     private final ConsentRepository consentRepository;
+    private final JwtService jwtService;
 
     public List<Membership> getMemberships() {
         return membershipRepository.findAll();
     }
 
-    public GeneralResponse addNewMembership(NewMembershipRequest request) {
+    public Object addNewMembership(SignUpMembershipRequest request) {
         Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
         if (membershipOptional.isPresent()) {
-            return GeneralResponse.builder()
-                    .errorCode("0001")
-                    .responseMessage("Email Taken")
-                    .build();
+            return new ErrorResponse(ErrorResponse.CODE_0001_EMAIL_TAKEN);
         }
         var membership = Membership.builder()
                 .firstName(request.getFirstName())
@@ -49,13 +51,29 @@ public class MembershipService {
                 .role(Role.CUSTOMER)
                 .build();
         membershipRepository.save(membership);
-        return GeneralResponse.builder()
-                .errorCode("0000")
-                .responseMessage("Membership added")
+        var jwtToken = jwtService.generateToken(membership);
+        return SignUpMembershipResponse.builder()
+                .SignedInToken(jwtToken)
                 .build();
     }
 
-    public GeneralResponse signIn(Object request) {
-        return null;
+    public Object signIn(SignInMembershipRequest request) {
+        Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
+        // Check whether email exists
+        if (membershipOptional.isPresent()) {
+            var requestPasswordHash = request.getPasswordHash();
+            var databasePasswordHash =   membershipOptional.get().getPasswordHash();
+            if (requestPasswordHash.equals(databasePasswordHash)) {
+                var jwtToken = jwtService.generateToken(membershipOptional.get());
+                return SignInMembershipResponse.builder()
+                        .SignedInToken(jwtToken)
+                        .build();
+            } else {
+                return new ErrorResponse(ErrorResponse.CODE_0003_EMAIL_OR_PW_INVALID);
+            }
+
+        } else {
+            return new ErrorResponse(ErrorResponse.CODE_0002_USER_NOT_FOUND);
+        }
     }
 }

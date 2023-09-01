@@ -1,8 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Membership;
-import com.example.demo.request.membership.NewMembershipRequest;
-import com.example.demo.response.error.GeneralResponse;
+import com.example.demo.request.membership.SignUpMembershipRequest;
+import com.example.demo.request.membership.SignInMembershipRequest;
 import com.example.demo.service.MembershipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,15 +27,15 @@ public class MembershipController {
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<GeneralResponse> signUpMembership(
-            @RequestBody NewMembershipRequest request
+    public ResponseEntity<Object> signUpMembership(
+            @RequestBody SignUpMembershipRequest request
     ) {
         return ResponseEntity.ok(membershipService.addNewMembership(request));
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<GeneralResponse> signInMembership (
-            @RequestBody NewMembershipRequest request
+    public ResponseEntity<Object> signInMembership (
+            @RequestBody SignInMembershipRequest request
     ) {
         return ResponseEntity.ok(membershipService.signIn(request));
     }

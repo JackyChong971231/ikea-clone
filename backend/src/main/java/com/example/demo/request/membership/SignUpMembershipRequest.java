@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewMembershipRequest {
+public class SignUpMembershipRequest {
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
