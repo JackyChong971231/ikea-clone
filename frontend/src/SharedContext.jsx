@@ -1,13 +1,13 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const SharedContext = createContext();
 
 export const SharedProvider = ({ children }) => {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [userDetail, setUserDetail] = useState(JSON.parse(localStorage.getItem("user")));
 
   return (
-    <SharedContext.Provider value={{ isProfileDropdownOpen, setIsProfileDropdownOpen }}>
+    <SharedContext.Provider value={{ isProfileDropdownOpen, setIsProfileDropdownOpen, userDetail, setUserDetail }}>
       {children}
     </SharedContext.Provider>
   );

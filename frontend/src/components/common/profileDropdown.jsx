@@ -8,7 +8,7 @@ import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 
 
 export const ProfileDropdown = () => {
-    const { isProfileDropdownOpen, setIsProfileDropdownOpen } = useSharedContext();
+    const { isProfileDropdownOpen, setIsProfileDropdownOpen, userDetail, setUserDetail } = useSharedContext();
 
     return (
         <div className={'profileDropdown '+ ((isProfileDropdownOpen)?'profileDropdown--open':'profileDropdown--close')}>
@@ -18,7 +18,8 @@ export const ProfileDropdown = () => {
                         <button><FontAwesomeIcon icon={faXmark} /></button>
                     </div>
                     <div className='profileDropdown__header__content pt-3 pb-4 px-4'>
-                        <h2><small><b>Hej</b></small></h2>
+                        
+                        <h2><small><b>Hej <span className='profileDropdown__header__content__firstName'>{userDetail? userDetail.firstName : null}</span></b></small></h2>
                         <a className='profileDropdown__header__content__signIn' onClick={() => {window.location.href = '/sign-in'}}><b>Sign in</b></a>
                     </div>
                     <a className='profileDropdown__header__content__btn profileDropdown__header__content__btn--1 px-4'>
@@ -43,6 +44,7 @@ export const ProfileDropdown = () => {
                         <li><a>Planners</a></li>
                         <li><a>Track your order</a></li>
                         <li><a>Design</a></li>
+                        {localStorage.getItem("user")? <li><a>Manage account</a></li> : null}
                     </ul>
                 </div>
         </div>

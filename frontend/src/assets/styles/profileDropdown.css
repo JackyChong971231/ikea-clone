@@ -136,3 +136,7 @@
 .profileDropdown__buttons__ul > li:hover {
     text-decoration: underline;
 }
+
+.profileDropdown__header__content__firstName {
+    color: rgb(251, 217, 20);
+}
