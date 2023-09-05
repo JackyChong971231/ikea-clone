@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -52,8 +51,11 @@ public class MembershipService {
                 .build();
         membershipRepository.save(membership);
         var jwtToken = jwtService.generateToken(membership);
-        return SignUpMembershipResponse.builder()
-                .SignedInToken(jwtToken)
+        return SignInMembershipResponse.builder()
+                .signedInToken(jwtToken)
+                .membershipId(membership.getMembershipId())
+                .firstName(membership.getFirstName())
+                .lastName(membership.getLastName())
                 .build();
     }
 
@@ -66,7 +68,10 @@ public class MembershipService {
             if (requestPasswordHash.equals(databasePasswordHash)) {
                 var jwtToken = jwtService.generateToken(membershipOptional.get());
                 return SignInMembershipResponse.builder()
-                        .SignedInToken(jwtToken)
+                        .signedInToken(jwtToken)
+                        .membershipId(membershipOptional.get().getMembershipId())
+                        .firstName(membershipOptional.get().getFirstName())
+                        .lastName(membershipOptional.get().getLastName())
                         .build();
             } else {
                 return new ErrorResponse(ErrorResponse.CODE_0003_EMAIL_OR_PW_INVALID);

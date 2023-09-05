@@ -10,6 +10,7 @@ import { ProfileDropdown } from './components/common/profileDropdown.jsx';
 
 import { Home } from './pages/home.jsx';
 import { Search } from './pages/search.jsx';
+import { SignIn } from './pages/signIn.jsx';
 
 import { SharedProvider } from './SharedContext';
 
@@ -25,8 +26,9 @@ function App() {
         <main className='ikea-clone__main'>
           <BrowserRouter>
             <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/search' element={<Search />} />
+              <Route path='/' element={<Search />} />
+              <Route path='/sign-in' element={<SignIn />} />
+              {/* <Route path='/search' element={<Search />} /> */}
             </Routes>
           </BrowserRouter>
           <ProfileDropdown />

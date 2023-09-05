@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/ikea-clone/membership")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MembershipController {
 
     private final MembershipService membershipService;

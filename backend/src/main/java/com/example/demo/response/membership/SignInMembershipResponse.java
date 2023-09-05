@@ -10,5 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SignInMembershipResponse {
-    private String SignedInToken;
+    private String signedInToken;
+    private Integer membershipId;
+    private String firstName;
+    private String lastName;
 }

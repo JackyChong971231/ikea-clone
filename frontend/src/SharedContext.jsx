@@ -4,6 +4,7 @@ const SharedContext = createContext();
 
 export const SharedProvider = ({ children }) => {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   return (
     <SharedContext.Provider value={{ isProfileDropdownOpen, setIsProfileDropdownOpen }}>

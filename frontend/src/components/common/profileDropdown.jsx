@@ -19,7 +19,7 @@ export const ProfileDropdown = () => {
                     </div>
                     <div className='profileDropdown__header__content pt-3 pb-4 px-4'>
                         <h2><small><b>Hej</b></small></h2>
-                        <a className='profileDropdown__header__content__signIn'><b>Sign in</b></a>
+                        <a className='profileDropdown__header__content__signIn' onClick={() => {window.location.href = '/sign-in'}}><b>Sign in</b></a>
                     </div>
                     <a className='profileDropdown__header__content__btn profileDropdown__header__content__btn--1 px-4'>
                         <a><b>Join IKEA Family</b></a>

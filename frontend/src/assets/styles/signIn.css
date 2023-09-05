@@ -1,0 +1,121 @@
+.sign-in__outermost-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-y: scroll;
+}
+
+.sign-in__header-container {
+    background-color: rgb(0, 88, 163);
+    color: white;
+    text-align: left;
+}
+
+.sign-in__header-container > p {
+    font-size: 0.85rem;
+}
+
+.sign-in__header-container > h1 {
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.sign-in__header-container > h1 > span {
+    color: rgb(251, 217, 20);
+}
+
+.sign-in-page__go-home-btn {
+    background-color: transparent;
+    border: 0;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.sign-in-page__go-home-btn:hover {
+    color: white;
+}
+
+.sign-in-input-form__container__form{
+    text-align: left;
+}
+
+.sign-in-form__fields {
+    padding-top: 1.5rem;
+}
+
+.sign-in-form__fields__input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgb(var(--colour-text-and-icon-1,17,17,17));
+    border-radius: 4px;
+}
+
+.sign-in-form__fields__input-wrapper > input {
+    width: 100%;
+    background: none;
+    border: 0;
+    color: rgb(var(--colour-text-and-icon-1,17,17,17));
+    flex-grow: 1;
+    font-size: 1rem;
+    height: 3rem;
+    line-height: 1.5;
+    outline: none;
+    overflow: hidden;
+    padding: 0;
+    padding-inline-end: .5rem;
+    padding-inline-start: .5rem;
+}
+
+.sign-in-form__fields__input-wrapper > button {
+    background-color: transparent;
+    border: 0;
+}
+
+.sign-in-form__submit__resMsg {
+    height: 1rem;
+    color: red;
+}
+
+.sign-in-form__submit-btn {
+    border: 0;
+    border-radius: 3rem;
+    line-height: 2rem;
+    width: 100%;
+    background-color: rgb(var(--colour-interactive-emphasised-bg-default));
+    color: white;
+    font-weight: 700;
+}
+
+.sign-in-form__submit-btn:hover {
+    background-color: rgb(var(--colour-interactive-emphasised-bg-hover));
+}
+
+.sign-in-form__fields__stay-signed-in > input {
+    line-height: 1.5;
+}
+
+.sign-up-container > h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    padding-bottom: 1rem;
+}
+
+.sign-up-container > button {
+    width: 100%;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: transparent;
+    line-height: 1rem;
+    border: 1px solid black;
+    border-radius: 3rem;
+    font-weight: 700;
+}
+
+.sign-up-container > button:hover {
+    background-color: rgb(var(--colour-interactive-primary-bg-hover));
+    color: white;
+}
