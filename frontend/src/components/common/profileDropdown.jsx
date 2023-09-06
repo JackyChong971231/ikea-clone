@@ -10,6 +10,17 @@ import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 export const ProfileDropdown = () => {
     const { isProfileDropdownOpen, setIsProfileDropdownOpen, userDetail, setUserDetail } = useSharedContext();
 
+    const signInOrOutHandler = () => {
+        if (userDetail) {
+            localStorage.removeItem('user');
+            setUserDetail(null);
+            setIsProfileDropdownOpen(false);
+            window.location.href = '/';
+        } else {
+            window.location.href = '/sign-in';
+        }
+    }
+
     return (
         <div className={'profileDropdown '+ ((isProfileDropdownOpen)?'profileDropdown--open':'profileDropdown--close')}>
                 <div className='profileDropdown__header pt-3'>
@@ -20,7 +31,7 @@ export const ProfileDropdown = () => {
                     <div className='profileDropdown__header__content pt-3 pb-4 px-4'>
                         
                         <h2><small><b>Hej <span className='profileDropdown__header__content__firstName'>{userDetail? userDetail.firstName : null}</span></b></small></h2>
-                        <a className='profileDropdown__header__content__signIn' onClick={() => {window.location.href = '/sign-in'}}><b>Sign in</b></a>
+                        <a className='profileDropdown__header__content__signIn' onClick={signInOrOutHandler}><b>{userDetail? 'Sign out' : 'Sign in'}</b></a>
                     </div>
                     <a className='profileDropdown__header__content__btn profileDropdown__header__content__btn--1 px-4'>
                         <a><b>Join IKEA Family</b></a>

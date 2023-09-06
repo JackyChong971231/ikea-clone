@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faEye, faCartPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
 
-// import {sha256} from '../utils/common.js'
-
-import sha256 from 'crypto-js/sha256'
+// import sha256 from 'crypto-js/sha256';
+import {signInService} from '../services/membershipService';
 
 export const SignIn = () => {
     const [email, setEmail] = React.useState('');
@@ -14,28 +13,28 @@ export const SignIn = () => {
 
     const [signInErrorMsg, setSignInErrorMsg] = React.useState('')
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        fetch('http://localhost:8080/api/v1/ikea-clone/membership/sign-in', {
-            method: 'POST',
-            mode: 'cors',
-            headers: { 'Content-Type': 'application/json', 'Connection': 'keep-alive' },
-            body: JSON.stringify({
-                email: email,
-                passwordHash: sha256(password).toString()
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data['signedInToken'] !== undefined) {
-                localStorage.setItem('user', JSON.stringify(data));
-                setSignInErrorMsg('');
-            } else {
-                setSignInErrorMsg(data['responseMessage']);
-            }
-            // console.log(data['signedInToken'])
-        })
-    }
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+    //     fetch('http://localhost:8080/api/v1/ikea-clone/membership/sign-in', {
+    //         method: 'POST',
+    //         mode: 'cors',
+    //         headers: { 'Content-Type': 'application/json', 'Connection': 'keep-alive' },
+    //         body: JSON.stringify({
+    //             email: email,
+    //             passwordHash: sha256(password).toString()
+    //         })
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if (data['signedInToken'] !== undefined) {
+    //             localStorage.setItem('user', JSON.stringify(data));
+    //             setSignInErrorMsg('');
+    //         } else {
+    //             setSignInErrorMsg(data['responseMessage']);
+    //         }
+    //         // console.log(data['signedInToken'])
+    //     })
+    // }
 
     return (
         <div className='sign-in__outermost-container'>
@@ -58,7 +57,7 @@ export const SignIn = () => {
                 </div>
                 <div className='sign-in-input-form__container col-12 col-sm-7'>
                     <div className='sign-in-input-form__container__form px-5 py-3'>
-                        <form noValidate='' onSubmit={handleSubmit}>
+                        <form noValidate='' onSubmit={(e) => {signInService(e, email, password, setSignInErrorMsg)}}>
                             <div className='sign-in-form__fields sign-in-form__fields__email'>
                                 <label for='username' title='Email'>Email</label>
                                 <div className='sign-in-form__fields__input-wrapper'>
