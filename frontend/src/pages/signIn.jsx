@@ -85,8 +85,8 @@ export const SignIn = () => {
                     </div>
                     <div className='sign-up-container px-5'>
                         <h2>Don't have an IKEA account yet? Create one now:</h2>
-                        <button id='signup'>I'm shopping for my home</button>
-                        <button id='businessSignup'>I'm shopping for my business</button>
+                        <button id='signup' onClick={() => {window.location.href = '/sign-up'}}>I'm shopping for my home</button>
+                        <button id='businessSignup' onClick={() => {window.location.href = '/sign-up'}}>I'm shopping for my business</button>
                     </div>
                     <div className='sign-in-page__footnote py-3 mb-5'>
                         <p1><small>
