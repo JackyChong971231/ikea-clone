@@ -8,7 +8,6 @@ import com.example.demo.repository.StoreRepository;
 import com.example.demo.request.membership.SignUpMembershipRequest;
 import com.example.demo.request.membership.SignInMembershipRequest;
 import com.example.demo.response.membership.SignInMembershipResponse;
-import com.example.demo.response.membership.SignUpMembershipResponse;
 import com.example.demo.response.error.ErrorResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -56,6 +55,8 @@ public class MembershipService {
                 .membershipId(membership.getMembershipId())
                 .firstName(membership.getFirstName())
                 .lastName(membership.getLastName())
+                .postalCode(membership.getPostalCode())
+                .preferredStore(membership.getPreferredStore())
                 .build();
     }
 
@@ -72,6 +73,8 @@ public class MembershipService {
                         .membershipId(membershipOptional.get().getMembershipId())
                         .firstName(membershipOptional.get().getFirstName())
                         .lastName(membershipOptional.get().getLastName())
+                        .postalCode(membershipOptional.get().getPostalCode())
+                        .preferredStore(membershipOptional.get().getPreferredStore())
                         .build();
             } else {
                 return new ErrorResponse(ErrorResponse.CODE_0003_EMAIL_OR_PW_INVALID);

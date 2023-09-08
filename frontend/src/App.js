@@ -6,11 +6,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { Campaigns } from './components/common/campaigns.jsx';
 import { NavBar } from './components/common/navbar.jsx';
-import { ProfileDropdown } from './components/common/profileDropdown.jsx';
+import PopUp from './components/popUp/popUp.jsx';
 
 import { Home } from './pages/home.jsx';
 import { Search } from './pages/search.jsx';
 import { SignIn } from './pages/signIn.jsx';
+import { SignUp } from './pages/signUp.jsx';
 
 import { SharedProvider } from './SharedContext';
 
@@ -28,10 +29,11 @@ function App() {
             <Routes>
               <Route path='/' element={<Search />} />
               <Route path='/sign-in' element={<SignIn />} />
+              <Route path='/sign-up' element={<SignUp />} />
               {/* <Route path='/search' element={<Search />} /> */}
             </Routes>
           </BrowserRouter>
-          <ProfileDropdown />
+          <PopUp />
         </main>
       </div>
     </SharedProvider>

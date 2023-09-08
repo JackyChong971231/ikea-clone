@@ -38,7 +38,7 @@ export const SignIn = () => {
 
     return (
         <div className='sign-in__outermost-container'>
-            <div className='row'>
+            <div className='row h-100'>
                 <div className='sign-in__header-container px-5 py-4 col-12 col-sm-5'>
                     <div className='sign-in__header-container__buttons-container py-3'>
                         <Link to='/' className='sign-in-page__go-home-btn'>

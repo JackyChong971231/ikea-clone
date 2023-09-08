@@ -1,0 +1,23 @@
+.popUp {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    top: 0;
+}
+
+@media (min-width: 37.5em) {
+    .popUp {
+        width: 31.25rem;
+        right: 0;
+    }
+}
+
+.popUp--open {
+    visibility: visible;
+}
+
+.popUp--close {
+    visibility: hidden;
+}
+

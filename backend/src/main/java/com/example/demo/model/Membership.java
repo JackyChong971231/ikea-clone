@@ -31,6 +31,7 @@ public class Membership implements UserDetails {
     private String email;
     @Column(nullable = false)
     private String passwordHash;
+    private String postalCode;
 
     @ManyToOne
     @JoinColumn(name = "preferred_store_id")

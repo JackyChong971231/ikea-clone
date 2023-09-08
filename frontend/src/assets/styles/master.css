@@ -1,6 +1,9 @@
 @import url('campaigns.css');
 @import url('navbar.css');
-@import url('profileDropdown.css');
+@import url('popUp.css');
+@import url('profile.css');
+@import url('location.css');
+@import url('store.css');
 
 @import url('search.css');
 @import url('signIn.css');

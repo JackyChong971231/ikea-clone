@@ -6,7 +6,8 @@ import ikeaLogo from '../../assets/images/ikeaLogo.svg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faHeart, faShoppingCart, faBars, faArrowLeft, faXmark, faMagnifyingGlass, faLayerGroup, faTruck, faStore } from "@fortawesome/free-solid-svg-icons"
 
-import { ProfileDropdown } from './profileDropdown.jsx';
+import { ProfileDropdown } from '../popUp/popUp.jsx';
+import { switchPopUpContent } from '../../utils/common';
 
 const searchSuggestions = {
     'keywords': [
@@ -25,13 +26,18 @@ const searchSuggestions = {
 }
 
 export const NavBar = () => {
-    const { isProfileDropdownOpen, setIsProfileDropdownOpen } = useSharedContext();
+    const { isProfileDropdownOpen, setIsProfileDropdownOpen, setWhichPopUp } = useSharedContext();
 
     const [isInputFieldOnFocus, setIsInputFieldOnFocus] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
     const handleResize = () => {
         setIsMobile(window.innerWidth <768);
+    }
+
+    const switchPopUpContent = (whichPopUpToShow) => {
+        setWhichPopUp(whichPopUpToShow);
+        setIsProfileDropdownOpen(true);
     }
 
     useEffect(() => {
@@ -82,19 +88,19 @@ export const NavBar = () => {
                     </div>
                 </div>
                 <ul className='navbar__icons'>
-                    <a className='navbar__icons__item profile px-3' onClick={() => {setIsProfileDropdownOpen(true)}}><FontAwesomeIcon icon={faUser} /></a>
+                    <a className='navbar__icons__item profile px-3' onClick={() => {switchPopUpContent('profile')}}><FontAwesomeIcon icon={faUser} /></a>
                     <a className='navbar__icons__item wishlist px-3'><FontAwesomeIcon icon={faHeart} /></a>
                     <a className='navbar__icons__item cart px-3'><FontAwesomeIcon icon={faShoppingCart} /></a>
                     <a className='navbar__icons__item bars px-3'><FontAwesomeIcon icon={faBars} /></a>
                 </ul>
                 <div className='navbar__location py-2'>
-                    <div className='col-6 border-bottom'>
+                    <div className='col-6 border-bottom' onClick={() => {switchPopUpContent('location')}}>
                         <div className='navbar__location__container postal-code py-3'>
                             <FontAwesomeIcon className='pr-3' icon={faTruck} />
                             <p>M2J 0H7</p>
                         </div>
                     </div>
-                    <div className='col-6 border-bottom'>
+                    <div className='col-6 border-bottom' onClick={() => {switchPopUpContent('store')}}>
                         <span></span>
                         <div className='navbar__location__container store py-3'>
                             <FontAwesomeIcon className='pr-3' icon={faStore} />

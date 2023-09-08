@@ -24,4 +24,8 @@ public class Store {
     @ManyToOne
     @JoinColumn(name = "store_type_id")
     private StoreType storeType;
+    private String weekdaysHours;
+    private String satHours;
+    private String sunHours;
+    private String holidayHours;
 }
