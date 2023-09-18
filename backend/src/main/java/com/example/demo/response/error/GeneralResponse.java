@@ -8,9 +8,15 @@ import java.util.HashMap;
 //@Builder
 //@AllArgsConstructor
 //@NoArgsConstructor
-public class ErrorResponse {
+public class GeneralResponse {
     private String errorCode;
     private String responseMessage;
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    private Object data;
 
     public static final String CODE_0000_NO_ERROR               = "0000";
     public static final String CODE_0001_EMAIL_TAKEN            = "0001";
@@ -25,7 +31,7 @@ public class ErrorResponse {
         ResponseErrorMap.put(CODE_0002_USER_NOT_FOUND,          "Membership cannot be found with the given email");
         ResponseErrorMap.put(CODE_0003_EMAIL_OR_PW_INVALID,     "Invalid email or password");
     }
-    public ErrorResponse(String errorCode) {
+    public GeneralResponse(String errorCode) {
         this.errorCode = errorCode;
         this.responseMessage = ResponseErrorMap.get(errorCode);
 

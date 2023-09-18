@@ -1,17 +1,18 @@
 import sha256 from 'crypto-js/sha256';
 import * as React from 'react';
+import { navigate } from '../utils/common';
 
 export const signUpMembershipRequest = {
-    firstName: "",
-    lastName: "",
-    dateOfBirth: null,
-    phone: "",
-    email: "",
-    passwordHash: "",
-    preferredStoreID: 0,
-    promotionConsent: "",
-    isReadConsentId0: false,
-    role: 0
+    firstName:              null,
+    lastName:               null,
+    dateOfBirth:            null,
+    phone:                  null,
+    email:                  null,
+    passwordHash:           null,
+    preferredStoreId:       null,
+    promotionConsent:       "",
+    isReadConsentId0:       false,
+    role:                   0
 };
 
 export const addressRequest = {
@@ -35,13 +36,13 @@ export const signInService = (e, email, password, setSignInErrorMsg) => {
         })
     })
     .then(response => response.json())
-    .then(data => {
-        if (data['signedInToken'] !== undefined) {
-            localStorage.setItem('user', JSON.stringify(data));
+    .then(body => {
+        if (body.errorCode === "0000") {
+            localStorage.setItem('user', JSON.stringify(body.data));
             setSignInErrorMsg('');
-            window.location.href = '/'
+            navigate('/');
         } else {
-            setSignInErrorMsg(data['responseMessage']);
+            setSignInErrorMsg(body.data['responseMessage']);
         }
         // console.log(data['signedInToken'])
     })
@@ -49,7 +50,7 @@ export const signInService = (e, email, password, setSignInErrorMsg) => {
 
 export const signUpService = (e, signUpMembershipRequestTemp, setSignUpMessage) => {
     e.preventDefault();
-    console.log(signUpMembershipRequestTemp);
+    // console.log(signUpMembershipRequestTemp);
     if (!signUpMembershipRequestTemp.isReadConsentId0) {
         setSignUpMessage("You need to read the policy")
         return
@@ -64,11 +65,11 @@ export const signUpService = (e, signUpMembershipRequestTemp, setSignUpMessage) 
         })
     })
     .then(response => response.json())
-    .then(data => {
-        if (data['signedInToken'] !== undefined) {
-            localStorage.setItem('user', JSON.stringify(data));
-            setSignUpMessage(data['signedInToken']);
-            // window.location.href = '/'
+    .then(body => {
+        if (body.errorCode === "0000") {
+            localStorage.setItem('user', JSON.stringify(body.data));
+            setSignUpMessage(body.data['signedInToken']);
+            navigate('/');
         } else {
             setSignUpMessage("Sth is wrong");
         }

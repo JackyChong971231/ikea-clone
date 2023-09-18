@@ -4,6 +4,7 @@ import { useSharedContext } from '../../SharedContext';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
+import { navigate } from '../../utils/common';
 
 export const Profile = () => {
     const { isProfileDropdownOpen, setIsProfileDropdownOpen, userDetail, setUserDetail } = useSharedContext();
@@ -12,9 +13,9 @@ export const Profile = () => {
         if (userDetail) {
             setUserDetail(null);
             setIsProfileDropdownOpen(false);
-            window.location.href = '/';
+            navigate('/');
         } else {
-            window.location.href = '/sign-in';
+            navigate('/sign-in');
         }
     }
 

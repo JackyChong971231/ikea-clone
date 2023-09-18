@@ -8,7 +8,7 @@ import com.example.demo.repository.StoreRepository;
 import com.example.demo.request.membership.SignUpMembershipRequest;
 import com.example.demo.request.membership.SignInMembershipRequest;
 import com.example.demo.response.membership.SignInMembershipResponse;
-import com.example.demo.response.error.ErrorResponse;
+import com.example.demo.response.error.GeneralResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,8 +32,9 @@ public class MembershipService {
     public Object addNewMembership(SignUpMembershipRequest request) {
         Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
         if (membershipOptional.isPresent()) {
-            return new ErrorResponse(ErrorResponse.CODE_0001_EMAIL_TAKEN);
+            return new GeneralResponse(GeneralResponse.CODE_0001_EMAIL_TAKEN);
         }
+        System.out.println(request); //debug purposes
         var membership = Membership.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
@@ -49,14 +50,18 @@ public class MembershipService {
                 .build();
         membershipRepository.save(membership);
         var jwtToken = jwtService.generateToken(membership);
-        return SignInMembershipResponse.builder()
-                .signedInToken(jwtToken)
-                .membershipId(membership.getMembershipId())
-                .firstName(membership.getFirstName())
-                .lastName(membership.getLastName())
-                .postalCode(membership.getPostalCode())
-                .preferredStore(membership.getPreferredStore())
-                .build();
+        var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
+        response.setData(
+                SignInMembershipResponse.builder()
+                        .signedInToken(jwtToken)
+                        .membershipId(membership.getMembershipId())
+                        .firstName(membership.getFirstName())
+                        .lastName(membership.getLastName())
+                        .postalCode(membership.getPostalCode())
+                        .preferredStore(membership.getPreferredStore())
+                        .build()
+        );
+        return response;
     }
 
     public Object signIn(SignInMembershipRequest request) {
@@ -67,20 +72,24 @@ public class MembershipService {
             var databasePasswordHash =   membershipOptional.get().getPasswordHash();
             if (requestPasswordHash.equals(databasePasswordHash)) {
                 var jwtToken = jwtService.generateToken(membershipOptional.get());
-                return SignInMembershipResponse.builder()
-                        .signedInToken(jwtToken)
-                        .membershipId(membershipOptional.get().getMembershipId())
-                        .firstName(membershipOptional.get().getFirstName())
-                        .lastName(membershipOptional.get().getLastName())
-                        .postalCode(membershipOptional.get().getPostalCode())
-                        .preferredStore(membershipOptional.get().getPreferredStore())
-                        .build();
+                var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
+                response.setData(
+                        SignInMembershipResponse.builder()
+                                .signedInToken(jwtToken)
+                                .membershipId(membershipOptional.get().getMembershipId())
+                                .firstName(membershipOptional.get().getFirstName())
+                                .lastName(membershipOptional.get().getLastName())
+                                .postalCode(membershipOptional.get().getPostalCode())
+                                .preferredStore(membershipOptional.get().getPreferredStore())
+                                .build()
+                );
+                return response;
             } else {
-                return new ErrorResponse(ErrorResponse.CODE_0003_EMAIL_OR_PW_INVALID);
+                return new GeneralResponse(GeneralResponse.CODE_0003_EMAIL_OR_PW_INVALID);
             }
 
         } else {
-            return new ErrorResponse(ErrorResponse.CODE_0002_USER_NOT_FOUND);
+            return new GeneralResponse(GeneralResponse.CODE_0002_USER_NOT_FOUND);
         }
     }
 }
