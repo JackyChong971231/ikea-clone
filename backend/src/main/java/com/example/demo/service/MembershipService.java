@@ -43,8 +43,7 @@ public class MembershipService {
                 .passwordHash(request.getPasswordHash())
                 .preferredStore(storeRepository.findById(request.getPreferredStoreId())
                         .orElseThrow(() -> new EntityNotFoundException("Store id not found")))
-                .promotionConsent(consentRepository.findById(request.getPromotionConsent())
-                        .orElseThrow(() -> new EntityNotFoundException("Promotion Consent id not found")))
+                .promotionConsent(request.getPromotionConsent())
                 .isReadConsentId0(request.getIsReadConsentId0())
                 .role(Role.CUSTOMER)
                 .build();

@@ -18,8 +18,6 @@ public class Address {
     @JoinColumn(name = "address_type_id")
     private AddressType addressType;
 
-    private String unitNo;
-
     @Column(nullable = false)
     private String streetAddress;
     @Column(nullable = false)

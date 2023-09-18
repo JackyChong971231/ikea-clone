@@ -9,13 +9,19 @@ import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { Store } from './store';
 
 export const PopUp = () => {
-    const { isProfileDropdownOpen, setIsProfileDropdownOpen, whichPopUp, setWhichPopUp } = useSharedContext();
+    const { isProfileDropdownOpen, setIsProfileDropdownOpen, whichPopUp, setWhichPopUp, userDetail } = useSharedContext();
     const { popUpToShow, setPopUpToShow } = useState();
 
     const whichPopUpToShow = () => {
         switch(whichPopUp) {
             case 'profile': return <Profile/>;
-            case 'location': return <Location/>;
+            case 'location': 
+                if (userDetail !== null) {
+                    return <Location/>
+                } else {
+                    
+                    return null
+                }; // return <FindStore /> if null
             case 'store': return <Store/>;
             default: return null;
         }

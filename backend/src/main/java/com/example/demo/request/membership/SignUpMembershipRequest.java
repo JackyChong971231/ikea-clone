@@ -19,7 +19,7 @@ public class SignUpMembershipRequest {
     private String email;
     private String passwordHash;
     private Integer preferredStoreId;
-    private Integer promotionConsent;
+    private String promotionConsent;
     private Boolean isReadConsentId0;
     private Integer role;
 }

@@ -37,9 +37,7 @@ public class Membership implements UserDetails {
     @JoinColumn(name = "preferred_store_id")
     private Store preferredStore;
 
-    @ManyToOne
-    @JoinColumn(name = "promotion_consent_id")
-    private Consent promotionConsent;
+    private String promotionConsent;
 
     @Column(nullable = false)
     private boolean isReadConsentId0;
