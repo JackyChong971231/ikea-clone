@@ -10,9 +10,11 @@ import {signInService} from '../services/membershipService';
 import signUpImage1 from '../assets/images/sign-up/signUp-image-1.jpg'
 import { signUpMembershipRequest, addressRequest, signUpService } from '../services/membershipService';
 import { navigate } from '../utils/common';
+import { useSharedContext } from '../SharedContext';
+import { getAllStores } from '../services/storeService';
 
 export const SignUp = () => {
-
+    const {userDetail, setUserDetail} = useSharedContext();
     const [signUpMembershipRequestTemp, setSignUpMembershipRequestTemp] = React.useState(signUpMembershipRequest);
     const [addressRequestTemp, setAddressRequestTemp] = React.useState(addressRequest);
     const [signUpMessage, setSignUpMessage] = React.useState("")
@@ -30,6 +32,18 @@ export const SignUp = () => {
         const value = e.target.value;
         setAddressRequestTemp({
             ...addressRequestTemp,
+            [e.target.name]: value
+        })
+    }
+
+    const handleChangeMembershipNAddress = (e) => {
+        const value = e.target.value;
+        setAddressRequestTemp({
+            ...addressRequestTemp,
+            [e.target.name]: value
+        })
+        setSignUpMembershipRequestTemp({
+            ...signUpMembershipRequestTemp,
             [e.target.name]: value
         })
     }
@@ -88,19 +102,12 @@ export const SignUp = () => {
     }
 
     React.useEffect(() => {
-        fetch('http://localhost:8080/api/v1/ikea-clone/store')
-            .then(response => response.json())
-            .then(data => {
-                
-                setStores(data.map((eachStore) => (
-                    <option value={eachStore.storeId}>{eachStore.displayName}</option>
-                )))
-
-                // console.log(storeList);
-                // {(storesComponent > 0)? setStores(data.map((eachStore) => {
-                //     <option value={eachStore.storeId}>{eachStore.displayName}</option>
-                // })): setStores(null)}
-            });
+        getAllStores()
+        .then(data => {
+            setStores(data.map((eachStore) => (
+                <option value={eachStore.storeId}>{eachStore.displayName}</option>
+            )))
+        })
     },[])
 
     return (
@@ -116,7 +123,7 @@ export const SignUp = () => {
                 </div>
                 <div className='signUp__form px-4 col-12 pt-sm-5 col-sm-7 col-md-6 col-xl-4'>
                     <p>Join our IKEA Family loyalty program today for rewards, discounts, inspiration and a few surprises along the way. It’s quick, easy and free. Learn more</p>
-                    <form noValidate='' onSubmit={(e) => signUpService(e, signUpMembershipRequestTemp, setSignUpMessage)}>
+                    <form noValidate='' onSubmit={(e) => signUpService(e, signUpMembershipRequestTemp, setSignUpMessage, setUserDetail)}>
                         <div className='signUp__field'>
                             <label for="signUp_firstName">First name</label>
                             <div className='signUp__input-field'>
@@ -164,7 +171,7 @@ export const SignUp = () => {
                             <label for="signUp_postalCode">Post code</label>
                             <div className='signUp__input-field'>
                                 <input id="signUp_postalCode" name="postalCode"
-                                value={addressRequestTemp.postalCode} onChange={handleChangeAddress}></input>
+                                value={addressRequestTemp.postalCode} onChange={handleChangeMembershipNAddress}></input>
                             </div>
                         </div>
                         <div className='signUp__field'>

@@ -11,9 +11,13 @@ import com.example.demo.response.membership.SignInMembershipResponse;
 import com.example.demo.response.error.GeneralResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -24,6 +28,7 @@ public class MembershipService {
     private final StoreRepository storeRepository;
     private final ConsentRepository consentRepository;
     private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
     public List<Membership> getMemberships() {
         return membershipRepository.findAll();
@@ -39,6 +44,7 @@ public class MembershipService {
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .dateOfBirth(request.getDateOfBirth())
+                .postalCode(request.getPostalCode())
                 .phone(request.getPhone())
                 .email(request.getEmail())
                 .passwordHash(request.getPasswordHash())
@@ -57,6 +63,7 @@ public class MembershipService {
                         .membershipId(membership.getMembershipId())
                         .firstName(membership.getFirstName())
                         .lastName(membership.getLastName())
+                        .email(membership.getEmail())
                         .postalCode(membership.getPostalCode())
                         .preferredStore(membership.getPreferredStore())
                         .build()
@@ -79,6 +86,7 @@ public class MembershipService {
                                 .membershipId(membershipOptional.get().getMembershipId())
                                 .firstName(membershipOptional.get().getFirstName())
                                 .lastName(membershipOptional.get().getLastName())
+                                .email(membershipOptional.get().getEmail())
                                 .postalCode(membershipOptional.get().getPostalCode())
                                 .preferredStore(membershipOptional.get().getPreferredStore())
                                 .build()
@@ -91,5 +99,32 @@ public class MembershipService {
         } else {
             return new GeneralResponse(GeneralResponse.CODE_0002_USER_NOT_FOUND);
         }
+    }
+
+    // userDetail structure will be same as the sign-in response
+    public Object updateMembershipInfo(SignInMembershipResponse userDetail) {
+        System.out.println(userDetail);
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(userDetail.getEmail());
+        if ( jwtService.isTokenValid(userDetail.getSignedInToken(), userDetails) ) {
+            Optional<Membership> membershipOptional = membershipRepository.findByEmail(userDetail.getEmail());
+            // Check whether email exists
+            if (membershipOptional.isPresent()) {
+                var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
+                Map<String, String> changes = new HashMap<>();
+                Membership membership = membershipOptional.get();
+                if (!userDetail.getPostalCode().equals(membership.getPostalCode())) {
+                    membership.setPostalCode(userDetail.getPostalCode());
+                    changes.put("Postal Code", userDetail.getPostalCode());
+                }
+                if (!userDetail.getPreferredStore().equals(membership.getPreferredStore())) {
+                    membership.setPreferredStore(userDetail.getPreferredStore());
+                    changes.put("Preferred Store", userDetail.getPreferredStore().getDisplayName());
+                }
+                membershipRepository.save(membership);
+                response.setData(changes);
+                return response;
+            }
+        }
+        return new GeneralResponse(GeneralResponse.CODE_9999_UNKNOWN_ERROR);
     }
 }

@@ -26,7 +26,7 @@ const searchSuggestions = {
 }
 
 export const NavBar = () => {
-    const { isProfileDropdownOpen, setIsProfileDropdownOpen, setWhichPopUp } = useSharedContext();
+    const { isProfileDropdownOpen, setIsProfileDropdownOpen, setWhichPopUp, userDetail } = useSharedContext();
 
     const [isInputFieldOnFocus, setIsInputFieldOnFocus] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -97,14 +97,16 @@ export const NavBar = () => {
                     <div className='col-6 border-bottom' onClick={() => {switchPopUpContent('location')}}>
                         <div className='navbar__location__container postal-code py-3'>
                             <FontAwesomeIcon className='pr-3' icon={faTruck} />
-                            <p>M2J 0H7</p>
+                            {
+                                ((userDetail === null)? <p>Enter postal Code</p> : (userDetail.postalCode !== null)? <p>{userDetail.postalCode}</p> : <p>Enter postal Code</p>)
+                            }
                         </div>
                     </div>
                     <div className='col-6 border-bottom' onClick={() => {switchPopUpContent('store')}}>
                         <span></span>
                         <div className='navbar__location__container store py-3'>
                             <FontAwesomeIcon className='pr-3' icon={faStore} />
-                            <p>North York</p>
+                            <p>{userDetail.preferredStore.displayName}</p>
                         </div>
                     </div>
                 </div>

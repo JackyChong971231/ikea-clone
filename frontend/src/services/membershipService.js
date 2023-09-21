@@ -6,6 +6,7 @@ export const signUpMembershipRequest = {
     firstName:              null,
     lastName:               null,
     dateOfBirth:            null,
+    postalCode:             null,
     phone:                  null,
     email:                  null,
     passwordHash:           null,
@@ -24,7 +25,7 @@ export const addressRequest = {
     country: ""
 }
 
-export const signInService = (e, email, password, setSignInErrorMsg) => {
+export const signInService = (e, email, password, setSignInErrorMsg, setUserDetail, isSignedInForever) => {
     e.preventDefault();
     fetch('http://localhost:8080/api/v1/ikea-clone/membership/sign-in', {
         method: 'POST',
@@ -38,17 +39,17 @@ export const signInService = (e, email, password, setSignInErrorMsg) => {
     .then(response => response.json())
     .then(body => {
         if (body.errorCode === "0000") {
-            localStorage.setItem('user', JSON.stringify(body.data));
+            setUserDetail(body.data);
             setSignInErrorMsg('');
             navigate('/');
         } else {
-            setSignInErrorMsg(body.data['responseMessage']);
+            setSignInErrorMsg(body.responseMessage);
         }
         // console.log(data['signedInToken'])
     })
 }
 
-export const signUpService = (e, signUpMembershipRequestTemp, setSignUpMessage) => {
+export const signUpService = (e, signUpMembershipRequestTemp, setSignUpMessage, setUserDetail) => {
     e.preventDefault();
     // console.log(signUpMembershipRequestTemp);
     if (!signUpMembershipRequestTemp.isReadConsentId0) {
@@ -67,7 +68,7 @@ export const signUpService = (e, signUpMembershipRequestTemp, setSignUpMessage) 
     .then(response => response.json())
     .then(body => {
         if (body.errorCode === "0000") {
-            localStorage.setItem('user', JSON.stringify(body.data));
+            setUserDetail(body.data);
             setSignUpMessage(body.data['signedInToken']);
             navigate('/');
         } else {
@@ -75,4 +76,17 @@ export const signUpService = (e, signUpMembershipRequestTemp, setSignUpMessage) 
         }
         // console.log(data['signedInToken'])
     })
+}
+
+// only updates membership table
+export const updateUserDetail = (userDetail) => {
+    fetch('http://localhost:8080/api/v1/ikea-clone/membership/update', {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json', 'Connection': 'keep-alive' },
+        body: JSON.stringify(userDetail)
+    })
+    .then(response => response.json())
+    .then(body => { return body })
+
 }

@@ -26,7 +26,7 @@ export const Campaigns = () => {
     useEffect(() => {
         clearInterval(intervalID);
         window.removeEventListener('resize', handleResize);
-        console.log('call api to see how many messages!'); // add a method to get news from db
+        // console.log('call api to see how many messages!'); // add a method to get news from db
         
         setIntervalID(setInterval(() => {
             // setCurrentIndex((prevIndex) => (prevIndex + (isMobile? 1: 3)) % Object.keys(dummy).length);

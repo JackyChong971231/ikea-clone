@@ -7,35 +7,15 @@ import { faArrowLeft, faEye, faCartPlus, faHeart } from "@fortawesome/free-solid
 // import sha256 from 'crypto-js/sha256';
 import {signInService} from '../services/membershipService';
 import { navigate } from '../utils/common';
+import { useSharedContext } from '../SharedContext';
 
 export const SignIn = () => {
+    const {userDetail, setUserDetail} = useSharedContext();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-
-    const [signInErrorMsg, setSignInErrorMsg] = React.useState('')
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     fetch('http://localhost:8080/api/v1/ikea-clone/membership/sign-in', {
-    //         method: 'POST',
-    //         mode: 'cors',
-    //         headers: { 'Content-Type': 'application/json', 'Connection': 'keep-alive' },
-    //         body: JSON.stringify({
-    //             email: email,
-    //             passwordHash: sha256(password).toString()
-    //         })
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data['signedInToken'] !== undefined) {
-    //             localStorage.setItem('user', JSON.stringify(data));
-    //             setSignInErrorMsg('');
-    //         } else {
-    //             setSignInErrorMsg(data['responseMessage']);
-    //         }
-    //         // console.log(data['signedInToken'])
-    //     })
-    // }
+    const [isShowPassword, setIsShowPassword] = React.useState(false);
+    const [isSignedInForever, setIsSignedInForever] = React.useState(false);
+    const [signInErrorMsg, setSignInErrorMsg] = React.useState('');
 
     return (
         <div className='sign-in__outermost-container'>
@@ -58,7 +38,7 @@ export const SignIn = () => {
                 </div>
                 <div className='sign-in-input-form__container col-12 col-sm-7'>
                     <div className='sign-in-input-form__container__form px-5 py-3'>
-                        <form noValidate='' onSubmit={(e) => {signInService(e, email, password, setSignInErrorMsg)}}>
+                        <form noValidate='' onSubmit={(e) => {signInService(e, email, password, setSignInErrorMsg, setUserDetail, isSignedInForever)}}>
                             <div className='sign-in-form__fields sign-in-form__fields__email'>
                                 <label for='username' title='Email'>Email</label>
                                 <div className='sign-in-form__fields__input-wrapper'>
@@ -68,14 +48,15 @@ export const SignIn = () => {
                             <div className='sign-in-form__fields sign-in-form__fields__password'>
                                 <label for='password' title='Password'>Password</label>
                                 <div className='sign-in-form__fields__input-wrapper'>
-                                    <input id='password' value={password} onChange={(e) => setPassword(e.target.value)}></input>
-                                    <button className='px-3'>
+                                    <input id='password' type={(isShowPassword)? "text": "password"} value={password} onChange={(e) => setPassword(e.target.value)}></input>
+                                    <button className='px-3' type="button" onClick={() => {setIsShowPassword(prevState => !prevState)}}>
                                         <FontAwesomeIcon icon={faEye} />
                                     </button>
                                 </div>
                             </div>
                             <div className='sign-in-form__fields sign-in-form__fields__stay-signed-in'>
-                                <input id='remember-me' type='checkbox'></input>
+                                <input id='remember-me' type='checkbox' 
+                                onChange={() => {setIsSignedInForever(prevState => !prevState)}} checked={isSignedInForever}></input>
                                 <label className='pl-3' for='remember-me'>Stay signed in until you sign out</label>
                             </div>
                             <p className='sign-in-form__submit__resMsg pt-2'> {signInErrorMsg}</p>

@@ -15,6 +15,7 @@ public class SignInMembershipResponse {
     private Integer membershipId;
     private String firstName;
     private String lastName;
+    private String email;
     private String postalCode;
     private Store preferredStore;
 }

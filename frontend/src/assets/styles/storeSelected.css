@@ -1,0 +1,93 @@
+.store__header {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.store__header__close-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 0;
+    border-radius: 100%;
+}
+
+.store__header__close-btn:hover {
+    background-color: lightgray;
+}
+
+.store__content {
+    text-align: left;
+}
+
+.store__content__info > h2 {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.store__content__info > p {
+    margin-bottom: 0;
+}
+
+.store__hours__title {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.opening-hours__container__content {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    padding-bottom: 0%;
+    padding-top: 0%;
+    margin-bottom: 0%;
+}
+
+.opening-hours__container__content > p {
+    margin-bottom: 0%;
+}
+
+.store-picker-message {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    justify-content: center;
+    line-height: 1.5rem;
+    border-inline-start: 0.25rem solid rgba(0,0,0,0);;
+    border-inline-start-color: rgb(var(--colour-semantic-informative, 0, 88, 163));
+    border-radius: 4px;
+}
+
+.store-picker-message {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.store-picker-message > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.store-picker-btns > button {
+    width: 100%;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-radius: 1.4rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.store-picker-btns > button:first-child {
+    color: white;
+    background-color: black;
+}
+
+.store-picker-btns > button:last-child {
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+}

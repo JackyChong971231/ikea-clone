@@ -4,8 +4,8 @@ import { useSharedContext } from "../../SharedContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 
-export const Store = () => {
-    const { setIsProfileDropdownOpen, userDetail } = useSharedContext();
+export const StoreSelected = () => {
+    const { setIsProfileDropdownOpen, userDetail, setWhichPopUp } = useSharedContext();
 
     return (
         <>
@@ -48,7 +48,7 @@ export const Store = () => {
                 </div>
                 <div className="store-picker-btns">
                     <button>Visit store page</button>
-                    <button>Select a different store</button>
+                    <button onClick={() => {setWhichPopUp('storeSelector')}}>Select a different store</button>
                 </div>
             </div>
         </>

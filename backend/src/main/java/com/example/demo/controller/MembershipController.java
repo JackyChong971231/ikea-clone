@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Membership;
 import com.example.demo.request.membership.SignUpMembershipRequest;
 import com.example.demo.request.membership.SignInMembershipRequest;
+import com.example.demo.response.membership.SignInMembershipResponse;
 import com.example.demo.service.MembershipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,5 +40,12 @@ public class MembershipController {
             @RequestBody SignInMembershipRequest request
     ) {
         return ResponseEntity.ok(membershipService.signIn(request));
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Object> updateMembership (
+            @RequestBody SignInMembershipResponse userDetail
+    ) {
+        return ResponseEntity.ok(membershipService.updateMembershipInfo(userDetail));
     }
 }

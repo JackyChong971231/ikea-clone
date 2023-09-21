@@ -6,7 +6,8 @@ import { Location } from './location';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
-import { Store } from './store';
+import { StoreSelected } from './storeSelected';
+import { StoreSelector } from './storeSelector';
 
 export const PopUp = () => {
     const { isProfileDropdownOpen, setIsProfileDropdownOpen, whichPopUp, setWhichPopUp, userDetail } = useSharedContext();
@@ -15,14 +16,14 @@ export const PopUp = () => {
     const whichPopUpToShow = () => {
         switch(whichPopUp) {
             case 'profile': return <Profile/>;
-            case 'location': 
-                if (userDetail !== null) {
-                    return <Location/>
+            case 'location': return <Location/>
+            case 'store': 
+                if (userDetail) {
+                    return <StoreSelected/>;
                 } else {
-                    
-                    return null
-                }; // return <FindStore /> if null
-            case 'store': return <Store/>;
+                    return <StoreSelector />
+                }
+            case 'storeSelector': return <StoreSelector />
             default: return null;
         }
     }

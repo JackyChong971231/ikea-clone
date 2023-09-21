@@ -15,6 +15,7 @@ public class SignUpMembershipRequest {
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
+    private String postalCode;
     private String phone;
     private String email;
     private String passwordHash;

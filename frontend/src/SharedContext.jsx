@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { updateUserDetail } from './services/membershipService';
 
 const SharedContext = createContext();
 
@@ -8,7 +9,12 @@ export const SharedProvider = ({ children }) => {
   const [userDetail, setUserDetail] = useState(JSON.parse(localStorage.getItem("user")));
 
   useEffect(() => {
-    if (userDetail === null) { localStorage.removeItem("user") };
+    if (userDetail === null) { localStorage.removeItem("user") }
+    else { 
+      localStorage.setItem("user", JSON.stringify(userDetail));
+      // console.log(userDetail);
+      updateUserDetail(userDetail);
+    };
   },[userDetail])
 
   return (
