@@ -1,5 +1,6 @@
 package com.example.demo.request.membership;
 
+import com.example.demo.request.address.NewAddressRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,4 +24,6 @@ public class SignUpMembershipRequest {
     private String promotionConsent;
     private Boolean isReadConsentId0;
     private Integer role;
+
+    private NewAddressRequest newAddressRequest;
 }

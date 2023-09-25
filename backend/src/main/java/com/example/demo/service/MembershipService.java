@@ -1,10 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Address;
 import com.example.demo.model.Membership;
 import com.example.demo.model.Role;
-import com.example.demo.repository.ConsentRepository;
-import com.example.demo.repository.MembershipRepository;
-import com.example.demo.repository.StoreRepository;
+import com.example.demo.repository.*;
 import com.example.demo.request.membership.SignUpMembershipRequest;
 import com.example.demo.request.membership.SignInMembershipRequest;
 import com.example.demo.response.membership.SignInMembershipResponse;
@@ -26,7 +25,9 @@ public class MembershipService {
 
     private final MembershipRepository membershipRepository;
     private final StoreRepository storeRepository;
-    private final ConsentRepository consentRepository;
+    private final AddressTypeRepository addressTypeRepository;
+    private final AddressRepository addressRepository;
+    private final AddressService addressService;
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
@@ -54,8 +55,9 @@ public class MembershipService {
                 .isReadConsentId0(request.getIsReadConsentId0())
                 .role(Role.CUSTOMER)
                 .build();
-        membershipRepository.save(membership);
+        var membershipJustAdded = membershipRepository.save(membership);
         var jwtToken = jwtService.generateToken(membership);
+        addressService.addNewAddress(request.getNewAddressRequest(), membershipJustAdded);
         var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
         response.setData(
                 SignInMembershipResponse.builder()

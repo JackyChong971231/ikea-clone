@@ -17,12 +17,12 @@ export const signUpMembershipRequest = {
 };
 
 export const addressRequest = {
-    addressType: null,
+    addressType: 0,
     streetAddress: "",
     city: "",
     province: "",
     postalCode: "",
-    country: ""
+    country: "Canada"
 }
 
 export const signInService = (e, email, password, setSignInErrorMsg, setUserDetail, isSignedInForever) => {
@@ -50,7 +50,7 @@ export const signInService = (e, email, password, setSignInErrorMsg, setUserDeta
     })
 }
 
-export const signUpService = (e, signUpMembershipRequestTemp, setSignUpMessage, setUserDetail) => {
+export const signUpService = (e, signUpMembershipRequestTemp, addressRequestTemp, setSignUpMessage, setUserDetail) => {
     e.preventDefault();
     // console.log(signUpMembershipRequestTemp);
     if (!signUpMembershipRequestTemp.isReadConsentId0) {
@@ -63,6 +63,7 @@ export const signUpService = (e, signUpMembershipRequestTemp, setSignUpMessage, 
         headers: { 'Content-Type': 'application/json', 'Connection': 'keep-alive' },
         body: JSON.stringify({
             ...signUpMembershipRequestTemp,
+            newAddressRequest: addressRequestTemp,
             passwordHash: sha256(signUpMembershipRequestTemp.passwordHash).toString()
         })
     })
@@ -71,7 +72,7 @@ export const signUpService = (e, signUpMembershipRequestTemp, setSignUpMessage, 
         if (body.errorCode === "0000") {
             setUserDetail(body.data);
             setSignUpMessage(body.data['signedInToken']);
-            navigate('/');
+            // navigate('/');
         } else {
             setSignUpMessage("Sth is wrong");
         }

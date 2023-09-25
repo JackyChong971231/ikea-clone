@@ -123,7 +123,7 @@ export const SignUp = () => {
                 </div>
                 <div className='signUp__form px-4 col-12 pt-sm-5 col-sm-7 col-md-6 col-xl-4'>
                     <p>Join our IKEA Family loyalty program today for rewards, discounts, inspiration and a few surprises along the way. It’s quick, easy and free. Learn more</p>
-                    <form noValidate='' onSubmit={(e) => signUpService(e, signUpMembershipRequestTemp, setSignUpMessage, setUserDetail)}>
+                    <form noValidate='' onSubmit={(e) => signUpService(e, signUpMembershipRequestTemp, addressRequestTemp, setSignUpMessage, setUserDetail)}>
                         <div className='signUp__field'>
                             <label for="signUp_firstName">First name</label>
                             <div className='signUp__input-field'>

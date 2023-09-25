@@ -10,7 +10,9 @@ export const SharedProvider = ({ children }) => {
   const emptyUserDetail = {
     signedInToken: null,
     postalCode: null,
-    preferredStore: null
+    preferredStore: null,
+    wishlist: {},
+    cart: {}
   };
   const [userDetail, setUserDetail] = useState((JSON.parse(localStorage.getItem("user")))? JSON.parse(localStorage.getItem("user")): emptyUserDetail);
 

@@ -10,5 +10,5 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class DatabaseConfig {
     private final ConsentRepository consentRepository;
-    
+
 }

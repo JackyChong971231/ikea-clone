@@ -27,7 +27,6 @@ public class Address {
     @Column(nullable = false)
     private String postalCode;
 
-    @ManyToOne
-    @JoinColumn(name = "country_id")
-    private Country country;
+    @Column(nullable = false)
+    private String country;
 }
