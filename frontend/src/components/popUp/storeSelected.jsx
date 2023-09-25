@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faInfoCircle } from "@fortawesome/free-solid-svg-icons"
 
 export const StoreSelected = () => {
-    const { setIsProfileDropdownOpen, userDetail, setWhichPopUp } = useSharedContext();
+    const { setIsDropdownComponentOpen, userDetail, setWhichDropdownContent } = useSharedContext();
 
     return (
         <>
             <div className="store__header py-3 px-3">
                 <span></span>
-                <button className="store__header__close-btn" onClick={() => {setIsProfileDropdownOpen(false)}}>
+                <button className="store__header__close-btn" onClick={() => {setIsDropdownComponentOpen(false)}}>
                     <FontAwesomeIcon icon={faXmark} />
                 </button>
             </div>
@@ -48,7 +48,7 @@ export const StoreSelected = () => {
                 </div>
                 <div className="store-picker-btns">
                     <button>Visit store page</button>
-                    <button onClick={() => {setWhichPopUp('storeSelector')}}>Select a different store</button>
+                    <button onClick={() => {setWhichDropdownContent('storeSelector')}}>Select a different store</button>
                 </div>
             </div>
         </>

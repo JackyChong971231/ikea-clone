@@ -8,6 +8,7 @@ import { faUser, faHeart, faShoppingCart, faBars, faArrowLeft, faXmark, faMagnif
 
 import { ProfileDropdown } from '../popUp/popUp.jsx';
 import { switchPopUpContent } from '../../utils/common';
+import { getAllStores } from '../../services/storeService';
 
 const searchSuggestions = {
     'keywords': [
@@ -26,22 +27,27 @@ const searchSuggestions = {
 }
 
 export const NavBar = () => {
-    const { isProfileDropdownOpen, setIsProfileDropdownOpen, setWhichPopUp, userDetail } = useSharedContext();
+    const { isDropdownComponentOpen, setIsDropdownComponentOpen, setWhichDropdownContent, userDetail, emptyUserDetail } = useSharedContext();
 
     const [isInputFieldOnFocus, setIsInputFieldOnFocus] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [defaultStore, setDefaultStore] = useState("");
 
     const handleResize = () => {
         setIsMobile(window.innerWidth <768);
     }
 
-    const switchPopUpContent = (whichPopUpToShow) => {
-        setWhichPopUp(whichPopUpToShow);
-        setIsProfileDropdownOpen(true);
+    const switchPopUpContent = (whichDropdownContentToShow) => {
+        setWhichDropdownContent(whichDropdownContentToShow);
+        setIsDropdownComponentOpen(true);
     }
 
     useEffect(() => {
         window.addEventListener('resize', handleResize);
+        getAllStores()
+        .then(data => {
+            setDefaultStore(data[0].displayName);
+        });
     }, [])
 
     return (
@@ -98,7 +104,7 @@ export const NavBar = () => {
                         <div className='navbar__location__container postal-code py-3'>
                             <FontAwesomeIcon className='pr-3' icon={faTruck} />
                             {
-                                ((userDetail === null)? <p>Enter postal Code</p> : (userDetail.postalCode !== null)? <p>{userDetail.postalCode}</p> : <p>Enter postal Code</p>)
+                                ((userDetail === emptyUserDetail)? <p>Enter postal Code</p> : (userDetail.postalCode !== null && userDetail.postalCode !== "")? <p>{userDetail.postalCode}</p> : <p>Enter postal Code</p>)
                             }
                         </div>
                     </div>
@@ -106,7 +112,9 @@ export const NavBar = () => {
                         <span></span>
                         <div className='navbar__location__container store py-3'>
                             <FontAwesomeIcon className='pr-3' icon={faStore} />
-                            <p>{userDetail.preferredStore.displayName}</p>
+                            {
+                                ((userDetail === emptyUserDetail)? <p>{defaultStore}</p>: (userDetail.preferredStore !== null)? <p>{userDetail.preferredStore.displayName}</p> : <p>{defaultStore}</p>)
+                            }
                         </div>
                     </div>
                 </div>

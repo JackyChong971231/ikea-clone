@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 
 export const Location = () => {
-    const { setIsProfileDropdownOpen, userDetail, setUserDetail } = useSharedContext();
+    const { setIsDropdownComponentOpen, userDetail, setUserDetail } = useSharedContext();
     const [ postalCodeShownOnTheScreen, setPostalCodeShownOnTheScreen ] = useState("")
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export const Location = () => {
                 postalCode: postalCode
             })
         }
-        if (closePopUpAfterSave) { setIsProfileDropdownOpen(false) }
+        if (closePopUpAfterSave) { setIsDropdownComponentOpen(false) }
     }
 
     const forgetPostalCodeHandler = () => {
@@ -35,7 +35,7 @@ export const Location = () => {
         <>
             <div className="location__header py-3 px-3">
                 <span></span>
-                <button className="location__header__close-btn" onClick={() => {setIsProfileDropdownOpen(false)}}>
+                <button className="location__header__close-btn" onClick={() => {setIsDropdownComponentOpen(false)}}>
                     <FontAwesomeIcon icon={faXmark} />
                 </button>
             </div>

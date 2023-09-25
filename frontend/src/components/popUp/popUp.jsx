@@ -10,15 +10,15 @@ import { StoreSelected } from './storeSelected';
 import { StoreSelector } from './storeSelector';
 
 export const PopUp = () => {
-    const { isProfileDropdownOpen, setIsProfileDropdownOpen, whichPopUp, setWhichPopUp, userDetail } = useSharedContext();
+    const { isDropdownComponentOpen, setIsDropdownComponentOpen, whichDropdownContent, setWhichDropdownContent, userDetail, emptyUserDetail, isSignedIn } = useSharedContext();
     const { popUpToShow, setPopUpToShow } = useState();
 
-    const whichPopUpToShow = () => {
-        switch(whichPopUp) {
+    const whichDropdownContentToShow = () => {
+        switch(whichDropdownContent) {
             case 'profile': return <Profile/>;
             case 'location': return <Location/>
             case 'store': 
-                if (userDetail) {
+                if (isSignedIn) {
                     return <StoreSelected/>;
                 } else {
                     return <StoreSelector />
@@ -29,8 +29,8 @@ export const PopUp = () => {
     }
 
     return (
-        <div className={'popUp '+ ((isProfileDropdownOpen)?'popUp--open':'popUp--close')}>
-            {whichPopUpToShow()}
+        <div className={'popUp '+ ((isDropdownComponentOpen)?'popUp--open':'popUp--close')}>
+            {whichDropdownContentToShow()}
         </div>
     )
 }

@@ -124,6 +124,8 @@ public class MembershipService {
                 response.setData(changes);
                 return response;
             }
+        } else {
+            return new GeneralResponse(GeneralResponse.CODE_0004_INVALID_TOKEN);
         }
         return new GeneralResponse(GeneralResponse.CODE_9999_UNKNOWN_ERROR);
     }

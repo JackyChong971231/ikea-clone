@@ -27,6 +27,7 @@ export const addressRequest = {
 
 export const signInService = (e, email, password, setSignInErrorMsg, setUserDetail, isSignedInForever) => {
     e.preventDefault();
+    // console.log("sign in api called")
     fetch('http://localhost:8080/api/v1/ikea-clone/membership/sign-in', {
         method: 'POST',
         mode: 'cors',

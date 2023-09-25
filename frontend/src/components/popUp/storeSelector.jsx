@@ -6,18 +6,17 @@ import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { getAllStores } from "../../services/storeService";
 
 export const StoreSelector = () => {
-    const {setIsProfileDropdownOpen, userDetail, setUserDetail} = useSharedContext();
-    const [stores, setStores] = useState([]);
-
+    const {setIsDropdownComponentOpen, userDetail, setUserDetail, emptyUserDetail} = useSharedContext();
+    const [storeComponent, setStoreComponent] = useState([]);
 
     const selectStore = (store) => {
-        if(userDetail) {
+        if(userDetail !== emptyUserDetail) {
             // console.log(store)
             setUserDetail({
                 ...userDetail,
                 preferredStore: store
             })
-            setIsProfileDropdownOpen(false);
+            setIsDropdownComponentOpen(false);
         }
     }
 
@@ -25,7 +24,7 @@ export const StoreSelector = () => {
         getAllStores()
         .then(data => {
             console.log(data);
-            setStores(data.map((eachStore) => (
+            setStoreComponent(data.map((eachStore) => (
                 <li className="storeSelector__eachStore py-3"
                 onClick={() => {selectStore(eachStore)}}>
                     <button>
@@ -44,7 +43,7 @@ export const StoreSelector = () => {
         <>
             <div className="storeSelector__header py-3 px-3">
                 <span></span>
-                <button className="storeSelector__header__close-btn" onClick={() => {setIsProfileDropdownOpen(false)}}>
+                <button className="storeSelector__header__close-btn" onClick={() => {setIsDropdownComponentOpen(false)}}>
                     <FontAwesomeIcon icon={faXmark} />
                 </button>
             </div>
@@ -58,7 +57,7 @@ export const StoreSelector = () => {
                     <p>Use your current location</p>
                 </div>
                 <ul className="storeSelector__allStores px-0">
-                    {stores}
+                    {storeComponent}
                 </ul>
             </div>
         </>
