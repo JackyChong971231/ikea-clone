@@ -74,6 +74,7 @@ public class MembershipService {
     }
 
     public Object signIn(SignInMembershipRequest request) {
+        System.out.println(request);
         Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
         // Check whether email exists
         if (membershipOptional.isPresent()) {

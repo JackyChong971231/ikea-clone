@@ -1,6 +1,7 @@
 import sha256 from 'crypto-js/sha256';
 import * as React from 'react';
 import { navigate } from '../utils/common';
+import { signIn, signUp, updateProfile } from '../apiCalls/apis/membershipAPI';
 
 export const signUpMembershipRequest = {
     firstName:              null,
@@ -17,78 +18,51 @@ export const signUpMembershipRequest = {
 };
 
 export const addressRequest = {
-    addressType: 0,
-    streetAddress: "",
-    city: "",
-    province: "",
-    postalCode: "",
-    country: "Canada"
+    addressType:            0,
+    streetAddress:          "",
+    city:                   "",
+    province:               "",
+    postalCode:             "",
+    country:                "Canada"
 }
 
-export const signInService = (e, email, password, setSignInErrorMsg, setUserDetail, isSignedInForever) => {
+export const signInService = async (e, email, password, setSignInErrorMsg, setUserDetail, isSignedInForever) => {
     e.preventDefault();
-    // console.log("sign in api called")
-    fetch('http://localhost:8080/api/v1/ikea-clone/membership/sign-in', {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json', 'Connection': 'keep-alive' },
-        body: JSON.stringify({
-            email: email,
-            passwordHash: sha256(password).toString()
-        })
-    })
-    .then(response => response.json())
-    .then(body => {
-        if (body.errorCode === "0000") {
-            setUserDetail(body.data);
-            setSignInErrorMsg('');
-            navigate('/');
-        } else {
-            setSignInErrorMsg(body.responseMessage);
-        }
-        // console.log(data['signedInToken'])
-    })
+    const passwordHash = sha256(password).toString();
+    const responseBody = await signIn(email, passwordHash)
+
+    if (responseBody.errorCode === "0000") {
+        setUserDetail(responseBody.data);
+        setSignInErrorMsg('');
+        navigate('/');
+    } else {
+        setSignInErrorMsg(responseBody.responseMessage);
+    }
 }
 
-export const signUpService = (e, signUpMembershipRequestTemp, addressRequestTemp, setSignUpMessage, setUserDetail) => {
+export const signUpService = async (e, signUpForm, setSignUpMessage, setUserDetail) => {
     e.preventDefault();
-    // console.log(signUpMembershipRequestTemp);
-    if (!signUpMembershipRequestTemp.isReadConsentId0) {
+    if (!signUpForm.isReadConsentId0) {
         setSignUpMessage("You need to read the policy")
         return
     }
-    fetch('http://localhost:8080/api/v1/ikea-clone/membership/sign-up', {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json', 'Connection': 'keep-alive' },
-        body: JSON.stringify({
-            ...signUpMembershipRequestTemp,
-            newAddressRequest: addressRequestTemp,
-            passwordHash: sha256(signUpMembershipRequestTemp.passwordHash).toString()
-        })
-    })
-    .then(response => response.json())
-    .then(body => {
-        if (body.errorCode === "0000") {
-            setUserDetail(body.data);
-            setSignUpMessage(body.data['signedInToken']);
-            // navigate('/');
-        } else {
-            setSignUpMessage("Sth is wrong");
-        }
-        // console.log(data['signedInToken'])
-    })
+    signUpForm = {
+        ...signUpForm,
+        addressType: 0,
+        country: "Canada",
+        passwordHash: sha256(signUpForm.passwordNotHash).toString()
+    }
+    const responseBody = await signUp(signUpForm)
+    if (responseBody.errorCode === "0000") {
+        setUserDetail(responseBody.data);
+        setSignUpMessage(responseBody.data['signedInToken']);
+        navigate('/');
+    } else {
+        setSignUpMessage(responseBody.responseMessage);
+    }
 }
 
 // only updates membership table
-export const updateUserDetail = (userDetail) => {
-    fetch('http://localhost:8080/api/v1/ikea-clone/membership/update', {
-        method: 'POST',
-        mode: 'cors',
-        headers: { 'Content-Type': 'application/json', 'Connection': 'keep-alive' },
-        body: JSON.stringify(userDetail)
-    })
-    .then(response => response.json())
-    .then(body => { return body })
-
+export const updateUserDetail = async (profileSavedInLocalStorage) => {
+    return await updateProfile(profileSavedInLocalStorage);
 }

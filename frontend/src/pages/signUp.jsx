@@ -1,92 +1,73 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faEye, faCartPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
-
-import sha256 from 'crypto-js/sha256';
-import {signInService} from '../services/membershipService';
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 import signUpImage1 from '../assets/images/sign-up/signUp-image-1.jpg'
-import { signUpMembershipRequest, addressRequest, signUpService } from '../services/membershipService';
+import { signUpService } from '../services/membershipService';
 import { navigate } from '../utils/common';
 import { useSharedContext } from '../SharedContext';
 import { getAllStores } from '../services/storeService';
 
 export const SignUp = () => {
     const {userDetail, setUserDetail} = useSharedContext();
-    const [signUpMembershipRequestTemp, setSignUpMembershipRequestTemp] = React.useState(signUpMembershipRequest);
-    const [addressRequestTemp, setAddressRequestTemp] = React.useState(addressRequest);
+    const [signUpForm, setSignUpForm] = React.useState({
+        firstName:              null,
+        lastName:               null,
+        dateOfBirth:            null,
+        streetAddress:          null,
+        city:                   null,
+        province:               null,
+        postalCode:             null,
+        preferredStoreId:       null,
+        phone:                  null,
+        email:                  null,
+        passwordNotHash:           null,
+        promotionConsent:       "",
+        isReadConsentId0:       false,
+        role:                   0,
+
+    })
     const [signUpMessage, setSignUpMessage] = React.useState("")
     const [stores, setStores] = React.useState([]);
 
-    const handleChangeMembership = (e) => {
+    const handleSignUpFormInput = (e) => {
         var value = e.target.value;
-        setSignUpMembershipRequestTemp({
-            ...signUpMembershipRequestTemp,
+        if (e.target.name === "preferredStoreId") {value = parseInt(e.target.value)}
+        setSignUpForm({
+            ...signUpForm,
             [e.target.name]: value
-        })
-    } 
-
-    const handleChangeAddress = (e) => {
-        const value = e.target.value;
-        setAddressRequestTemp({
-            ...addressRequestTemp,
-            [e.target.name]: value
-        })
-    }
-
-    const handleChangeMembershipNAddress = (e) => {
-        const value = e.target.value;
-        setAddressRequestTemp({
-            ...addressRequestTemp,
-            [e.target.name]: value
-        })
-        setSignUpMembershipRequestTemp({
-            ...signUpMembershipRequestTemp,
-            [e.target.name]: value
-        })
-    }
-
-    const handleStore = (e) => {
-        const value = e.target.value;
-        setSignUpMembershipRequestTemp({
-            ...signUpMembershipRequestTemp,
-            preferredStoreId: parseInt(value)
-        })
-        // console.log(value);
+        });
     }
 
     const handlePromotionConsent = (e) => {
         switch (e.target.name) {
             case "promotionConsent__all": {
-                if (signUpMembershipRequestTemp.promotionConsent === "") {
-                    setSignUpMembershipRequestTemp({
-                        ...signUpMembershipRequestTemp,
+                if (signUpForm.promotionConsent === "") {
+                    setSignUpForm({
+                        ...signUpForm,
                         promotionConsent: "ES"
                     })
                 }
                 else {
-                    setSignUpMembershipRequestTemp({
-                        ...signUpMembershipRequestTemp,
+                    setSignUpForm({
+                        ...signUpForm,
                         promotionConsent: ""
                     })
                 }
                 break
             }
             default: {
-                if (signUpMembershipRequestTemp.promotionConsent.includes(e.target.value)) {
-                    // setPromotionConsent(prevPromotionConsent => prevPromotionConsent.replace(e.target.value,""));
-                    setSignUpMembershipRequestTemp(prevSignUpMembershipRequestTemp => ({
-                        ...signUpMembershipRequestTemp,
-                        promotionConsent: prevSignUpMembershipRequestTemp.promotionConsent.replace(e.target.value,"")
+                if (signUpForm.promotionConsent.includes(e.target.value)) {
+                    setSignUpForm(prevSignUpForm => ({
+                        ...signUpForm,
+                        promotionConsent: prevSignUpForm.promotionConsent.replace(e.target.value,"")
                     }));
                 }
                 else {
-                    // setPromotionConsent(prevPromotionConsent => prevPromotionConsent + e.target.value)
-                    setSignUpMembershipRequestTemp(prevSignUpMembershipRequestTemp => ({
-                        ...signUpMembershipRequestTemp,
-                        promotionConsent: prevSignUpMembershipRequestTemp.promotionConsent + e.target.value
+                    setSignUpForm(prevSignUpForm => ({
+                        ...signUpForm,
+                        promotionConsent: prevSignUpForm.promotionConsent + e.target.value
                     }));
                 }
                 break
@@ -95,9 +76,9 @@ export const SignUp = () => {
     }
 
     const handleIsReadConsent = (e) => {
-        setSignUpMembershipRequestTemp({
-            ...signUpMembershipRequestTemp,
-            isReadConsentId0: !signUpMembershipRequestTemp.isReadConsentId0
+        setSignUpForm({
+            ...signUpForm,
+            isReadConsentId0: !signUpForm.isReadConsentId0
         })
     }
 
@@ -123,26 +104,26 @@ export const SignUp = () => {
                 </div>
                 <div className='signUp__form px-4 col-12 pt-sm-5 col-sm-7 col-md-6 col-xl-4'>
                     <p>Join our IKEA Family loyalty program today for rewards, discounts, inspiration and a few surprises along the way. It’s quick, easy and free. Learn more</p>
-                    <form noValidate='' onSubmit={(e) => signUpService(e, signUpMembershipRequestTemp, addressRequestTemp, setSignUpMessage, setUserDetail)}>
+                    <form noValidate='' onSubmit={(e) => signUpService(e, signUpForm, setSignUpMessage, setUserDetail)}>
                         <div className='signUp__field'>
                             <label for="signUp_firstName">First name</label>
                             <div className='signUp__input-field'>
                                 <input id="signUp_firstName" name="firstName" 
-                                value={signUpMembershipRequestTemp.firstName} onChange={handleChangeMembership}></input>
+                                value={signUpForm.firstName} onChange={handleSignUpFormInput}></input>
                             </div>
                         </div>
                         <div className='signUp__field'>
                             <label for="signUp_lastName">Last name</label>
                             <div className='signUp__input-field'>
                                 <input id="signUp_lastName" name="lastName"
-                                value={signUpMembershipRequestTemp.lastName} onChange={handleChangeMembership}></input>
+                                value={signUpForm.lastName} onChange={handleSignUpFormInput}></input>
                             </div>
                         </div>
                         <div className='signUp__field'>
                             <label for="signUp_dob">Birthdate (Optional)</label>
                             <div className='signUp__input-field'>
                                 <input id="signUp_dob" name="dateOfBirth"
-                                value={signUpMembershipRequestTemp.dateOfBirth} onChange={handleChangeMembership}></input>
+                                value={signUpForm.dateOfBirth} onChange={handleSignUpFormInput}></input>
                             </div>
                             <p><small>YYYY-MM-DD</small></p>
                         </div>
@@ -150,38 +131,34 @@ export const SignUp = () => {
                             <label for="signUp_streetAddress">Street address</label>
                             <div className='signUp__input-field'>
                                 <input id="signUp_streetAddress" name="streetAddress"
-                                value={addressRequestTemp.streetAddress} onChange={handleChangeAddress}></input>
+                                value={signUpForm.streetAddress} onChange={handleSignUpFormInput}></input>
                             </div>
                         </div>
                         <div className='signUp__field'>
                             <label for="signUp_city">City</label>
                             <div className='signUp__input-field'>
                                 <input id="signUp_city" name="city"
-                                value={addressRequestTemp.city} onChange={handleChangeAddress}></input>
+                                value={signUpForm.city} onChange={handleSignUpFormInput}></input>
                             </div>
                         </div>
                         <div className='signUp__field'>
                             <label for="signUp_province">Province</label>
                             <div className='signUp__input-field'>
                                 <input id="signUp_province" name="province"
-                                value={addressRequestTemp.province} onChange={handleChangeAddress}></input>
+                                value={signUpForm.province} onChange={handleSignUpFormInput}></input>
                             </div>
                         </div>
                         <div className='signUp__field'>
                             <label for="signUp_postalCode">Post code</label>
                             <div className='signUp__input-field'>
                                 <input id="signUp_postalCode" name="postalCode"
-                                value={addressRequestTemp.postalCode} onChange={handleChangeMembershipNAddress}></input>
+                                value={signUpForm.postalCode} onChange={handleSignUpFormInput}></input>
                             </div>
                         </div>
                         <div className='signUp__field'>
                             <label for="signUp_preferredStoreID">Preferred store</label>
-                            {/* <div className='signUp__input-field'>
-                                <input id="signUp_preferredStoreID" name="preferredStoreID"
-                                value={signUpMembershipRequestTemp.preferredStoreID} onChange={handleChangeMembership}></input>
-                            </div> */}
                             <div className='signUp__select-field__wrapper'>
-                                <select className='signUp__select-field' id="signUp_preferredStoreID" onChange={handleStore}>
+                                <select className='signUp__select-field' id="signUp_preferredStoreID" name="preferredStoreId" onChange={handleSignUpFormInput}>
                                     <option>Please choose one store</option>
                                     {stores}
                                 </select>
@@ -191,28 +168,28 @@ export const SignUp = () => {
                             <label for="signUp_phone">Mobile (Optional)</label>
                             <div className='signUp__input-field'>
                                 <input name="phone"
-                                value={signUpMembershipRequestTemp.phone} onChange={handleChangeMembership}></input>
+                                value={signUpForm.phone} onChange={handleSignUpFormInput}></input>
                             </div>
                         </div>
                         <div className='signUp__field'>
                             <label for="signUp_email">Email (username)</label>
                             <div className='signUp__input-field'>
                                 <input id="signUp_email" name="email"
-                                value={signUpMembershipRequestTemp.email} onChange={handleChangeMembership}></input>
+                                value={signUpForm.email} onChange={handleSignUpFormInput}></input>
                             </div>
                         </div>
                         <div className='signUp__field'>
                             <label for="signUp_passwordHash">Password</label>
                             <div className='signUp__input-field'>
-                                <input id="signUp_passwordHash" name="passwordHash"
-                                value={signUpMembershipRequestTemp.passwordHash} onChange={handleChangeMembership}></input>
+                                <input id="signUp_passwordHash" name="passwordNotHash"
+                                value={signUpForm.passwordNotHash} onChange={handleSignUpFormInput}></input>
                             </div>
                         </div>
                         <div className='signUp__input'>
                             <div className='pr-3'>
                                 <input id="signUp_promotionConsent__all" name="promotionConsent__all" type="checkbox"
                                 text="Yes, I would like to receive exclusive offers, sneak peeks at new products and inspiration from IKEA." 
-                                value="ES" onChange={handlePromotionConsent} checked={(signUpMembershipRequestTemp.promotionConsent === "")? false: true}></input>
+                                value="ES" onChange={handlePromotionConsent} checked={(signUpForm.promotionConsent === "")? false: true}></input>
                             </div>
                             <label for="signUp_promotionConsent__all">Yes, I would like to receive exclusive offers, sneak peeks at new products and inspiration from IKEA.</label>
                         </div>
@@ -220,7 +197,7 @@ export const SignUp = () => {
                             <div className='pr-3'>
                                 <input id="signUp_promotionConsent__email" name="promotionConsent__email" type="checkbox"
                                 text="Via Email" 
-                                value="E" onChange={handlePromotionConsent} checked={(signUpMembershipRequestTemp.promotionConsent.includes("E"))? true: false}></input>
+                                value="E" onChange={handlePromotionConsent} checked={(signUpForm.promotionConsent.includes("E"))? true: false}></input>
                             </div>
                             <label for="signUp_promotionConsent__email">Via Email</label>
                         </div>
@@ -228,7 +205,7 @@ export const SignUp = () => {
                             <div className='pr-3'>
                                 <input id="signUp_promotionConsent__sms" name="promotionConsent__sms" type="checkbox"
                                 text="Via SMS (Standard message and data rates may apply.)" 
-                                value="S" onChange={handlePromotionConsent} checked={(signUpMembershipRequestTemp.promotionConsent.includes("S"))? true: false}></input>
+                                value="S" onChange={handlePromotionConsent} checked={(signUpForm.promotionConsent.includes("S"))? true: false}></input>
                             </div>
                             <label for="signUp_promotionConsent__sms">Via SMS (Standard message and data rates may apply.)</label>
                         </div>
@@ -236,11 +213,11 @@ export const SignUp = () => {
                             <div className='pr-3'>
                                 <input id="signUp_isReadConsentId0" name="isReadConsentId0" type="checkbox"
                                 text="I have read and understood the Terms of Use and Privacy Policy." 
-                                onChange={handleIsReadConsent} checked={signUpMembershipRequestTemp.isReadConsentId0}></input>
+                                onChange={handleIsReadConsent} checked={signUpForm.isReadConsentId0}></input>
                             </div>
                             <label for="signUp_isReadConsentId0">I have read and understood the Terms of Use and Privacy Policy.</label>
                         </div>
-                        <p>{signUpMessage}</p>
+                        <p className='signUp_apiResponseMessage'>{signUpMessage}</p>
                         <button className="sign-up-form__submit-btn py-2" type='submit'>Register</button>
                     </form>
                     <div className='signUp__footnote py-3 mb-5'>
