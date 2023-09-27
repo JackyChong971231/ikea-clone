@@ -11,4 +11,5 @@ import java.util.Optional;
 
 @Repository
 public interface AddressTypeRepository extends JpaRepository<AddressType, Integer> {
+    AddressType findByTypeName(String typeName);
 }

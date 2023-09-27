@@ -57,7 +57,8 @@ public class MembershipService {
                 .build();
         var membershipJustAdded = membershipRepository.save(membership);
         var jwtToken = jwtService.generateToken(membership);
-        addressService.addNewAddress(request.getNewAddressRequest(), membershipJustAdded);
+        var addressTypeForMembershipSignUp = addressTypeRepository.findByTypeName("shipping");
+        addressService.addNewAddress(request.getNewAddressRequest(), membershipJustAdded, addressTypeForMembershipSignUp);
         var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
         response.setData(
                 SignInMembershipResponse.builder()

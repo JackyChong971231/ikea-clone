@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Address;
+import com.example.demo.model.AddressType;
 import com.example.demo.model.Membership;
 import com.example.demo.model.MembershipAddress;
 import com.example.demo.repository.AddressRepository;
@@ -18,11 +19,10 @@ public class AddressService {
     private final AddressTypeRepository addressTypeRepository;
     private final MembershipAddressRepository membershipAddressRepository;
 
-    public void addNewAddress (NewAddressRequest request, Membership membershipJustAdded) {
+    public void addNewAddress (NewAddressRequest request, Membership membershipJustAdded, AddressType addressType) {
         var address = Address.builder()
                 .streetAddress(request.getStreetAddress())
-                .addressType(addressTypeRepository.findById(request.getAddressType())
-                        .orElseThrow(() -> new EntityNotFoundException("Address type id not found")))
+                .addressType(addressType)
                 .streetAddress(request.getStreetAddress())
                 .city(request.getCity())
                 .province(request.getProvince())
