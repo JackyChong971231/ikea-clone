@@ -7,6 +7,8 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 @RequiredArgsConstructor
 public class DatabaseLoadData {
@@ -16,6 +18,12 @@ public class DatabaseLoadData {
     private final StoreTypeRepository storeTypeRepository;
     private final AddressTypeRepository addressTypeRepository;
     private final AddressRepository addressRepository;
+    private final BrandRepository brandRepository;
+    private final ProductCategoryRepository productCategoryRepository;
+    private final VariationOptionRepository variationOptionRepository;
+    private final VariationValueRepository variationValueRepository;
+    private final ProductRepository productRepository;
+    private final BarcodeRepository barcodeRepository;
 
     @EventListener(ApplicationReadyEvent.class)
     public void generateDummyData() {
@@ -86,6 +94,111 @@ public class DatabaseLoadData {
                 .build();
         storeRepository.save(store0);
         storeRepository.save(store1);
-    }
 
+        Brand brand0 = Brand.builder().brandName("LIDÅS").build();
+        Brand brand1 = Brand.builder().brandName("SUNNERSTA").build();
+        Brand brand2 = Brand.builder().brandName("BURHULT").build();
+        Brand brand3 = Brand.builder().brandName("BORGEBY").build();
+        Brand brand4 = Brand.builder().brandName("LACK").build();
+        brandRepository.save(brand0);
+        brandRepository.save(brand1);
+        brandRepository.save(brand2);
+        brandRepository.save(brand3);
+        brandRepository.save(brand4);
+
+        ProductCategory productCategory0 = ProductCategory.builder().categoryName("Products").build();
+        ProductCategory productCategory1 = ProductCategory.builder().categoryName("All furniture").build();
+        ProductCategory productCategory2 = ProductCategory.builder().categoryName("Tables & desks").build();
+        ProductCategory productCategory3 = ProductCategory.builder().categoryName("Coffee & side tables").parentProductCategory(productCategory0).build();
+        ProductCategory productCategory4 = ProductCategory.builder().categoryName("Side tables").parentProductCategory(productCategory1).build();
+        ProductCategory productCategory5 = ProductCategory.builder().categoryName("LACK Side table").parentProductCategory(productCategory2).build();
+        ProductCategory productCategory6 = ProductCategory.builder().categoryName("BORGEBY Coffee table").parentProductCategory(productCategory2).build();
+        productCategoryRepository.save(productCategory0);
+        productCategoryRepository.save(productCategory1);
+        productCategoryRepository.save(productCategory2);
+        productCategoryRepository.save(productCategory3);
+        productCategoryRepository.save(productCategory4);
+        productCategoryRepository.save(productCategory5);
+        productCategoryRepository.save(productCategory6);
+
+        VariationOption variationOption0 = VariationOption.builder().optionName("color").build();
+        variationOptionRepository.save(variationOption0);
+
+        VariationValue variationValue0 = VariationValue.builder().variationOption(variationOption0).value("Black-brown").build();
+        VariationValue variationValue1 = VariationValue.builder().variationOption(variationOption0).value("White").build();
+        VariationValue variationValue2 = VariationValue.builder().variationOption(variationOption0).value("White stained oak effect").build();
+        VariationValue variationValue3 = VariationValue.builder().variationOption(variationOption0).value("Birch veneer").build();
+        VariationValue variationValue4 = VariationValue.builder().variationOption(variationOption0).value("Black").build();
+        variationValueRepository.save(variationValue0);
+        variationValueRepository.save(variationValue1);
+        variationValueRepository.save(variationValue2);
+        variationValueRepository.save(variationValue3);
+        variationValueRepository.save(variationValue4);
+
+        Product product0 = Product.builder()
+                .productCategory(productCategory5)
+                .brand(brand4)
+                .description("Side table, 55x55 cm (21 5/8x21 5/8 \")")
+                .isForSale(true)
+                .build();
+        Product product1 = Product.builder()
+                .productCategory(productCategory6)
+                .brand(brand3)
+                .description("Coffee table, 70 cm (27 1/2 \")")
+                .isForSale(true)
+                .build();
+        productRepository.save(product0);
+        productRepository.save(product1);
+
+        Barcode barcode0 = Barcode.builder()
+                .product(product0)
+                .variation1Value(variationValue0)
+                .widthCm(BigDecimal.valueOf(55))
+                .depthCm(BigDecimal.valueOf(55))
+                .heightCm(BigDecimal.valueOf(45))
+                .weightKg(BigDecimal.valueOf(3.59))
+                .originalPrice(BigDecimal.valueOf(14.99))
+                .build();
+        Barcode barcode1 = Barcode.builder()
+                .product(product0)
+                .variation1Value(variationValue1)
+                .widthCm(BigDecimal.valueOf(55))
+                .depthCm(BigDecimal.valueOf(55))
+                .heightCm(BigDecimal.valueOf(45))
+                .weightKg(BigDecimal.valueOf(3.59))
+                .originalPrice(BigDecimal.valueOf(14.99))
+                .build();
+        Barcode barcode2 = Barcode.builder()
+                .product(product0)
+                .variation1Value(variationValue2)
+                .widthCm(BigDecimal.valueOf(55))
+                .depthCm(BigDecimal.valueOf(55))
+                .heightCm(BigDecimal.valueOf(45))
+                .weightKg(BigDecimal.valueOf(3.59))
+                .originalPrice(BigDecimal.valueOf(14.99))
+                .build();
+        Barcode barcode3 = Barcode.builder()
+                .product(product1)
+                .variation1Value(variationValue3)
+                .widthCm(BigDecimal.valueOf(70))
+                .depthCm(BigDecimal.valueOf(70))
+                .heightCm(BigDecimal.valueOf(42))
+                .weightKg(BigDecimal.valueOf(9.17))
+                .originalPrice(BigDecimal.valueOf(159.00))
+                .build();
+        Barcode barcode4 = Barcode.builder()
+                .product(product1)
+                .variation1Value(variationValue4)
+                .widthCm(BigDecimal.valueOf(70))
+                .depthCm(BigDecimal.valueOf(70))
+                .heightCm(BigDecimal.valueOf(42))
+                .weightKg(BigDecimal.valueOf(9.17))
+                .originalPrice(BigDecimal.valueOf(159.00))
+                .build();
+        barcodeRepository.save(barcode0);
+        barcodeRepository.save(barcode1);
+        barcodeRepository.save(barcode2);
+        barcodeRepository.save(barcode3);
+        barcodeRepository.save(barcode4);
+    }
 }
