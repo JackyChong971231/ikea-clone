@@ -28,9 +28,9 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path='/' element={<Search />} />
+              <Route path='/search' element={<Search />} />
               <Route path='/sign-in' element={<SignIn />} />
               <Route path='/sign-up' element={<SignUp />} />
-              {/* <Route path='/search' element={<Search />} /> */}
             </Routes>
           </BrowserRouter>
           <PopUp />

@@ -15,6 +15,7 @@ export const SharedProvider = ({ children }) => {
     cart: {}
   };
   const [userDetail, setUserDetail] = useState((JSON.parse(localStorage.getItem("user")))? JSON.parse(localStorage.getItem("user")): emptyUserDetail);
+  const [isShowProductImage, setIsShowProductImage] = useState(true)
 
   useEffect(() => {
     // handle sign out
@@ -33,7 +34,14 @@ export const SharedProvider = ({ children }) => {
   },[userDetail])
 
   return (
-    <SharedContext.Provider value={{ isDropdownComponentOpen, setIsDropdownComponentOpen, userDetail, setUserDetail, whichDropdownContent, setWhichDropdownContent, emptyUserDetail }}>
+    <SharedContext.Provider value={{
+      isDropdownComponentOpen, 
+      setIsDropdownComponentOpen, 
+      userDetail, setUserDetail, 
+      whichDropdownContent, setWhichDropdownContent, 
+      isShowProductImage, setIsShowProductImage,
+      emptyUserDetail
+      }}>
       {children}
     </SharedContext.Provider>
   );

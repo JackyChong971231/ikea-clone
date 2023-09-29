@@ -45,6 +45,8 @@ public class Barcode {
 
     @Lob
     private byte[] roomImage;
+    // To do: set default value to false
+    private Boolean isDefaultForThumbnail;
 
     @Column(nullable = false)
     private BigDecimal widthCm;
