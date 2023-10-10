@@ -57,4 +57,6 @@ public class Barcode {
     @Column(nullable = false)
     private BigDecimal weightKg;
     private BigDecimal originalPrice;
+    private BigDecimal avgRating; //To-Do: update with a cron job
+    private Integer numOfReviews; //To-Do: update with a cron job
 }

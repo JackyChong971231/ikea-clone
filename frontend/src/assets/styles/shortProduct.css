@@ -1,0 +1,7 @@
+.product__availableOptions__buttons {
+    display: flex;
+}
+
+.product__availableOptions__buttons > button {
+    margin-right: 1rem;
+}

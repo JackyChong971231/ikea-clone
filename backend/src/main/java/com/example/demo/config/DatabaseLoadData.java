@@ -2,11 +2,15 @@ package com.example.demo.config;
 
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
+import com.example.demo.util.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.math.BigDecimal;
 
 @Component
@@ -24,6 +28,7 @@ public class DatabaseLoadData {
     private final VariationValueRepository variationValueRepository;
     private final ProductRepository productRepository;
     private final BarcodeRepository barcodeRepository;
+    private ResourceLoader resourceLoader;
 
     @EventListener(ApplicationReadyEvent.class)
     public void generateDummyData() {
@@ -158,6 +163,7 @@ public class DatabaseLoadData {
                 .heightCm(BigDecimal.valueOf(45))
                 .weightKg(BigDecimal.valueOf(3.59))
                 .originalPrice(BigDecimal.valueOf(14.99))
+                .isDefaultForThumbnail(true)
                 .build();
         Barcode barcode1 = Barcode.builder()
                 .product(product0)
@@ -185,6 +191,7 @@ public class DatabaseLoadData {
                 .heightCm(BigDecimal.valueOf(42))
                 .weightKg(BigDecimal.valueOf(9.17))
                 .originalPrice(BigDecimal.valueOf(159.00))
+                .isDefaultForThumbnail(true)
                 .build();
         Barcode barcode4 = Barcode.builder()
                 .product(product1)

@@ -60,6 +60,7 @@ export const Search = () => {
     const [ searchQuery, setSearchQuery ] = useState('');
     const [ imageDisplayType, setImageDisplayType ] = useState('product')
     const [ filterBarScrollLocation, setFilterBarScrollLocation ] = useState('L') // L, M, R
+    const [ productComponent, setProductComponent ] = useState([]);
 
     const filterBar = useRef(null);
 
@@ -79,8 +80,28 @@ export const Search = () => {
     useEffect(() => {
         const keyword = searchParams.get('q');
         setSearchQuery(keyword);
-        // console.log(keyword);
-        searchProductByKeywordLike(keyword);
+        searchProductByKeywordLike(keyword)
+        .then(productsArray => { // already ordered by product id
+            let tempBarcodeComponents = [];
+            productsArray.map((product) => {
+                tempBarcodeComponents.push(<ShortProduct eachShortProductResponse={product}/>)
+            });
+            setProductComponent(tempBarcodeComponents);
+
+            let barcodesGroupedByProductId = {};
+            let tempProductComponents = [];
+            productsArray.map((eachBarcode) => {
+                if (eachBarcode.product.productId in barcodesGroupedByProductId) {
+                    barcodesGroupedByProductId[eachBarcode.product.productId].push(eachBarcode)
+                } else {
+                    barcodesGroupedByProductId[eachBarcode.product.productId] = [eachBarcode]
+                }
+            });
+            for (var productId of Object.keys(barcodesGroupedByProductId)) {
+                tempProductComponents.push(<ShortProduct barcodesThatBelongToTheSameProductId={barcodesGroupedByProductId[productId]}/>)
+            }
+            setProductComponent(tempProductComponents);
+        });
     },[])
 
     return (
@@ -135,11 +156,7 @@ export const Search = () => {
                     style={{ display: (filterBarScrollLocation==='R')? 'none': '' }}><FontAwesomeIcon icon={faArrowRight} /></button>
                 </div>
                 <div className='search__products__container row'>
-                    {
-                        dummy['products'].map((product) => (
-                            <ShortProduct eachShortProductResponse={product}/>
-                        ))
-                    }
+                    {productComponent}
                 </div>
             </div>
         </div>
