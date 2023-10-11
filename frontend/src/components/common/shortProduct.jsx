@@ -8,6 +8,7 @@ export const ShortProduct = (props) => {
     const { barcodesThatBelongToTheSameProductId, ...other } = props;
     const [currentBarcode, setCurrentBarcode] = useState(barcodesThatBelongToTheSameProductId[0]);
     const [optionsButton, setOptionsButton] = useState();
+    const [isShowProductImg, setIsShowProductImg] = useState(true);
 
     const starRatingGenerator = (rating) => {
         if (rating !== null) {
@@ -37,9 +38,14 @@ export const ShortProduct = (props) => {
     useEffect(() => {
         if (barcodesThatBelongToTheSameProductId.length > 1) {
             setOptionsButton(barcodesThatBelongToTheSameProductId.map(eachBarcode => (
-                <button onClick={() => setCurrentBarcode(eachBarcode)}>{eachBarcode.barcodeId}</button>
+                <div className="product__availableOptions__buttons__eachButton" onClick={() => setCurrentBarcode(eachBarcode)}>
+                    <img src={"data:image/png;base64,"+eachBarcode.productImage} alt=""></img>    
+                </div>
             )))
         } else {setOptionsButton(null)}
+
+        // const url = URL.createObjectURL(currentBarcode.productImage)
+        // setProductImage(url)
     },[])
 
     return (
@@ -47,7 +53,12 @@ export const ShortProduct = (props) => {
             <div className='search__each-product__inner col-6 col-sm-4 col-md-3 border px-0'>
                 <div className='product-image p-2'>
                     {/* <p>{currentBarcode.barcodeId}</p> */}
-                    <img src={currentBarcode['image']} alt={'product-image for barcodeId: '+currentBarcode.barcodeId}></img>
+
+                    <img 
+                    src={(isShowProductImg)?"data:image/png;base64,"+currentBarcode.productImage: "data:image/png;base64,"+currentBarcode.roomImage} 
+                    alt={'product-image for barcodeId: '+currentBarcode.barcodeId}
+                    onMouseEnter={() => {setIsShowProductImg(prevState => !prevState)}}
+                    onMouseLeave={() => {setIsShowProductImg(prevState => !prevState)}}></img>
                 </div>
                 <div className='product-mastercard px-2'>
                     <p className='w-100 m-1'><b>{currentBarcode.product.brand.brandName}</b></p>

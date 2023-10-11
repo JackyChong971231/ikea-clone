@@ -7,10 +7,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 
 @Component
@@ -30,8 +34,13 @@ public class DatabaseLoadData {
     private final BarcodeRepository barcodeRepository;
     private ResourceLoader resourceLoader;
 
+    private byte[] getImageAsByteArray(String pathFromResourceFolder) throws IOException {
+        Resource resource = new ClassPathResource(pathFromResourceFolder);
+        return resource.getInputStream().readAllBytes();
+    }
+
     @EventListener(ApplicationReadyEvent.class)
-    public void generateDummyData() {
+    public void generateDummyData() throws IOException {
         ConsentType consentType0 = ConsentType.builder().typeName("Policy").build();
         ConsentType consentType1 = ConsentType.builder().typeName("Promotion").build();
         consentTypeRepository.save(consentType0);
@@ -163,6 +172,8 @@ public class DatabaseLoadData {
                 .heightCm(BigDecimal.valueOf(45))
                 .weightKg(BigDecimal.valueOf(3.59))
                 .originalPrice(BigDecimal.valueOf(14.99))
+                .productImage(getImageAsByteArray("images/0/productImage.png"))
+                .roomImage(getImageAsByteArray("images/0/roomImage.png"))
                 .isDefaultForThumbnail(true)
                 .build();
         Barcode barcode1 = Barcode.builder()
@@ -173,6 +184,8 @@ public class DatabaseLoadData {
                 .heightCm(BigDecimal.valueOf(45))
                 .weightKg(BigDecimal.valueOf(3.59))
                 .originalPrice(BigDecimal.valueOf(14.99))
+                .productImage(getImageAsByteArray("images/1/productImage.png"))
+                .roomImage(getImageAsByteArray("images/1/roomImage.png"))
                 .build();
         Barcode barcode2 = Barcode.builder()
                 .product(product0)
@@ -182,6 +195,8 @@ public class DatabaseLoadData {
                 .heightCm(BigDecimal.valueOf(45))
                 .weightKg(BigDecimal.valueOf(3.59))
                 .originalPrice(BigDecimal.valueOf(14.99))
+                .productImage(getImageAsByteArray("images/2/productImage.png"))
+                .roomImage(getImageAsByteArray("images/2/roomImage.png"))
                 .build();
         Barcode barcode3 = Barcode.builder()
                 .product(product1)
@@ -191,6 +206,8 @@ public class DatabaseLoadData {
                 .heightCm(BigDecimal.valueOf(42))
                 .weightKg(BigDecimal.valueOf(9.17))
                 .originalPrice(BigDecimal.valueOf(159.00))
+                .productImage(getImageAsByteArray("images/3/productImage.png"))
+                .roomImage(getImageAsByteArray("images/3/roomImage.png"))
                 .isDefaultForThumbnail(true)
                 .build();
         Barcode barcode4 = Barcode.builder()
@@ -201,6 +218,8 @@ public class DatabaseLoadData {
                 .heightCm(BigDecimal.valueOf(42))
                 .weightKg(BigDecimal.valueOf(9.17))
                 .originalPrice(BigDecimal.valueOf(159.00))
+                .productImage(getImageAsByteArray("images/4/productImage.png"))
+                .roomImage(getImageAsByteArray("images/4/roomImage.png"))
                 .build();
         barcodeRepository.save(barcode0);
         barcodeRepository.save(barcode1);

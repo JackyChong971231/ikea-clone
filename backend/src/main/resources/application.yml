@@ -7,7 +7,7 @@ server:
 spring:
   datasource:
     password: 021Aa4098a
-    url: jdbc:mysql://137.184.166.60:3306/ikea_clone
+    url: jdbc:mysql://137.184.166.60:3306/ikea_clone?sessionVariables=sql_mode='NO_ENGINE_SUBSTITUTION'&jdbcCompliantTruncation=false
     username: jacky
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:

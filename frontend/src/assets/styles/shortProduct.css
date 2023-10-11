@@ -2,6 +2,16 @@
     display: flex;
 }
 
-.product__availableOptions__buttons > button {
+.product__availableOptions__buttons__eachButton {
     margin-right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.product__availableOptions__buttons__eachButton > img {
+    width: 2rem;
+    height: 2rem;
+    object-fit: cover;
 }

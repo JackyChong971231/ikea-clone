@@ -41,9 +41,11 @@ public class Barcode {
     private VariationValue variation5Value;
 
     @Lob
+    @Column(columnDefinition = "BLOB")
     private byte[] productImage;
 
     @Lob
+    @Column(columnDefinition = "BLOB")
     private byte[] roomImage;
     // To do: set default value to false
     private Boolean isDefaultForThumbnail;

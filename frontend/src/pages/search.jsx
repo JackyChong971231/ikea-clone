@@ -82,17 +82,16 @@ export const Search = () => {
         setSearchQuery(keyword);
         searchProductByKeywordLike(keyword)
         .then(productsArray => { // already ordered by product id
-            let tempBarcodeComponents = [];
-            productsArray.map((product) => {
-                tempBarcodeComponents.push(<ShortProduct eachShortProductResponse={product}/>)
-            });
-            setProductComponent(tempBarcodeComponents);
 
             let barcodesGroupedByProductId = {};
             let tempProductComponents = [];
             productsArray.map((eachBarcode) => {
                 if (eachBarcode.product.productId in barcodesGroupedByProductId) {
-                    barcodesGroupedByProductId[eachBarcode.product.productId].push(eachBarcode)
+                    if (eachBarcode.isDefaultForThumbnail) {
+                        barcodesGroupedByProductId[eachBarcode.product.productId].unshift(eachBarcode)
+                    } else {
+                        barcodesGroupedByProductId[eachBarcode.product.productId].push(eachBarcode)
+                    }
                 } else {
                     barcodesGroupedByProductId[eachBarcode.product.productId] = [eachBarcode]
                 }
@@ -112,7 +111,7 @@ export const Search = () => {
                     <p>
                         <span>
                             We found&nbsp;
-                            <a href='#product-list'>{dummy['products'].length} products</a>
+                            <a href='#product-list'>{Object.keys(productComponent).length} products</a>
                             &nbsp;and&nbsp;
                             <a href='#content-list'>{dummy['contents'].length} content results</a>
                             .
