@@ -15,3 +15,16 @@
     height: 2rem;
     object-fit: cover;
 }
+
+.product-image {
+    cursor: pointer;
+}
+
+.product-mastercard {
+    text-align: left;
+}
+
+.product-mastercard > a {
+    color: black;
+    cursor: pointer;
+}

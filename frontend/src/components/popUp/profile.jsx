@@ -11,10 +11,12 @@ export const Profile = () => {
 
     const signInOrOutHandler = () => {
         if (userDetail.signedInToken) {
+            // Sign Out
             setUserDetail(emptyUserDetail);
             setIsDropdownComponentOpen(false);
             navigate('/');
         } else {
+            // Sign In
             navigate('/sign-in');
         }
     }

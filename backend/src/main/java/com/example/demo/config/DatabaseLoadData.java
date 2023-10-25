@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Component
 @RequiredArgsConstructor
@@ -32,6 +33,9 @@ public class DatabaseLoadData {
     private final VariationValueRepository variationValueRepository;
     private final ProductRepository productRepository;
     private final BarcodeRepository barcodeRepository;
+    private final MembershipRepository membershipRepository;
+    private final WishlistRepository wishlistRepository;
+    private final WishlistItemRepository wishlistItemRepository;
     private ResourceLoader resourceLoader;
 
     private byte[] getImageAsByteArray(String pathFromResourceFolder) throws IOException {
@@ -108,6 +112,32 @@ public class DatabaseLoadData {
                 .build();
         storeRepository.save(store0);
         storeRepository.save(store1);
+
+        Membership membership0 = Membership.builder()
+                .firstName("Jacky")
+                .lastName("Testing")
+                .dateOfBirth(LocalDate.of(2020, 1, 1))
+                .email("jackytesting1@gmail.com")
+                .passwordHash("8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92")
+                .phone("0123456789")
+                .promotionConsent("ES")
+                .postalCode("M2J0H7")
+                .isReadConsentId0(true)
+                .preferredStore(store0)
+                .role(Role.CUSTOMER)
+                .build();
+        membershipRepository.save(membership0);
+
+        Wishlist wishlist0 = Wishlist.builder()
+                .membership(membership0)
+                .wishlistName("My list")
+                .build();
+        wishlistRepository.save(wishlist0);
+        Wishlist wishlist1 = Wishlist.builder()
+                .membership(membership0)
+                .wishlistName("188 Fairview Mall Dr")
+                .build();
+        wishlistRepository.save(wishlist1);
 
         Brand brand0 = Brand.builder().brandName("LIDÅS").build();
         Brand brand1 = Brand.builder().brandName("SUNNERSTA").build();
@@ -226,5 +256,12 @@ public class DatabaseLoadData {
         barcodeRepository.save(barcode2);
         barcodeRepository.save(barcode3);
         barcodeRepository.save(barcode4);
+
+        WishlistItem wishlistItem0 = WishlistItem.builder()
+                .wishlist(wishlist0)
+                .barcode(barcode0)
+                .quantity(2)
+                .build();
+        wishlistItemRepository.save(wishlistItem0);
     }
 }

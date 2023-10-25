@@ -34,8 +34,21 @@ export const signUp = async (signUpForm) => {
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }
 
-export const updateProfile = async (profileSavedInLocalStorage) => {
+export const updateProfile = async (profileSavedInLocalStorage, membershipTableColumnName) => {
     let controllerMapping = "/update";
-    const requestBody = profileSavedInLocalStorage
+    const requestBody = {
+        localStorageUserDetail: profileSavedInLocalStorage,
+        columnName: membershipTableColumnName
+    }
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
+}
+
+export const addToWishlistItemAPI = async (barcode, wishlist) => {
+    let controllerMapping = "/addWishlistItem";
+    const requestBody ={
+        barcode: barcode,
+        wishlist: wishlist,
+        quantity: 1
+    }
+    return apiGateway(POST, endPoint + controllerMapping, requestBody)
 }

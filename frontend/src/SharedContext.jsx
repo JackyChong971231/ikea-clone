@@ -1,6 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { updateUserDetail } from './services/membershipService';
-import { getAllStores } from './services/storeService';
 
 const SharedContext = createContext();
 
@@ -16,22 +14,24 @@ export const SharedProvider = ({ children }) => {
   };
   const [userDetail, setUserDetail] = useState((JSON.parse(localStorage.getItem("user")))? JSON.parse(localStorage.getItem("user")): emptyUserDetail);
   const [isShowProductImage, setIsShowProductImage] = useState(true)
+  const [barcodesInWishlists, setBarcodesInWishlists] = useState();
+  const [barcodeToBeAddedToWishlist, setBarcodeToBeAddedToWishlist] = useState();
 
   useEffect(() => {
-    // handle sign out
-    if (emptyUserDetail === userDetail) { 
-      console.log("Signed out")
-      localStorage.removeItem("user") 
+    localStorage.setItem("user", JSON.stringify(userDetail))
+    const tempBarcodesInWishlists = [];
+    for (const wishlistItemId in userDetail.wishlistItems) {
+      tempBarcodesInWishlists.push(userDetail.wishlistItems[wishlistItemId].barcode.barcodeId)
     }
-    else {
-      if (userDetail.signedInToken) {                               // handle user update
-        localStorage.setItem("user", JSON.stringify(userDetail));
-        updateUserDetail(userDetail);
-      } else {                                                      // handle guest update
-        localStorage.setItem("user", JSON.stringify(userDetail))
-      }
-    };
+    setBarcodesInWishlists(tempBarcodesInWishlists);
+    console.log(tempBarcodesInWishlists);
   },[userDetail])
+
+  const expandPopUpWindow = (whichDropdownContentToShow) => {
+    setWhichDropdownContent(whichDropdownContentToShow);
+    setIsDropdownComponentOpen(true);
+    
+}
 
   return (
     <SharedContext.Provider value={{
@@ -40,7 +40,9 @@ export const SharedProvider = ({ children }) => {
       userDetail, setUserDetail, 
       whichDropdownContent, setWhichDropdownContent, 
       isShowProductImage, setIsShowProductImage,
-      emptyUserDetail
+      barcodesInWishlists, setBarcodesInWishlists,
+      barcodeToBeAddedToWishlist, setBarcodeToBeAddedToWishlist,
+      emptyUserDetail, expandPopUpWindow
       }}>
       {children}
     </SharedContext.Provider>

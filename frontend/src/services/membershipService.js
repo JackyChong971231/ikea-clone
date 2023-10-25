@@ -1,7 +1,7 @@
 import sha256 from 'crypto-js/sha256';
 import * as React from 'react';
 import { navigate } from '../utils/common';
-import { signIn, signUp, updateProfile } from '../apiCalls/apis/membershipAPI';
+import { signIn, signUp, updateProfile, addWishlistItem, addToWishlistItemAPI } from '../apiCalls/apis/membershipAPI';
 
 export const signUpMembershipRequest = {
     firstName:              null,
@@ -63,6 +63,10 @@ export const signUpService = async (e, signUpForm, setSignUpMessage, setUserDeta
 }
 
 // only updates membership table
-export const updateUserDetail = async (profileSavedInLocalStorage) => {
-    return await updateProfile(profileSavedInLocalStorage);
+export const updateMembershipTable = async (profileSavedInLocalStorage, membershipTableColumnName) => {
+    return await updateProfile(profileSavedInLocalStorage, membershipTableColumnName);
+}
+
+export const addToWishlistItem = async (barcode, wishlist) => {
+    return await addToWishlistItemAPI(barcode, wishlist);
 }

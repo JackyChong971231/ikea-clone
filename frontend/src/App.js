@@ -12,6 +12,7 @@ import { Home } from './pages/home.jsx';
 import { Search } from './pages/search.jsx';
 import { SignIn } from './pages/signIn.jsx';
 import { SignUp } from './pages/signUp.jsx';
+import { Wishlist } from './pages/wishlist.jsx';
 
 import { SharedProvider } from './SharedContext';
 
@@ -31,6 +32,7 @@ function App() {
               <Route path='/search' element={<Search />} />
               <Route path='/sign-in' element={<SignIn />} />
               <Route path='/sign-up' element={<SignUp />} />
+              <Route path='/wishlist' element={<Wishlist />} />
             </Routes>
           </BrowserRouter>
           <PopUp />

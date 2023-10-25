@@ -7,8 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faHeart, faShoppingCart, faBars, faArrowLeft, faXmark, faMagnifyingGlass, faLayerGroup, faTruck, faStore } from "@fortawesome/free-solid-svg-icons"
 
 import { ProfileDropdown } from '../popUp/popUp.jsx';
-import { switchPopUpContent } from '../../utils/common';
+import { expandPopUpWindow } from '../../utils/common';
 import { getAllStores } from '../../services/storeService';
+import { navigate } from '../../utils/common';
 
 const searchSuggestions = {
     'keywords': [
@@ -27,7 +28,7 @@ const searchSuggestions = {
 }
 
 export const NavBar = () => {
-    const { isDropdownComponentOpen, setIsDropdownComponentOpen, setWhichDropdownContent, userDetail, emptyUserDetail } = useSharedContext();
+    const { isDropdownComponentOpen, expandPopUpWindow, userDetail, emptyUserDetail } = useSharedContext();
 
     const [isInputFieldOnFocus, setIsInputFieldOnFocus] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -35,11 +36,6 @@ export const NavBar = () => {
 
     const handleResize = () => {
         setIsMobile(window.innerWidth <768);
-    }
-
-    const switchPopUpContent = (whichDropdownContentToShow) => {
-        setWhichDropdownContent(whichDropdownContentToShow);
-        setIsDropdownComponentOpen(true);
     }
 
     useEffect(() => {
@@ -94,13 +90,13 @@ export const NavBar = () => {
                     </div>
                 </div>
                 <ul className='navbar__icons'>
-                    <a className='navbar__icons__item profile px-3' onClick={() => {switchPopUpContent('profile')}}><FontAwesomeIcon icon={faUser} /></a>
-                    <a className='navbar__icons__item wishlist px-3'><FontAwesomeIcon icon={faHeart} /></a>
+                    <a className='navbar__icons__item profile px-3' onClick={() => {expandPopUpWindow('profile')}}><FontAwesomeIcon icon={faUser} /></a>
+                    <a className='navbar__icons__item wishlist px-3' onClick={() => {navigate('/wishlist')}}><FontAwesomeIcon icon={faHeart} /></a>
                     <a className='navbar__icons__item cart px-3'><FontAwesomeIcon icon={faShoppingCart} /></a>
                     <a className='navbar__icons__item bars px-3'><FontAwesomeIcon icon={faBars} /></a>
                 </ul>
                 <div className='navbar__location py-2'>
-                    <div className='col-6 border-bottom' onClick={() => {switchPopUpContent('location')}}>
+                    <div className='col-6 border-bottom' onClick={() => {expandPopUpWindow('location')}}>
                         <div className='navbar__location__container postal-code py-3'>
                             <FontAwesomeIcon className='pr-3' icon={faTruck} />
                             {
@@ -108,7 +104,7 @@ export const NavBar = () => {
                             }
                         </div>
                     </div>
-                    <div className='col-6 border-bottom' onClick={() => {switchPopUpContent('store')}}>
+                    <div className='col-6 border-bottom' onClick={() => {expandPopUpWindow('store')}}>
                         <span></span>
                         <div className='navbar__location__container store py-3'>
                             <FontAwesomeIcon className='pr-3' icon={faStore} />

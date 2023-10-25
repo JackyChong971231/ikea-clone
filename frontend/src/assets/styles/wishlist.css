@@ -1,0 +1,56 @@
+.wishlist__header {
+    text-align: left;
+}
+
+.wishlist__header__close-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 0;
+    border-radius: 100%;
+}
+
+.wishlist__header__close-btn:hover {
+    background-color: lightgray;
+}
+
+.wishlist__buttons {
+    display: flex;
+    border-bottom: 1px solid lightgrey;
+}
+
+.wishlist__buttons > button {
+    border: none;
+    background-color: transparent;
+}
+
+.wishlist__buttons > button:first-child {
+    border-bottom: 2px solid blue;
+}
+
+.wishlist__create-new-list {
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    line-height: 2rem;
+}
+
+.wishlist__create-new-list > p {
+    margin: 0;
+    line-height: 2rem;
+}
+
+.wishlist__add-to-name {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+}
+
+.wishlist__add-to-name > p {
+    line-height: 2rem;
+    margin: 0;
+}

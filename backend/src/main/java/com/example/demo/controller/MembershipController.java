@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Membership;
+import com.example.demo.request.membership.AddWishlistItemRequest;
+import com.example.demo.request.membership.MembershipUpdateRequest;
 import com.example.demo.request.membership.SignUpMembershipRequest;
 import com.example.demo.request.membership.SignInMembershipRequest;
 import com.example.demo.response.membership.SignInMembershipResponse;
@@ -44,8 +46,15 @@ public class MembershipController {
 
     @PostMapping("/update")
     public ResponseEntity<Object> updateMembership (
-            @RequestBody SignInMembershipResponse userDetail
+            @RequestBody MembershipUpdateRequest request
     ) {
-        return ResponseEntity.ok(membershipService.updateMembershipInfo(userDetail));
+        return ResponseEntity.ok(membershipService.updateMembershipInfo(request));
+    }
+
+    @PostMapping("/addWishlistItem")
+    public ResponseEntity<Object> addWishlistItem (
+            @RequestBody AddWishlistItemRequest request
+    ) {
+        return ResponseEntity.ok(membershipService.addWishlistItem(request));
     }
 }

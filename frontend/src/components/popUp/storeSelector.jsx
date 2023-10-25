@@ -4,6 +4,7 @@ import { useSharedContext } from "../../SharedContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { getAllStores } from "../../services/storeService";
+import { updateMembershipTable } from "../../services/membershipService";
 
 export const StoreSelector = () => {
     const {setIsDropdownComponentOpen, userDetail, setUserDetail, emptyUserDetail} = useSharedContext();
@@ -11,11 +12,14 @@ export const StoreSelector = () => {
 
     const selectStore = (store) => {
         if(userDetail !== emptyUserDetail) {
-            // console.log(store)
             setUserDetail({
                 ...userDetail,
                 preferredStore: store
             })
+            if (userDetail.signedInToken) {
+                // if signed in, update membership table in db 
+                updateMembershipTable(userDetail, 'preferredStore');
+            }
             setIsDropdownComponentOpen(false);
         }
     }

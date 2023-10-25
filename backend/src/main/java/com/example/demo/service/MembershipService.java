@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Address;
-import com.example.demo.model.Membership;
-import com.example.demo.model.Role;
+import com.example.demo.model.*;
 import com.example.demo.repository.*;
+import com.example.demo.request.membership.AddWishlistItemRequest;
+import com.example.demo.request.membership.MembershipUpdateRequest;
 import com.example.demo.request.membership.SignUpMembershipRequest;
 import com.example.demo.request.membership.SignInMembershipRequest;
 import com.example.demo.response.membership.SignInMembershipResponse;
@@ -27,12 +27,23 @@ public class MembershipService {
     private final StoreRepository storeRepository;
     private final AddressTypeRepository addressTypeRepository;
     private final AddressRepository addressRepository;
+    private final WishlistRepository wishlistRepository;
+    private final WishlistItemRepository wishlistItemRepository;
     private final AddressService addressService;
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
 
     public List<Membership> getMemberships() {
         return membershipRepository.findAll();
+    }
+
+    private Wishlist createDefaultWishlist(Membership membership) {
+        Wishlist wishlist = Wishlist.builder()
+                .membership(membership)
+                .wishlistName("My list")
+                .build();
+        wishlistRepository.save(wishlist);
+        return wishlist;
     }
 
     public Object addNewMembership(SignUpMembershipRequest request) {
@@ -56,6 +67,9 @@ public class MembershipService {
                 .role(Role.CUSTOMER)
                 .build();
         var membershipJustAdded = membershipRepository.save(membership);
+//        Wishlist wishlist = createDefaultWishlist(membershipJustAdded);
+//        Map<Wishlist, List<WishlistItem>> wishlistMap = new HashMap<>();
+//        wishlistMap.put(wishlist.getWishlistId(), defaultWishlistContent);
         var jwtToken = jwtService.generateToken(membership);
         var addressTypeForMembershipSignUp = addressTypeRepository.findByTypeName("shipping");
         addressService.addNewAddress(request.getNewAddressRequest(), membershipJustAdded, addressTypeForMembershipSignUp);
@@ -69,6 +83,7 @@ public class MembershipService {
                         .email(membership.getEmail())
                         .postalCode(membership.getPostalCode())
                         .preferredStore(membership.getPreferredStore())
+//                        .wishlists(wishlistMap)
                         .build()
         );
         return response;
@@ -83,6 +98,8 @@ public class MembershipService {
             var databasePasswordHash =   membershipOptional.get().getPasswordHash();
             if (requestPasswordHash.equals(databasePasswordHash)) {
                 var jwtToken = jwtService.generateToken(membershipOptional.get());
+                List<WishlistItem> wishlistItems = wishlistItemRepository.findBarcodeByWishlistMembership(membershipOptional.get());
+                List<Wishlist> wishlists = wishlistRepository.findByMembership(membershipOptional.get());
                 var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
                 response.setData(
                         SignInMembershipResponse.builder()
@@ -93,6 +110,8 @@ public class MembershipService {
                                 .email(membershipOptional.get().getEmail())
                                 .postalCode(membershipOptional.get().getPostalCode())
                                 .preferredStore(membershipOptional.get().getPreferredStore())
+                                .wishlistItems(wishlistItems)
+                                .wishlists(wishlists)
                                 .build()
                 );
                 return response;
@@ -106,8 +125,8 @@ public class MembershipService {
     }
 
     // userDetail structure will be same as the sign-in response
-    public Object updateMembershipInfo(SignInMembershipResponse userDetail) {
-        System.out.println(userDetail);
+    public Object updateMembershipInfo(MembershipUpdateRequest request) {
+        SignInMembershipResponse userDetail = request.getLocalStorageUserDetail();
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(userDetail.getEmail());
         if ( jwtService.isTokenValid(userDetail.getSignedInToken(), userDetails) ) {
             Optional<Membership> membershipOptional = membershipRepository.findByEmail(userDetail.getEmail());
@@ -116,13 +135,15 @@ public class MembershipService {
                 var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
                 Map<String, String> changes = new HashMap<>();
                 Membership membership = membershipOptional.get();
-                if (!userDetail.getPostalCode().equals(membership.getPostalCode())) {
-                    membership.setPostalCode(userDetail.getPostalCode());
-                    changes.put("Postal Code", userDetail.getPostalCode());
-                }
-                if (!userDetail.getPreferredStore().equals(membership.getPreferredStore())) {
-                    membership.setPreferredStore(userDetail.getPreferredStore());
-                    changes.put("Preferred Store", userDetail.getPreferredStore().getDisplayName());
+                switch (request.getColumnName()) {
+                    case "postalCode":
+                        membership.setPostalCode(userDetail.getPostalCode());
+                        changes.put("Postal Code", userDetail.getPostalCode());
+                        break;
+                    case "preferredStore":
+                        membership.setPreferredStore(userDetail.getPreferredStore());
+                        changes.put("Preferred Store", userDetail.getPreferredStore().getDisplayName());
+                        break;
                 }
                 membershipRepository.save(membership);
                 response.setData(changes);
@@ -132,5 +153,16 @@ public class MembershipService {
             return new GeneralResponse(GeneralResponse.CODE_0004_INVALID_TOKEN);
         }
         return new GeneralResponse(GeneralResponse.CODE_9999_UNKNOWN_ERROR);
+    }
+
+    public Object addWishlistItem(AddWishlistItemRequest request) {
+//        WishlistItem wishlistItem = WishlistItem.builder()
+//                .barcode(request.getBarcode())
+//                .wishlist(request.getWishlist())
+//                .quantity(request.getQuantity())
+//                .build();
+//        wishlistItemRepository.save(wishlistItem);
+        System.out.println(request);
+        return new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
     }
 }

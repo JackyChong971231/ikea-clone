@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { useSharedContext } from "../../SharedContext";
 
 
 export const ShortProduct = (props) => {
+    const { userDetail, barcodesInWishlists, expandPopUpWindow, setBarcodeToBeAddedToWishlist } = useSharedContext(); 
+
     const { barcodesThatBelongToTheSameProductId, ...other } = props;
     const [currentBarcode, setCurrentBarcode] = useState(barcodesThatBelongToTheSameProductId[0]);
     const [optionsButton, setOptionsButton] = useState();
@@ -35,6 +38,11 @@ export const ShortProduct = (props) => {
         return priceStr
     }
 
+    const addToWishlist = () => {
+        setBarcodeToBeAddedToWishlist(currentBarcode);
+        expandPopUpWindow('wishlist');
+    }
+
     useEffect(() => {
         if (barcodesThatBelongToTheSameProductId.length > 1) {
             setOptionsButton(barcodesThatBelongToTheSameProductId.map(eachBarcode => (
@@ -61,8 +69,9 @@ export const ShortProduct = (props) => {
                     onMouseLeave={() => {setIsShowProductImg(prevState => !prevState)}}></img>
                 </div>
                 <div className='product-mastercard px-2'>
-                    <p className='w-100 m-1'><b>{currentBarcode.product.brand.brandName}</b></p>
-                    <p className='w-100 m-1'>{currentBarcode.product.description}</p>
+                    <a className='w-100 m-1'><b>{currentBarcode.product.brand.brandName}</b></a>
+                    <br></br>
+                    <a className='w-100 m-1'><a>{currentBarcode.product.description}</a></a>
                     <div className='product__price m-1'>
                         <span className='product__price__currency'><b>$</b></span>
                         <span className='product__price__integer'><b>{converPrice2String(currentBarcode.originalPrice)[0]}</b></span>
@@ -78,12 +87,14 @@ export const ShortProduct = (props) => {
                 </div>
                 <div className='product__buttons__container px-2 py-3'>
                     <button className='product__button product__button--emphasised product__button__addToCart'><FontAwesomeIcon icon={faCartPlus} /></button>
-                    <button className='product__button product__button--tertiary product__button__wishlist'><FontAwesomeIcon icon={faHeart} /></button>
+                    <button className={'product__button product__button--tertiary ' + (barcodesInWishlists.includes(currentBarcode.barcodeId)?'text-danger':'')}
+                    onClick={addToWishlist}><FontAwesomeIcon icon={faHeart} /></button>
                 </div>
                 <div className="product__availableOptions__container">
                     {(barcodesThatBelongToTheSameProductId.length > 1)? <p className="pl-2">Available in more options</p>: null}
                     <div className="product__availableOptions__buttons pl-2">{optionsButton}</div>
                 </div>
+                
             </div>
         </>
     )

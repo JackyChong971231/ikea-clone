@@ -45,7 +45,7 @@ public class Barcode {
     private byte[] productImage;
 
     @Lob
-    @Column(columnDefinition = "BLOB")
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] roomImage;
     // To do: set default value to false
     private Boolean isDefaultForThumbnail;

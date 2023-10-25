@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { StoreSelected } from './storeSelected';
 import { StoreSelector } from './storeSelector';
+import { Wishlist } from './wishlist';
 
 export const PopUp = () => {
     const { isDropdownComponentOpen, setIsDropdownComponentOpen, whichDropdownContent, setWhichDropdownContent, userDetail, emptyUserDetail, isSignedIn } = useSharedContext();
@@ -24,6 +25,7 @@ export const PopUp = () => {
                     return <StoreSelector />
                 }
             case 'storeSelector': return <StoreSelector />
+            case 'wishlist': return <Wishlist />
             default: return null;
         }
     }

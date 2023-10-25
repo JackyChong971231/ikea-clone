@@ -4,6 +4,8 @@ import { useSharedContext } from "../../SharedContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 
+import { updateMembershipTable } from "../../services/membershipService";
+
 export const Location = () => {
     const { setIsDropdownComponentOpen, userDetail, setUserDetail } = useSharedContext();
     const [ postalCodeShownOnTheScreen, setPostalCodeShownOnTheScreen ] = useState("")
@@ -22,6 +24,10 @@ export const Location = () => {
                 ...userDetail,
                 postalCode: postalCode
             })
+            if (userDetail.signedInToken) {
+                // if signed in, update membership table in db
+                updateMembershipTable(userDetail, 'postalCode');
+            }
         }
         if (closePopUpAfterSave) { setIsDropdownComponentOpen(false) }
     }

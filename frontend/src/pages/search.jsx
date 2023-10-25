@@ -10,6 +10,7 @@ import product0jpg from '../assets/images/product-id/0.jpg';
 import product1jpg from '../assets/images/product-id/1.jpg';
 import product2jpg from '../assets/images/product-id/2.jpg';
 import { searchProductByKeywordLike } from '../services/productService';
+import { useSharedContext } from '../SharedContext';
 
 const dummy ={
     'products': [
