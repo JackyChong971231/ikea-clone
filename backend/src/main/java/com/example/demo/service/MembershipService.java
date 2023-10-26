@@ -5,16 +5,14 @@ import com.example.demo.repository.*;
 import com.example.demo.request.membership.*;
 import com.example.demo.response.membership.SignInMembershipResponse;
 import com.example.demo.response.error.GeneralResponse;
+import com.example.demo.specificInterface.WishlistItemIdOnly;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -96,6 +94,10 @@ public class MembershipService {
             if (requestPasswordHash.equals(databasePasswordHash)) {
                 var jwtToken = jwtService.generateToken(membershipOptional.get());
                 List<WishlistItem> wishlistItems = wishlistItemRepository.findBarcodeByWishlistMembership(membershipOptional.get());
+                List<WishlistItemIdOnly> wishlistItemsIdOnly = new ArrayList<WishlistItemIdOnly>();
+                for (WishlistItem wishlistItem : wishlistItems) {
+                    wishlistItemsIdOnly.add(new WishlistItemIdOnly(wishlistItem.getBarcode().getBarcodeId(), wishlistItem.getWishlist().getWishlistId()));
+                }
                 List<Wishlist> wishlists = wishlistRepository.findByMembership(membershipOptional.get());
                 var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
                 response.setData(
@@ -107,7 +109,7 @@ public class MembershipService {
                                 .email(membershipOptional.get().getEmail())
                                 .postalCode(membershipOptional.get().getPostalCode())
                                 .preferredStore(membershipOptional.get().getPreferredStore())
-                                .wishlistItems(wishlistItems)
+                                .wishlistItems(wishlistItemsIdOnly)
                                 .wishlists(wishlists)
                                 .build()
                 );
