@@ -53,11 +53,4 @@ public class MembershipController {
     ) {
         return ResponseEntity.ok(membershipService.updateMembershipStore(request));
     }
-
-    @PostMapping("/addWishlistItem")
-    public ResponseEntity<Object> addWishlistItem (
-            @RequestBody AddWishlistItemRequest request
-    ) {
-        return ResponseEntity.ok(membershipService.addWishlistItem(request));
-    }
 }

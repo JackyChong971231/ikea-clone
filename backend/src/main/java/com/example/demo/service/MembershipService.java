@@ -164,15 +164,4 @@ public class MembershipService {
         }
         return new GeneralResponse(GeneralResponse.CODE_9999_UNKNOWN_ERROR);
     }
-
-    public Object addWishlistItem(AddWishlistItemRequest request) {
-//        WishlistItem wishlistItem = WishlistItem.builder()
-//                .barcode(request.getBarcode())
-//                .wishlist(request.getWishlist())
-//                .quantity(request.getQuantity())
-//                .build();
-//        wishlistItemRepository.save(wishlistItem);
-        System.out.println(request);
-        return new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
-    }
 }

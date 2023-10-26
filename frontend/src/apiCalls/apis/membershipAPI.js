@@ -51,13 +51,3 @@ export const updateStore = async (profileSavedInLocalStorage, preferredStore) =>
     requestBody.preferredStore      = preferredStore
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }
-
-export const addToWishlistItemAPI = async (barcodeObject, wishlistObject) => {
-    let controllerMapping = "/addWishlistItem";
-    var requestBody = {
-        barcode: barcodeObject,
-        wishlist: wishlistObject,
-        quantity: 1
-    };
-    return apiGateway(POST, endPoint + controllerMapping, requestBody);
-}

@@ -1,7 +1,7 @@
 import sha256 from 'crypto-js/sha256';
 import * as React from 'react';
 import { navigate } from '../utils/common';
-import { signIn, signUp, updateProfile, addWishlistItem, addToWishlistItemAPI, updatePostalCode, updateStore } from '../apiCalls/apis/membershipAPI';
+import { signIn, signUp, updatePostalCode, updateStore } from '../apiCalls/apis/membershipAPI';
 
 export const signUpMembershipRequest = {
     firstName:              null,
@@ -73,9 +73,4 @@ export const updateMembershipStore = async (profileSavedInLocalStorage, storeToB
     const responseBody = await updateStore(profileSavedInLocalStorage, storeToBe);
     if (responseBody.errorCode==="0000") {return true}
     else {return false};
-}
-
-export const addToWishlistItem = async (barcodeObject, wishlistObject) => {
-    const responseBody = await addToWishlistItemAPI(barcodeObject, wishlistObject);
-    console.log(responseBody);
 }

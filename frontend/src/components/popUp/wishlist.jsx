@@ -3,7 +3,7 @@ import { useSharedContext } from "../../SharedContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons"
-import { addToWishlistItem } from "../../services/membershipService";
+import { addToWishlistItem } from "../../services/wishlistService";
 
 export const Wishlist = () => {
     const {userDetail, setIsDropdownComponentOpen, barcodeToBeAddedToWishlist} = useSharedContext();
@@ -13,11 +13,16 @@ export const Wishlist = () => {
         setWishlistsButtons(
         userDetail.wishlists.map((eachWishlist) => (
             <button className="wishlist__add-to-name px-5 py-3 border-top"
-            onClick={() => {addToWishlistItem(barcodeToBeAddedToWishlist, eachWishlist)}}>
+            onClick={() => {addOrDeleteWishlistItem(barcodeToBeAddedToWishlist, eachWishlist)}}>
                 <p>Add to <span><b>{eachWishlist.wishlistName}</b></span></p>
             </button>
         )))
     }, [userDetail])
+
+    const addOrDeleteWishlistItem = (barcodeObject, wishlistObject) => {
+        const dbUpdateStatus = addToWishlistItem(barcodeObject, wishlistObject);
+        console.log(dbUpdateStatus);
+    }
 
     return (
         <>
