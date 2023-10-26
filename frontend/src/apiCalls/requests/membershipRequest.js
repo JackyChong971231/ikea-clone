@@ -19,3 +19,15 @@ export const SignUpMembershipRequest = {
     role:                       null,
     newAddressRequest:          NewAddressRequest
 }
+
+export const MembershipUpdatePostalCodeRequest = {
+    signedInToken: null,
+    email: null,
+    postalCode: null
+}
+
+export const MembershipUpdateStoreRequest = {
+    signedInToken: null,
+    email: null,
+    preferredStore: null
+}

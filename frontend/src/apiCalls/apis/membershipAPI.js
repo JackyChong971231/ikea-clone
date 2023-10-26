@@ -1,5 +1,5 @@
 import { apiGateway, POST, GET } from "../apiMaster";
-import { SignInMembershipRequest, SignUpMembershipRequest } from "../requests/membershipRequest";
+import { SignInMembershipRequest, SignUpMembershipRequest, MembershipUpdateRequest, MembershipUpdatePostalCodeRequest, MembershipUpdateStoreRequest } from "../requests/membershipRequest";
 
 const endPoint = "/api/v1/ikea-clone/membership";
 
@@ -34,21 +34,30 @@ export const signUp = async (signUpForm) => {
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }
 
-export const updateProfile = async (profileSavedInLocalStorage, membershipTableColumnName) => {
-    let controllerMapping = "/update";
-    const requestBody = {
-        localStorageUserDetail: profileSavedInLocalStorage,
-        columnName: membershipTableColumnName
-    }
+export const updatePostalCode = async (profileSavedInLocalStorage, postalCode) => {
+    let controllerMapping = "/updatePostalCode";
+    var requestBody = MembershipUpdatePostalCodeRequest;
+    requestBody.signedInToken       = profileSavedInLocalStorage.signedInToken;
+    requestBody.email               = profileSavedInLocalStorage.email;
+    requestBody.postalCode          = postalCode
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }
 
-export const addToWishlistItemAPI = async (barcode, wishlist) => {
+export const updateStore = async (profileSavedInLocalStorage, preferredStore) => {
+    let controllerMapping = "/updateStore";
+    var requestBody = MembershipUpdateStoreRequest;
+    requestBody.signedInToken       = profileSavedInLocalStorage.signedInToken;
+    requestBody.email               = profileSavedInLocalStorage.email;
+    requestBody.preferredStore      = preferredStore
+    return apiGateway(POST, endPoint + controllerMapping, requestBody);
+}
+
+export const addToWishlistItemAPI = async (barcodeObject, wishlistObject) => {
     let controllerMapping = "/addWishlistItem";
-    const requestBody ={
-        barcode: barcode,
-        wishlist: wishlist,
+    var requestBody = {
+        barcode: barcodeObject,
+        wishlist: wishlistObject,
         quantity: 1
-    }
-    return apiGateway(POST, endPoint + controllerMapping, requestBody)
+    };
+    return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }

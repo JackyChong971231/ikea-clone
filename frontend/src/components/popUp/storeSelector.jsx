@@ -4,30 +4,34 @@ import { useSharedContext } from "../../SharedContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { getAllStores } from "../../services/storeService";
-import { updateMembershipTable } from "../../services/membershipService";
+import { updateMembershipStore } from "../../services/membershipService";
 
 export const StoreSelector = () => {
     const {setIsDropdownComponentOpen, userDetail, setUserDetail, emptyUserDetail} = useSharedContext();
     const [storeComponent, setStoreComponent] = useState([]);
 
     const selectStore = (store) => {
-        if(userDetail !== emptyUserDetail) {
+        if (userDetail.signedInToken) {
+            // if signed in, update membership table in db 
+            const dbUpdateSuccess = updateMembershipStore(userDetail, store);
+            if (dbUpdateSuccess) {
+                setUserDetail({
+                    ...userDetail,
+                    preferredStore: store
+                })
+            }
+        } else {
             setUserDetail({
                 ...userDetail,
                 preferredStore: store
             })
-            if (userDetail.signedInToken) {
-                // if signed in, update membership table in db 
-                updateMembershipTable(userDetail, 'preferredStore');
-            }
-            setIsDropdownComponentOpen(false);
         }
+        setIsDropdownComponentOpen(false);
     }
 
     useEffect(() => {
         getAllStores()
         .then(data => {
-            console.log(data);
             setStoreComponent(data.map((eachStore) => (
                 <li className="storeSelector__eachStore py-3"
                 onClick={() => {selectStore(eachStore)}}>

@@ -2,10 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
-import com.example.demo.request.membership.AddWishlistItemRequest;
-import com.example.demo.request.membership.MembershipUpdateRequest;
-import com.example.demo.request.membership.SignUpMembershipRequest;
-import com.example.demo.request.membership.SignInMembershipRequest;
+import com.example.demo.request.membership.*;
 import com.example.demo.response.membership.SignInMembershipResponse;
 import com.example.demo.response.error.GeneralResponse;
 import jakarta.persistence.EntityNotFoundException;
@@ -125,26 +122,39 @@ public class MembershipService {
     }
 
     // userDetail structure will be same as the sign-in response
-    public Object updateMembershipInfo(MembershipUpdateRequest request) {
-        SignInMembershipResponse userDetail = request.getLocalStorageUserDetail();
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(userDetail.getEmail());
-        if ( jwtService.isTokenValid(userDetail.getSignedInToken(), userDetails) ) {
-            Optional<Membership> membershipOptional = membershipRepository.findByEmail(userDetail.getEmail());
+    public Object updateMembershipPostalCode(MembershipUpdatePostalCodeRequest request) {
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getEmail());
+        if ( jwtService.isTokenValid(request.getSignedInToken(), userDetails) ) {
+            Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
             // Check whether email exists
             if (membershipOptional.isPresent()) {
                 var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
                 Map<String, String> changes = new HashMap<>();
                 Membership membership = membershipOptional.get();
-                switch (request.getColumnName()) {
-                    case "postalCode":
-                        membership.setPostalCode(userDetail.getPostalCode());
-                        changes.put("Postal Code", userDetail.getPostalCode());
-                        break;
-                    case "preferredStore":
-                        membership.setPreferredStore(userDetail.getPreferredStore());
-                        changes.put("Preferred Store", userDetail.getPreferredStore().getDisplayName());
-                        break;
-                }
+                membership.setPostalCode(request.getPostalCode());
+                changes.put("Postal Code", request.getPostalCode());
+                membershipRepository.save(membership);
+                response.setData(changes);
+                return response;
+            }
+        } else {
+            return new GeneralResponse(GeneralResponse.CODE_0004_INVALID_TOKEN);
+        }
+        return new GeneralResponse(GeneralResponse.CODE_9999_UNKNOWN_ERROR);
+    }
+
+    public Object updateMembershipStore(MembershipUpdateStoreRequest request) {
+        System.out.println(request);
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(request.getEmail());
+        if ( jwtService.isTokenValid(request.getSignedInToken(), userDetails) ) {
+            Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
+            // Check whether email exists
+            if (membershipOptional.isPresent()) {
+                var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
+                Map<String, String> changes = new HashMap<>();
+                Membership membership = membershipOptional.get();
+                membership.setPreferredStore(request.getPreferredStore());
+                changes.put("Preferred Store", request.getPreferredStore().getDisplayName());
                 membershipRepository.save(membership);
                 response.setData(changes);
                 return response;

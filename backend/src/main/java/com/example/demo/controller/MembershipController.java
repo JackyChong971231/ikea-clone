@@ -1,11 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Membership;
-import com.example.demo.request.membership.AddWishlistItemRequest;
-import com.example.demo.request.membership.MembershipUpdateRequest;
-import com.example.demo.request.membership.SignUpMembershipRequest;
-import com.example.demo.request.membership.SignInMembershipRequest;
-import com.example.demo.response.membership.SignInMembershipResponse;
+import com.example.demo.request.membership.*;
 import com.example.demo.service.MembershipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,11 +40,18 @@ public class MembershipController {
         return ResponseEntity.ok(membershipService.signIn(request));
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<Object> updateMembership (
-            @RequestBody MembershipUpdateRequest request
+    @PostMapping("/updatePostalCode")
+    public ResponseEntity<Object> updateMembershipPostalCode (
+            @RequestBody MembershipUpdatePostalCodeRequest request
     ) {
-        return ResponseEntity.ok(membershipService.updateMembershipInfo(request));
+        return ResponseEntity.ok(membershipService.updateMembershipPostalCode(request));
+    }
+
+    @PostMapping("/updateStore")
+    public ResponseEntity<Object> updateMembershipStore (
+            @RequestBody MembershipUpdateStoreRequest request
+    ) {
+        return ResponseEntity.ok(membershipService.updateMembershipStore(request));
     }
 
     @PostMapping("/addWishlistItem")
