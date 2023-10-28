@@ -5,16 +5,14 @@ import com.example.demo.repository.*;
 import com.example.demo.request.membership.*;
 import com.example.demo.response.membership.SignInMembershipResponse;
 import com.example.demo.response.error.GeneralResponse;
+import com.example.demo.specificInterface.WishlistItemIdOnly;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +39,29 @@ public class MembershipService {
                 .build();
         wishlistRepository.save(wishlist);
         return wishlist;
+    }
+
+    public SignInMembershipResponse getUserDetail(Membership membership) {
+        var jwtToken = jwtService.generateToken(membership);
+        List<WishlistItem> wishlistItems = wishlistItemRepository.findBarcodeByWishlistMembership(membership);
+        List<WishlistItemIdOnly> wishlistItemsIdOnlyList = new ArrayList<WishlistItemIdOnly>();
+        for (WishlistItem wishlistItem : wishlistItems) {
+            WishlistItemIdOnly wishlistItemIdOnly = new WishlistItemIdOnly(wishlistItem.getBarcode().getBarcodeId(), wishlistItem.getWishlist().getWishlistId());
+            wishlistItemsIdOnlyList.add(wishlistItemIdOnly);
+        }
+        List<Wishlist> wishlists = wishlistRepository.findByMembership(membership);
+        var signInMembershipResponse = SignInMembershipResponse.builder()
+                .signedInToken(jwtToken)
+                .membershipId(membership.getMembershipId())
+                .firstName(membership.getFirstName())
+                .lastName(membership.getLastName())
+                .email(membership.getEmail())
+                .postalCode(membership.getPostalCode())
+                .preferredStore(membership.getPreferredStore())
+                .wishlistItems(wishlistItemsIdOnlyList)
+                .wishlists(wishlists)
+                .build();
+        return signInMembershipResponse;
     }
 
     public Object addNewMembership(SignUpMembershipRequest request) {
@@ -94,23 +115,9 @@ public class MembershipService {
             var requestPasswordHash = request.getPasswordHash();
             var databasePasswordHash =   membershipOptional.get().getPasswordHash();
             if (requestPasswordHash.equals(databasePasswordHash)) {
-                var jwtToken = jwtService.generateToken(membershipOptional.get());
-                List<WishlistItem> wishlistItems = wishlistItemRepository.findBarcodeByWishlistMembership(membershipOptional.get());
-                List<Wishlist> wishlists = wishlistRepository.findByMembership(membershipOptional.get());
+                SignInMembershipResponse signInMembershipResponse = getUserDetail(membershipOptional.get());
                 var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
-                response.setData(
-                        SignInMembershipResponse.builder()
-                                .signedInToken(jwtToken)
-                                .membershipId(membershipOptional.get().getMembershipId())
-                                .firstName(membershipOptional.get().getFirstName())
-                                .lastName(membershipOptional.get().getLastName())
-                                .email(membershipOptional.get().getEmail())
-                                .postalCode(membershipOptional.get().getPostalCode())
-                                .preferredStore(membershipOptional.get().getPreferredStore())
-                                .wishlistItems(wishlistItems)
-                                .wishlists(wishlists)
-                                .build()
-                );
+                response.setData(signInMembershipResponse);
                 return response;
             } else {
                 return new GeneralResponse(GeneralResponse.CODE_0003_EMAIL_OR_PW_INVALID);

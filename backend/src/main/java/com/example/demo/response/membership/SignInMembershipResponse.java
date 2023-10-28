@@ -4,6 +4,7 @@ import com.example.demo.model.Store;
 import com.example.demo.model.Wishlist;
 import com.example.demo.model.WishlistItem;
 import com.example.demo.specificInterface.BarcodeOnly;
+import com.example.demo.specificInterface.WishlistItemIdOnly;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class SignInMembershipResponse {
     private String email;
     private String postalCode;
     private Store preferredStore;
-    private List<WishlistItem> wishlistItems;
+    private List<WishlistItemIdOnly> wishlistItems;
     private List<Wishlist> wishlists;
     private Object cart;
 }

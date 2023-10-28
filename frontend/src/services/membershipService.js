@@ -26,6 +26,8 @@ export const addressRequest = {
     country:                "Canada"
 }
 
+
+
 export const signInService = async (e, email, password, setSignInErrorMsg, setUserDetail, isSignedInForever) => {
     e.preventDefault();
     const passwordHash = sha256(password).toString();

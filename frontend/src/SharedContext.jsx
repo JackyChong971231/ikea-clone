@@ -18,19 +18,22 @@ export const SharedProvider = ({ children }) => {
   const [barcodeToBeAddedToWishlist, setBarcodeToBeAddedToWishlist] = useState();
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(userDetail))
+    localStorage.setItem("user", JSON.stringify(userDetail));
+    updateBarcodesInAllWishlists();
+  },[userDetail])
+
+  const updateBarcodesInAllWishlists = () => {
     const tempBarcodesInWishlists = [];
     for (const wishlistItemId in userDetail.wishlistItems) {
-      tempBarcodesInWishlists.push(userDetail.wishlistItems[wishlistItemId].barcode.barcodeId)
+      tempBarcodesInWishlists.push(userDetail.wishlistItems[wishlistItemId].barcodeId)
     }
     setBarcodesInWishlists(tempBarcodesInWishlists);
     console.log(tempBarcodesInWishlists);
-  },[userDetail])
+  }
 
   const expandPopUpWindow = (whichDropdownContentToShow) => {
     setWhichDropdownContent(whichDropdownContentToShow);
     setIsDropdownComponentOpen(true);
-    
 }
 
   return (

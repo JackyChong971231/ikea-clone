@@ -15,6 +15,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddWishlistItemRequest {
+    private String email;
     private Integer barcodeId;
     private Integer wishlistId;
     private Integer quantity;

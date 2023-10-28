@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Membership;
 import com.example.demo.model.WishlistItem;
 import com.example.demo.repository.BarcodeRepository;
+import com.example.demo.repository.MembershipRepository;
 import com.example.demo.repository.WishlistItemRepository;
 import com.example.demo.repository.WishlistRepository;
 import com.example.demo.request.membership.AddWishlistItemRequest;
@@ -10,6 +12,9 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class WishlistService {
@@ -17,6 +22,8 @@ public class WishlistService {
     private final WishlistRepository wishlistRepository;
     private final WishlistItemRepository wishlistItemRepository;
     private final BarcodeRepository barcodeRepository;
+    private final MembershipService membershipService;
+    private final MembershipRepository membershipRepository;
 
     public Object addWishlistItem(AddWishlistItemRequest request) {
         WishlistItem wishlistItem = WishlistItem.builder()
@@ -27,6 +34,9 @@ public class WishlistService {
                 .quantity(request.getQuantity())
                 .build();
         wishlistItemRepository.save(wishlistItem);
-        return new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
+        var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
+        Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
+        response.setData(membershipService.getUserDetail(membershipOptional.get()));
+        return response;
     }
 }
