@@ -6,7 +6,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons"
 import { addToWishlistItem } from "../../services/wishlistService";
 
 export const Wishlist = () => {
-    const {setUserDetail, userDetail, setIsDropdownComponentOpen, barcodeToBeAddedToWishlist} = useSharedContext();
+    const {setUserDetail, userDetail, setIsDropdownComponentOpen, barcodesInWishlists, barcodeToBeAddedToWishlist} = useSharedContext();
     const [wishlistsButtons, setWishlistsButtons] = useState();
 
     useEffect(() => {
@@ -17,12 +17,13 @@ export const Wishlist = () => {
                 <p>Add to <span><b>{eachWishlist.wishlistName}</b></span></p>
             </button>
         )))
-    }, [userDetail])
+    }, [barcodesInWishlists])
 
-    const addOrDeleteWishlistItem = (barcodeObject, wishlistObject) => {
-        const {dbUpdateSuccess, responseBodyData} = addToWishlistItem(userDetail.email, barcodeObject, wishlistObject);
+    const addOrDeleteWishlistItem = async (barcodeObject, wishlistObject) => {
+        const [dbUpdateSuccess, responseBodyData] = await addToWishlistItem(userDetail.email, barcodeObject, wishlistObject);
         if(dbUpdateSuccess) {
             setUserDetail({responseBodyData});
+            setIsDropdownComponentOpen(false);
         }
     }
 

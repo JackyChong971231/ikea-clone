@@ -109,7 +109,7 @@ export const NavBar = () => {
                         <div className='navbar__location__container store py-3'>
                             <FontAwesomeIcon className='pr-3' icon={faStore} />
                             {
-                                ((userDetail === emptyUserDetail)? <p>{defaultStore}</p>: (userDetail.preferredStore !== null)? <p>{userDetail.preferredStore.displayName}</p> : <p>{defaultStore}</p>)
+                                ((userDetail === emptyUserDetail)? <p>{defaultStore}</p>: (userDetail.preferredStore !== null && typeof userDetail.preferredStore !== "undefined")? <p>{userDetail.preferredStore.displayName}</p> : <p>{defaultStore}</p>)
                             }
                         </div>
                     </div>

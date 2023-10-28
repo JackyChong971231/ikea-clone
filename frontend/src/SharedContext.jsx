@@ -28,7 +28,6 @@ export const SharedProvider = ({ children }) => {
       tempBarcodesInWishlists.push(userDetail.wishlistItems[wishlistItemId].barcodeId)
     }
     setBarcodesInWishlists(tempBarcodesInWishlists);
-    console.log(tempBarcodesInWishlists);
   }
 
   const expandPopUpWindow = (whichDropdownContentToShow) => {
