@@ -13,50 +13,6 @@ import { searchProductByKeywordLike } from '../services/productService';
 import { useSharedContext } from '../SharedContext';
 import { reloadUserDetail } from '../services/membershipService';
 
-const dummy ={
-    'products': [
-        {
-            'name-decorator': 'SUNNERSTA',
-            'product-id': 0,
-            'image': product0jpg,
-            'description': 'Shelf/ dish drainer',
-            'price': '3.99',
-            'rating': 4.5,
-            'reviews': 20
-        },
-        {
-            'name-decorator': 'BURHULT',
-            'product-id': 1,
-            'image': product1jpg,
-            'description': 'Shelf, 59x20 cm (23 1/4x7 7/8 ")',
-            'price': '5.00',
-            'rating': 3.7,
-            'reviews': 87
-        },
-        {
-            'name-decorator': 'RÅGRUND',
-            'product-id': 2,
-            'image': product2jpg,
-            'description': 'Shelf unit, 37x37x104 cm (14 5/8x14 5/8x41 ")',
-            'price': '79.00',
-            'rating': null,
-            'reviews': 0
-        },
-    ],
-    'contents': [
-        {
-            'title': 'Your shelf, your self',
-            'type': 'Gallery',
-            'image': 'https://www.ikea.com/images/zoomed-in-image-of-a-section-of-a-shelf-featuring-a-hektar-l-f31bf8c08660d878d34abe2ae466373e.jpg?f=xxxs',
-        },
-        {
-            'title': 'Your foodie nirvana on shelves',
-            'type': 'Gallery',
-            'image': 'https://www.ikea.com/images/omar-shelving-units-in-different-heights-displaying-packages-04771b183e94d24fb128f244bd9d7d2a.jpg?f=xxxs',
-        }
-    ]
-}
-
 export const Search = () => {
     const [ searchParams, setSearchParams ] = useSearchParams();
     const [ searchQuery, setSearchQuery ] = useState('');
@@ -81,7 +37,8 @@ export const Search = () => {
     }
 
     useEffect(async () => {
-        const keyword = searchParams.get('q');
+        var keyword = searchParams.get('q');
+        if (keyword === null) {keyword = 'table'};
         setSearchQuery(keyword);
         searchProductByKeywordLike(keyword)
         .then(productsArray => { // already ordered by product id
@@ -121,7 +78,7 @@ export const Search = () => {
                             We found&nbsp;
                             <a href='#product-list'>{Object.keys(productComponent).length} products</a>
                             &nbsp;and&nbsp;
-                            <a href='#content-list'>{dummy['contents'].length} content results</a>
+                            <a href='#content-list'>{3} content results</a>
                             .
                         </span>
                     </p>
