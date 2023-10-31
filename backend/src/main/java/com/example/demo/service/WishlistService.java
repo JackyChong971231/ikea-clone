@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Barcode;
 import com.example.demo.model.Membership;
 import com.example.demo.model.WishlistItem;
 import com.example.demo.repository.BarcodeRepository;
@@ -7,12 +8,12 @@ import com.example.demo.repository.MembershipRepository;
 import com.example.demo.repository.WishlistItemRepository;
 import com.example.demo.repository.WishlistRepository;
 import com.example.demo.request.membership.AddWishlistItemRequest;
+import com.example.demo.request.membership.DelWishlistItemRequest;
 import com.example.demo.response.error.GeneralResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Service
@@ -34,6 +35,17 @@ public class WishlistService {
                 .quantity(request.getQuantity())
                 .build();
         wishlistItemRepository.save(wishlistItem);
+        var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
+        Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
+        response.setData(membershipService.getUserDetail(membershipOptional.get()));
+        return response;
+    }
+
+    public Object delWishlistItem(DelWishlistItemRequest request) {
+        WishlistItem wishlistItem = wishlistItemRepository.findByBarcodeBarcodeIdAndWishlistWishlistId(request.getBarcodeId(), request.getWishlistId());
+        wishlistItemRepository.deleteById(
+                wishlistItem.getId()
+        );
         var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
         Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
         response.setData(membershipService.getUserDetail(membershipOptional.get()));

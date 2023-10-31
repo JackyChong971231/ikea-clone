@@ -108,7 +108,7 @@ public class MembershipService {
     }
 
     public Object signIn(SignInMembershipRequest request) {
-        System.out.println(request);
+//        System.out.println(request);
         Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
         // Check whether email exists
         if (membershipOptional.isPresent()) {
@@ -170,5 +170,20 @@ public class MembershipService {
             return new GeneralResponse(GeneralResponse.CODE_0004_INVALID_TOKEN);
         }
         return new GeneralResponse(GeneralResponse.CODE_9999_UNKNOWN_ERROR);
+    }
+
+    public Object refresh(RefreshMembershipRequest request) {
+        System.out.println(request);
+        Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
+        // Check whether email exists
+        if (membershipOptional.isPresent()) {
+            SignInMembershipResponse signInMembershipResponse = getUserDetail(membershipOptional.get());
+            var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
+            response.setData(signInMembershipResponse);
+            return response;
+        } else {
+            return new GeneralResponse(GeneralResponse.CODE_0002_USER_NOT_FOUND);
+        }
+
     }
 }

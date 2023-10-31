@@ -1,7 +1,7 @@
 import sha256 from 'crypto-js/sha256';
 import * as React from 'react';
 import { navigate } from '../utils/common';
-import { signIn, signUp, updatePostalCode, updateStore } from '../apiCalls/apis/membershipAPI';
+import { refreshUserDetail, signIn, signUp, updatePostalCode, updateStore } from '../apiCalls/apis/membershipAPI';
 
 export const signUpMembershipRequest = {
     firstName:              null,
@@ -61,6 +61,15 @@ export const signUpService = async (e, signUpForm, setSignUpMessage, setUserDeta
         navigate('/');
     } else {
         setSignUpMessage(responseBody.responseMessage);
+    }
+}
+
+export const reloadUserDetail = async (signedInToken, email) => {
+    const responseBody = await refreshUserDetail(signedInToken, email)
+    if (responseBody.errorCode === "0000") {
+        return responseBody.data;
+    } else {
+        return null;
     }
 }
 

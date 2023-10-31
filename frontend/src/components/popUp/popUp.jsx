@@ -9,6 +9,7 @@ import { faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons"
 import { StoreSelected } from './storeSelected';
 import { StoreSelector } from './storeSelector';
 import { Wishlist } from './wishlist';
+import { WishlistEdit } from './wishlistEdit';
 
 export const PopUp = () => {
     const { isDropdownComponentOpen, setIsDropdownComponentOpen, whichDropdownContent, setWhichDropdownContent, userDetail, emptyUserDetail, isSignedIn } = useSharedContext();
@@ -26,6 +27,7 @@ export const PopUp = () => {
                 }
             case 'storeSelector': return <StoreSelector />
             case 'wishlist': return <Wishlist />
+            case 'wishlistDelete': return <WishlistEdit />
             default: return null;
         }
     }

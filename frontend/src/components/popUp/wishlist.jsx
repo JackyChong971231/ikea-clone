@@ -13,16 +13,16 @@ export const Wishlist = () => {
         setWishlistsButtons(
         userDetail.wishlists.map((eachWishlist) => (
             <button className="wishlist__add-to-name px-5 py-3 border-top"
-            onClick={() => {addOrDeleteWishlistItem(barcodeToBeAddedToWishlist, eachWishlist)}}>
+            onClick={() => {addWishlistItem(barcodeToBeAddedToWishlist, eachWishlist)}}>
                 <p>Add to <span><b>{eachWishlist.wishlistName}</b></span></p>
             </button>
         )))
     }, [barcodesInWishlists])
 
-    const addOrDeleteWishlistItem = async (barcodeObject, wishlistObject) => {
+    const addWishlistItem = async (barcodeObject, wishlistObject) => {
         const [dbUpdateSuccess, responseBodyData] = await addToWishlistItem(userDetail.email, barcodeObject, wishlistObject);
         if(dbUpdateSuccess) {
-            setUserDetail({responseBodyData});
+            setUserDetail(responseBodyData);
             setIsDropdownComponentOpen(false);
         }
     }

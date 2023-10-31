@@ -20,6 +20,11 @@ export const SignUpMembershipRequest = {
     newAddressRequest:          NewAddressRequest
 }
 
+export const MembershipReloadRequest = {
+    signedInToken: null,
+    email: null
+}
+
 export const MembershipUpdatePostalCodeRequest = {
     signedInToken: null,
     email: null,

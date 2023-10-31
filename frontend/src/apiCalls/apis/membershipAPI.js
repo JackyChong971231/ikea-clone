@@ -1,5 +1,5 @@
 import { apiGateway, POST, GET } from "../apiMaster";
-import { SignInMembershipRequest, SignUpMembershipRequest, MembershipUpdateRequest, MembershipUpdatePostalCodeRequest, MembershipUpdateStoreRequest } from "../requests/membershipRequest";
+import { SignInMembershipRequest, SignUpMembershipRequest, MembershipUpdateRequest, MembershipUpdatePostalCodeRequest, MembershipUpdateStoreRequest, MembershipReloadRequest } from "../requests/membershipRequest";
 
 const endPoint = "/api/v1/ikea-clone/membership";
 
@@ -31,6 +31,14 @@ export const signUp = async (signUpForm) => {
     requestBody.newAddressRequest.province      = signUpForm.province;
     requestBody.newAddressRequest.country       = signUpForm.country;
     requestBody.newAddressRequest.postalCode    = signUpForm.postalCode;
+    return apiGateway(POST, endPoint + controllerMapping, requestBody);
+}
+
+export const refreshUserDetail = async (signedInToken, email) => {
+    let controllerMapping = "/refresh";
+    var requestBody = MembershipReloadRequest;
+    requestBody.signedInToken       = signedInToken;
+    requestBody.email               = email;
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }
 

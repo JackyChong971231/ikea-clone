@@ -40,6 +40,13 @@ public class MembershipController {
         return ResponseEntity.ok(membershipService.signIn(request));
     }
 
+    @PostMapping("/refresh")
+    public ResponseEntity<Object> refreshMembership (
+            @RequestBody RefreshMembershipRequest request
+    ) {
+        return ResponseEntity.ok(membershipService.refresh(request));
+    }
+
     @PostMapping("/updatePostalCode")
     public ResponseEntity<Object> updateMembershipPostalCode (
             @RequestBody MembershipUpdatePostalCodeRequest request

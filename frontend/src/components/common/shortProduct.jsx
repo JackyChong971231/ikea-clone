@@ -38,9 +38,14 @@ export const ShortProduct = (props) => {
         return priceStr
     }
 
-    const addToWishlist = () => {
-        setBarcodeToBeAddedToWishlist(currentBarcode);
-        expandPopUpWindow('wishlist');
+    const addToOrDeleteFromWishlist = () => {
+        if (barcodesInWishlists.includes(currentBarcode.barcodeId)) {
+            setBarcodeToBeAddedToWishlist(currentBarcode);
+            expandPopUpWindow('wishlistDelete');
+        } else {
+            setBarcodeToBeAddedToWishlist(currentBarcode);
+            expandPopUpWindow('wishlist');
+        }
     }
 
     useEffect(() => {
@@ -88,7 +93,7 @@ export const ShortProduct = (props) => {
                 <div className='product__buttons__container px-2 py-3'>
                     <button className='product__button product__button--emphasised product__button__addToCart'><FontAwesomeIcon icon={faCartPlus} /></button>
                     <button className={'product__button product__button--tertiary ' + (barcodesInWishlists.includes(currentBarcode.barcodeId)?'text-danger':'')}
-                    onClick={addToWishlist}><FontAwesomeIcon icon={faHeart} /></button>
+                    onClick={addToOrDeleteFromWishlist}><FontAwesomeIcon icon={faHeart} /></button>
                 </div>
                 <div className="product__availableOptions__container">
                     {(barcodesThatBelongToTheSameProductId.length > 1)? <p className="pl-2">Available in more options</p>: null}

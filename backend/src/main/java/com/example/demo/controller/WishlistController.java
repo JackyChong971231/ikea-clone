@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.request.membership.AddWishlistItemRequest;
+import com.example.demo.request.membership.DelWishlistItemRequest;
 import com.example.demo.service.MembershipService;
 import com.example.demo.service.StoreService;
 import com.example.demo.service.WishlistService;
@@ -24,5 +25,12 @@ public class WishlistController {
             @RequestBody AddWishlistItemRequest request
     ) {
         return ResponseEntity.ok(wishlistService.addWishlistItem(request));
+    }
+
+    @PostMapping("/delWishlistItem")
+    public ResponseEntity<Object> delWishlistItem (
+            @RequestBody DelWishlistItemRequest request
+    ) {
+        return ResponseEntity.ok(wishlistService.delWishlistItem(request));
     }
 }

@@ -12,3 +12,13 @@ export const addToWishlistItemAPI = async (email, barcodeObject, wishlistObject)
     };
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }
+
+export const deleteFromWishlistItemAPI = async (email, barcodeObject, wishlistObject) => {
+    let controllerMapping = "/delWishlistItem";
+    var requestBody = {
+        email: email,
+        barcodeId: barcodeObject.barcodeId,
+        wishlistId: wishlistObject.wishlistId,
+    };
+    return apiGateway(POST, endPoint + controllerMapping, requestBody);
+}

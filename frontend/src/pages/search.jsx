@@ -11,6 +11,7 @@ import product1jpg from '../assets/images/product-id/1.jpg';
 import product2jpg from '../assets/images/product-id/2.jpg';
 import { searchProductByKeywordLike } from '../services/productService';
 import { useSharedContext } from '../SharedContext';
+import { reloadUserDetail } from '../services/membershipService';
 
 const dummy ={
     'products': [
@@ -62,6 +63,7 @@ export const Search = () => {
     const [ imageDisplayType, setImageDisplayType ] = useState('product')
     const [ filterBarScrollLocation, setFilterBarScrollLocation ] = useState('L') // L, M, R
     const [ productComponent, setProductComponent ] = useState([]);
+    const {userDetail, setUserDetail} = useSharedContext();
 
     const filterBar = useRef(null);
 
@@ -78,7 +80,7 @@ export const Search = () => {
         } else { setFilterBarScrollLocation('M') }
     }
 
-    useEffect(() => {
+    useEffect(async () => {
         const keyword = searchParams.get('q');
         setSearchQuery(keyword);
         searchProductByKeywordLike(keyword)
@@ -102,6 +104,11 @@ export const Search = () => {
             }
             setProductComponent(tempProductComponents);
         });
+        if (userDetail.signedInToken) {
+            console.log("refreshed")
+            const tempUserDetail = await reloadUserDetail(userDetail.signedInToken, userDetail.email);
+            if (tempUserDetail) {setUserDetail(tempUserDetail)};
+        }
     },[])
 
     return (
