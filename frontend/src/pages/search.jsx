@@ -62,7 +62,6 @@ export const Search = () => {
             setProductComponent(tempProductComponents);
         });
         if (userDetail.signedInToken) {
-            console.log("refreshed")
             const tempUserDetail = await reloadUserDetail(userDetail.signedInToken, userDetail.email);
             if (tempUserDetail) {setUserDetail(tempUserDetail)};
         }

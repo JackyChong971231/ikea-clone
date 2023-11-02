@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.request.membership.AddWishlistItemRequest;
+import com.example.demo.request.membership.CreateWishlistRequest;
 import com.example.demo.request.membership.DelWishlistItemRequest;
 import com.example.demo.service.MembershipService;
 import com.example.demo.service.StoreService;
@@ -20,17 +21,24 @@ public class WishlistController {
         this.wishlistService = wishlistService;
     }
 
-    @PostMapping("/addWishlistItem")
+    @PostMapping("/wishlistItem/add")
     public ResponseEntity<Object> addWishlistItem (
             @RequestBody AddWishlistItemRequest request
     ) {
         return ResponseEntity.ok(wishlistService.addWishlistItem(request));
     }
 
-    @PostMapping("/delWishlistItem")
+    @PostMapping("/wishlistItem/del")
     public ResponseEntity<Object> delWishlistItem (
             @RequestBody DelWishlistItemRequest request
     ) {
         return ResponseEntity.ok(wishlistService.delWishlistItem(request));
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<Object> createWishlist (
+            @RequestBody CreateWishlistRequest request
+    ) {
+        return ResponseEntity.ok(wishlistService.createWishlistHandler(request));
     }
 }

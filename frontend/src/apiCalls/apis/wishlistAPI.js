@@ -3,7 +3,7 @@ import { apiGateway, POST, GET } from "../apiMaster";
 const endPoint = "/api/v1/ikea-clone/wishlist";
 
 export const addToWishlistItemAPI = async (email, barcodeObject, wishlistObject) => {
-    let controllerMapping = "/addWishlistItem";
+    let controllerMapping = "/wishlistItem/add";
     var requestBody = {
         email: email,
         barcodeId: barcodeObject.barcodeId,
@@ -14,11 +14,20 @@ export const addToWishlistItemAPI = async (email, barcodeObject, wishlistObject)
 }
 
 export const deleteFromWishlistItemAPI = async (email, barcodeObject, wishlistObject) => {
-    let controllerMapping = "/delWishlistItem";
+    let controllerMapping = "/wishlistItem/del";
     var requestBody = {
         email: email,
         barcodeId: barcodeObject.barcodeId,
         wishlistId: wishlistObject.wishlistId,
+    };
+    return apiGateway(POST, endPoint + controllerMapping, requestBody);
+}
+
+export const createNewWishlistAPICall = async(email, wishlistName) => {
+    let controllerMapping = "/create";
+    var requestBody = {
+        email: email,
+        wishlistName: wishlistName,
     };
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }

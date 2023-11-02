@@ -2,13 +2,16 @@ package com.example.demo.service;
 
 import com.example.demo.model.Barcode;
 import com.example.demo.model.Membership;
+import com.example.demo.model.Wishlist;
 import com.example.demo.model.WishlistItem;
 import com.example.demo.repository.BarcodeRepository;
 import com.example.demo.repository.MembershipRepository;
 import com.example.demo.repository.WishlistItemRepository;
 import com.example.demo.repository.WishlistRepository;
 import com.example.demo.request.membership.AddWishlistItemRequest;
+import com.example.demo.request.membership.CreateWishlistRequest;
 import com.example.demo.request.membership.DelWishlistItemRequest;
+import com.example.demo.request.membership.RefreshMembershipRequest;
 import com.example.demo.response.error.GeneralResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -50,5 +53,22 @@ public class WishlistService {
         Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
         response.setData(membershipService.getUserDetail(membershipOptional.get()));
         return response;
+    }
+
+    public Object createWishlistHandler(CreateWishlistRequest request) {
+        Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
+        Wishlist wishlist = Wishlist.builder()
+                .membership(membershipOptional.get())
+                .wishlistName(request.getWishlistName())
+                .build();
+        wishlistRepository.save(wishlist);
+        RefreshMembershipRequest refreshMembershipRequest = RefreshMembershipRequest.builder()
+                .email(request.getEmail())
+                .signedInToken(request.getSignedInToken())
+                .build();
+        return membershipService.refresh(refreshMembershipRequest);
+//        Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
+//        response.setData(wishlist);
+//        return response;
     }
 }

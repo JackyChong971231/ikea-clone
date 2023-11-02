@@ -30,17 +30,21 @@
 }
 
 .wishlist__create-new-list {
-    display: flex;
-    justify-content: space-between;
     background-color: transparent;
     border: none;
     width: 100%;
     line-height: 2rem;
 }
 
-.wishlist__create-new-list > p {
+.wishlist__create-new-list__button > p {
     margin: 0;
     line-height: 2rem;
+}
+
+.wishlist__create-new-list__button {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
 .wishlist__add-to-name {
@@ -53,4 +57,27 @@
 .wishlist__add-to-name > p {
     line-height: 2rem;
     margin: 0;
+}
+
+.wishlist__create-new-list__form {
+    text-align: left;
+}
+
+.newWishlistName-field > label {
+    line-height: 1rem;
+    font-size: 0.9rem;
+}
+
+.newWishlistNameSubmitBtn {
+    width: 100%;
+    color: darkgray;
+    background-color: gray;
+    border: none;
+    border-radius: 1rem;
+    margin-top: 3rem;
+}
+
+.newWishlistNameSubmitBtn-clickable {
+    background-color: black;
+    color: white;
 }
