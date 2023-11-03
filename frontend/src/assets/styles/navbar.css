@@ -7,6 +7,16 @@
     align-items: center;
 }
 
+.navbar__logo {
+    
+}
+
+.ikea-bird {
+    position: relative;
+    height: 2rem;
+    line-height: 2rem;
+}
+
 .navbar__icons {
     display: flex;
     flex-direction: row;

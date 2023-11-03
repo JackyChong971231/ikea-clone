@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSharedContext } from '../../SharedContext';
 
 import ikeaLogo from '../../assets/images/ikeaLogo.svg';
+import ikeaBird from '../../assets/images/ikea-bird.mp4';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faHeart, faShoppingCart, faBars, faArrowLeft, faXmark, faMagnifyingGlass, faLayerGroup, faTruck, faStore } from "@fortawesome/free-solid-svg-icons"
 
@@ -52,6 +53,9 @@ export const NavBar = () => {
                 <div className='navbar__logo py-3'>
                     <a href='https://www.ikea.com/ca/en/' data-tracking-label='ikea-logo'>
                         <img src={ikeaLogo} alt='ikea-logo'></img>
+                        <video className='ikea-bird' loop autoPlay muted>
+                            <source src={ikeaBird} type='video/mp4' />
+                        </video>
                     </a>
                 </div>
                 <div className='navbar__search'>

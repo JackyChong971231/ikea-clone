@@ -3,6 +3,8 @@ package com.example.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,4 +22,5 @@ public class Wishlist {
     @ManyToOne
     @JoinColumn(name = "membership_id")
     private Membership membership;
+    private LocalDateTime lastUpdate;
 }

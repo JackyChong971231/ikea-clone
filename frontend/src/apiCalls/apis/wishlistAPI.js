@@ -31,3 +31,12 @@ export const createNewWishlistAPICall = async(email, wishlistName) => {
     };
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }
+
+export const getAllWishlistItemsAPI = async (email, signedInToken) => {
+    let controllerMapping = "/wishlistItem/get";
+    var requestBody = {
+        email: email,
+        signedInToken: signedInToken,
+    };
+    return apiGateway(POST, endPoint + controllerMapping, requestBody);
+}
