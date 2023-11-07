@@ -36,7 +36,7 @@ export const Search = () => {
         } else { setFilterBarScrollLocation('M') }
     }
 
-    useEffect(async () => {
+    useEffect(() => {
         var keyword = searchParams.get('q');
         if (keyword === null) {keyword = 'table'};
         setSearchQuery(keyword);
@@ -62,8 +62,11 @@ export const Search = () => {
             setProductComponent(tempProductComponents);
         });
         if (userDetail.signedInToken) {
-            const tempUserDetail = await reloadUserDetail(userDetail.signedInToken, userDetail.email);
-            if (tempUserDetail) {setUserDetail(tempUserDetail)};
+            // const tempUserDetail = await reloadUserDetail(userDetail.signedInToken, userDetail.email);
+            reloadUserDetail(userDetail.signedInToken, userDetail.email)
+            .then(tempUserDetail => {
+                if (tempUserDetail) {setUserDetail(tempUserDetail)};
+            })
         }
     },[])
 

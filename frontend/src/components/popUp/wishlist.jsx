@@ -31,7 +31,6 @@ export const Wishlist = () => {
     }
 
     const createNewWishlistFrontend = async (e) => {
-        console.log("hihihihihi")
         e.preventDefault()
         const [dbUpdateSuccess, responseBodyData] = await createNewWishlist(userDetail.email, newWishlistName);
         if (dbUpdateSuccess) {

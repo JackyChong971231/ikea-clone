@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -131,11 +132,13 @@ public class DatabaseLoadData {
         Wishlist wishlist0 = Wishlist.builder()
                 .membership(membership0)
                 .wishlistName("My list")
+                .lastUpdate(LocalDateTime.now())
                 .build();
         wishlistRepository.save(wishlist0);
         Wishlist wishlist1 = Wishlist.builder()
                 .membership(membership0)
                 .wishlistName("188 Fairview Mall Dr")
+                .lastUpdate(LocalDateTime.now())
                 .build();
         wishlistRepository.save(wishlist1);
 

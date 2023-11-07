@@ -21,6 +21,5 @@ export const createNewWishlist = async(email, wishlistName) => {
 
 export const getAllWishlistItems = async(email, signedInToken) => {
     const responseBody = await getAllWishlistItemsAPI(email, signedInToken);
-    console.log(responseBody.data)
     return responseBody.data;
 }
