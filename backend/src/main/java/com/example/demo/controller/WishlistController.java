@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.ServerConfig;
 import com.example.demo.request.common.ShortUserDetail;
 import com.example.demo.request.membership.AddWishlistItemRequest;
 import com.example.demo.request.membership.CreateWishlistRequest;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/ikea-clone/wishlist")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = ServerConfig.crossOrigin)
 public class WishlistController {
     private final WishlistService wishlistService;
 

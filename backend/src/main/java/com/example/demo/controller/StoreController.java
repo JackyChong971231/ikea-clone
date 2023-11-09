@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.ServerConfig;
 import com.example.demo.model.Membership;
 import com.example.demo.model.Store;
 import com.example.demo.service.MembershipService;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/ikea-clone/store")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = ServerConfig.crossOrigin)
 public class StoreController {
     private final StoreService storeService;
 
