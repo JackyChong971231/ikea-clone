@@ -51,7 +51,8 @@ export const NavBar = () => {
         <div className='navbar'>
             <div className='navbar__container'>
                 <div className='navbar__logo py-3'>
-                    <a href='https://www.ikea.com/ca/en/' data-tracking-label='ikea-logo'>
+                    <a data-tracking-label='ikea-logo'
+                    onClick={() => {navigate('/')}}>
                         <img src={ikeaLogo} alt='ikea-logo'></img>
                         <video className='ikea-bird' loop autoPlay muted>
                             <source src={ikeaBird} type='video/mp4' />
