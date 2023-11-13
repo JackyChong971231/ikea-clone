@@ -48,7 +48,7 @@ export const NavBar = () => {
     }, [])
 
     return (
-        <div className='navbar'>
+        <div className='navbar px-3'>
             <div className='navbar__container'>
                 <div className='navbar__logo py-3'>
                     <a data-tracking-label='ikea-logo'
