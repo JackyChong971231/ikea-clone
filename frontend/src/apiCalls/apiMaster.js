@@ -9,7 +9,10 @@ export const apiGateway = async (method, endPoint, requestBody) => {
         method: method,
         mode: 'cors',
         credentials: 'include',
-        headers: { 'Content-Type': 'application/json', 'Connection': 'keep-alive' },
+        headers: { 
+            'Content-Type': 'application/json', 
+            'Connection': 'keep-alive', 
+            'Origin': 'http://localhost:5001' },
         body: JSON.stringify(requestBody)
     })
     const body = await response.json();
