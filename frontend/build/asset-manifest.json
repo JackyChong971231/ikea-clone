@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.18b64e16.css",
+    "main.js": "/static/js/main.4735e154.js",
+    "static/js/787.dda66dd3.chunk.js": "/static/js/787.dda66dd3.chunk.js",
+    "static/media/signUp-image-1.jpg": "/static/media/signUp-image-1.6c9a5b763c764348260c.jpg",
+    "static/media/2.jpg": "/static/media/2.b5af3e60bcc605a5efc9.jpg",
+    "static/media/ikea-bird.mp4": "/static/media/ikea-bird.67ca12264da09134f0a3.mp4",
+    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "static/media/ikeaLogo.svg": "/static/media/ikeaLogo.f7d9229f806b59ec64cb299144507905.svg",
+    "index.html": "/index.html",
+    "main.18b64e16.css.map": "/static/css/main.18b64e16.css.map",
+    "main.4735e154.js.map": "/static/js/main.4735e154.js.map",
+    "787.dda66dd3.chunk.js.map": "/static/js/787.dda66dd3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.18b64e16.css",
+    "static/js/main.4735e154.js"
+  ]
+}
