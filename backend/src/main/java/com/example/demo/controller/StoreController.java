@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/ikea-clone/store")
-@CrossOrigin(origins = ServerConfig.crossOrigin)
+@CrossOrigin(origins = ServerConfig.crossOrigin, allowCredentials = "true")
 public class StoreController {
     private final StoreService storeService;
 

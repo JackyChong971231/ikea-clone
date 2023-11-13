@@ -1,7 +1,7 @@
 export const POST      = 'POST';
 export const GET       = "GET";
 
-const serverUrl = "http://localhost:8080"
+const serverUrl = "http://137.184.166.60:8080"
 
 export const apiGateway = async (method, endPoint, requestBody) => {
     // console.log(JSON.stringify(requestBody));

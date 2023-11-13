@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/ikea-clone/wishlist")
-@CrossOrigin(origins = ServerConfig.crossOrigin)
+@CrossOrigin(origins = ServerConfig.crossOrigin, allowCredentials = "true")
 public class WishlistController {
     private final WishlistService wishlistService;
 
