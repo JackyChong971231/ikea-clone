@@ -1,5 +1,9 @@
+import { GET, apiGateway } from "../apiCalls/apiMaster";
+import { getAllStoresAPI } from "../apiCalls/apis/storeAPI";
+
 export const getAllStores = async () => {
-    const response = await fetch('http://localhost:8080/api/v1/ikea-clone/store');
-    const data = await response.json();
-    return data;
+    const response = await getAllStoresAPI()
+    console.log(response);
+    // const data = await response.json();
+    return response;
 }

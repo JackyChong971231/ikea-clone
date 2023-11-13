@@ -13,7 +13,7 @@ export const apiGateway = async (method, endPoint, requestBody) => {
             'Content-Type': 'application/json', 
             'Connection': 'keep-alive', 
             'Origin': 'http://localhost:5001' },
-        body: JSON.stringify(requestBody)
+        body: (method !== GET)? JSON.stringify(requestBody): null
     })
     const body = await response.json();
     return body;
