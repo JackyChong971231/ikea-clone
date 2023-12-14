@@ -1,0 +1,79 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // Print the selected branch
+                    echo 'Selected branch: ${params.BRANCH}'
+
+                    // Checkout the code from GitHub
+                    def repositoryUrl = 'https://github.com/JackyChong971231/ikea-clone.git'
+                    git url: repositoryUrl, branch: params.BRANCH
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Use Maven to build your project
+                script {
+                    dir('backend') {
+                        withMaven (globalMavenSettingsConfig: '', jdk: '', maven: '3.9.4') {
+                            sh 'mvn clean package'
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Publish & Deploy') {
+            steps {
+                script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'digital-ocean', 
+                                transfers: [
+                                    sshTransfer(
+                                        cleanRemote: false, 
+                                        excludes: '', 
+                                        execCommand: '''
+                                            sudo systemctl enable spring-app.service
+                                            sudo systemctl restart spring-app.service
+                                        ''', 
+                                        execTimeout: 120000, 
+                                        flatten: false, 
+                                        makeEmptyDirs: false, 
+                                        noDefaultExcludes: false, 
+                                        patternSeparator: '[, ]+', 
+                                        remoteDirectory: '//var/www/build-artifacts/ikea-clone-backend', 
+                                        remoteDirectorySDF: false, 
+                                        removePrefix: 'backend/target/', 
+                                        sourceFiles: 'backend/target/**/*'
+                                    )
+                                ], 
+                                usePromotionTimestamp: false, 
+                                useWorkspaceInPromotion: false, 
+                                verbose: false
+                            )
+                        ]
+                    )
+                }
+            }
+        }
+    }
+
+        // Add more stages as needed (e.g., testing, deployment)
+
+    post {
+        success {
+            echo 'Build successful! Do additional tasks if needed.'
+        }
+        failure {
+            echo 'Build failed! Take necessary actions.'
+        }
+    }
+}                        // sh 'npx update-browserslist-db@latest'
+
