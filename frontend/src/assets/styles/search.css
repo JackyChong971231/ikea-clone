@@ -118,6 +118,12 @@
     overflow-x: scroll;
     padding: 0.5rem 0 1.5rem 0;
     order: 1;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.search__container__filter-bar__carousel::-webkit-scrollbar {
+    display: none;
 }
 
 .filter-pill {
