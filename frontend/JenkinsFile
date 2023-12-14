@@ -64,7 +64,7 @@ pipeline {
                                         execCommand: '''
                                             pm2 delete ikea-clone-frontend
                                             cd /var/www/build-artifacts/ikea-clone-frontend
-                                            pm2 serve build/ 5001 --name ikea-clone-frontend --spa
+                                            pm2 serve ./ 5001 --name ikea-clone-frontend --spa
                                         ''', 
                                         execTimeout: 120000, 
                                         flatten: false, 
