@@ -21,6 +21,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding-left: 0;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     margin: 0;
@@ -149,6 +150,10 @@
     width: 100%;
     align-items: center;
     order: 10;
+}
+
+.navbar__location__icon {
+    padding-right: 1rem;
 }
 
 .navbar__location > div {
