@@ -1,3 +1,22 @@
+/*
+Installed plugins:
+    1. Git plugin
+    2. NodeJS Plugin
+        Setup:
+            1. Manage Jenkins > Tools
+            2. Look for "NodeJS installations"
+            3. Set Name to 21.4.0 and selection Version to "NodeJS 21.4.0"
+    3. Publish Over SSH
+        Setup:
+            1. Manage Jenkins > System
+            2. Look for Publish over SSH
+                3. Enter the remote server password in Passphrase
+                4. Set name of SSH Server to "digital-ocean"
+                5. Hostname is server ip
+                6. Username is server username (e.g. root)
+                7. Leave the Remote Directory empty
+*/
+
 pipeline {
     agent any
     
