@@ -25,7 +25,7 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("api/v1/ikea-clone/**") //ikea-clone is open for public, otherwise, you need a token to access
+                .requestMatchers("api/v1/**") //ikea-clone is open for public, otherwise, you need a token to access
                 .permitAll()
                 .anyRequest()
                 .authenticated()

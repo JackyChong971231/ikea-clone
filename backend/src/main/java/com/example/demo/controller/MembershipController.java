@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/ikea-clone/membership")
-@CrossOrigin(origins = ServerConfig.crossOrigin, allowCredentials = "true")
+@CrossOrigin(origins = ServerConfig.ikeaCloneCrossOrigin, allowCredentials = "true")
 public class MembershipController {
 
     private final MembershipService membershipService;

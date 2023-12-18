@@ -35,6 +35,9 @@
   </a>
 
   <h3 align="center">IKEA Website Clone</h3>
+  An IKEA Website Clone built with React, Spring Boot and MySQL
+  
+  Hosted in an Ubuntu server and built and deployed with Jenkins
 
   <!-- <p align="center">
     Welcome to my IKEA Website Clone project!
@@ -88,7 +91,9 @@
         <td>Mobile Version</td>
     </tr>
     <tr>
-        <td><img src="./README_images/desktop-search.png" width=500></td>
+        <td>
+          <img src="./README_images/desktop-search.png" width=500>
+        </td>
         <td><img src="./README_images/mobile-search.jpg" width=200></td>
     </tr>
 </table>
@@ -101,20 +106,20 @@ Here's why I build the IKEA clone:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
+### System Diagram
+This IKEA clone project is hosted in a
 
 ### Built With
 This IKEA clone website is built with the below add-ons, frameworks and libraries.
 
 * [![React][React.js]][React-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-
 * [![SpringBoot][SpringBoot.com]][SpringBoot-url]
 * [![MySQL][MySQL.com]][MySQL-url]
 
 <table>
     <tr>
-        <td>ER Diagram</td>
+        <td>ER Diagram for the database</td>
     </tr>
     <tr>
         <td><img src="./README_images/er-diagram-first-draft.jpg"></td>
@@ -165,13 +170,15 @@ This is an example of how to list things you need to use the software and how to
 
 <!-- ROADMAP -->
 ## Roadmap
-
+Frontend:
 - [x] Add common components e.g. Navbar
 - [x] Add search page
 - [ ] Add backend server
     - [x] Database setup
     - [ ] Membership register and login
     - [ ] Add product table
+
+Backend:
 - [ ] Add home page
 - [ ] Multi-language Support
     - [ ] Chinese

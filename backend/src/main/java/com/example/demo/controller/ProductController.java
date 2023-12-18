@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/ikea-clone/product")
-@CrossOrigin(origins = ServerConfig.crossOrigin, allowCredentials = "true")
+@CrossOrigin(origins = ServerConfig.ikeaCloneCrossOrigin, allowCredentials = "true")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
