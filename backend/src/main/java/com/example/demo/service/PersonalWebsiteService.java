@@ -24,7 +24,7 @@ public class PersonalWebsiteService {
         personalWebsiteHttpRequestRepository.save(personalWebsiteHttpRequest);
         var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
         response.setData(personalWebsiteHttpRequest);
-//        System.out.println(response);
+        System.out.println(response);
         return response;
     }
 }
