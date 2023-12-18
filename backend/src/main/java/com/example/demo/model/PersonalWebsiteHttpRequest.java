@@ -21,4 +21,7 @@ public class PersonalWebsiteHttpRequest {
     private String ipAddr;
     private LocalDateTime enterTime;
     private LocalDateTime leaveTime;
+    private String geolocation;
+    private String connectionType;
+    private String organizationName;
 }

@@ -19,6 +19,9 @@ public class PersonalWebsiteService {
                 .enterTime(request.getEnterTime().minus(5, ChronoUnit.HOURS)) // Toronto = UTC - 5 hrs
                 .leaveTime(request.getLeaveTime().minus(5, ChronoUnit.HOURS)) // Toronto = UTC - 5 hrs
                 .ipAddr(request.getIpAddr())
+                .geolocation(request.getGeolocation())
+                .connectionType(request.getConnectionType())
+                .organizationName(request.getOrganizationName())
                 .build();
 //        System.out.println(request.getEnterTime().minus(5, ChronoUnit.HOURS));
         personalWebsiteHttpRequestRepository.save(personalWebsiteHttpRequest);

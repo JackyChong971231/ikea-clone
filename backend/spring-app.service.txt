@@ -1,0 +1,11 @@
+[Unit]
+Description=Spring Boot Application
+After=syslog.target
+
+[Service]
+User=springApp
+ExecStart=java -jar /var/www/build-artifacts/ikea-clone-backend/demo-0.0.1-SNAPSHOT.jar --port 8080
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target

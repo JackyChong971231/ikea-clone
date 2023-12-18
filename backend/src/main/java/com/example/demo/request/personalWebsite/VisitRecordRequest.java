@@ -19,4 +19,7 @@ public class VisitRecordRequest {
     private LocalDateTime enterTime;
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime leaveTime;
+    private String geolocation;
+    private String connectionType;
+    private String organizationName;
 }
