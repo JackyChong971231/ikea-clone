@@ -16,6 +16,7 @@ export const SharedProvider = ({ children }) => {
   const [isShowProductImage, setIsShowProductImage] = useState(true)
   const [barcodesInWishlists, setBarcodesInWishlists] = useState();
   const [barcodeToBeAddedToWishlist, setBarcodeToBeAddedToWishlist] = useState();
+  const [ imageDisplayType, setImageDisplayType ] = useState('product')
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(userDetail));
@@ -44,7 +45,8 @@ export const SharedProvider = ({ children }) => {
       isShowProductImage, setIsShowProductImage,
       barcodesInWishlists, setBarcodesInWishlists,
       barcodeToBeAddedToWishlist, setBarcodeToBeAddedToWishlist,
-      emptyUserDetail, expandPopUpWindow
+      emptyUserDetail, expandPopUpWindow,
+      imageDisplayType, setImageDisplayType
       }}>
       {children}
     </SharedContext.Provider>

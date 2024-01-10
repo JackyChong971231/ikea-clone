@@ -6,7 +6,7 @@ import { useSharedContext } from "../../SharedContext";
 
 
 export const ShortProduct = (props) => {
-    const { userDetail, barcodesInWishlists, expandPopUpWindow, setBarcodeToBeAddedToWishlist } = useSharedContext(); 
+    const { userDetail, barcodesInWishlists, expandPopUpWindow, setBarcodeToBeAddedToWishlist, imageDisplayType } = useSharedContext(); 
 
     const { barcodesThatBelongToTheSameProductId, ...other } = props;
     const [currentBarcode, setCurrentBarcode] = useState(barcodesThatBelongToTheSameProductId[0]);
@@ -70,8 +70,8 @@ export const ShortProduct = (props) => {
                     <img 
                     src={(isShowProductImg)?"data:image/png;base64,"+currentBarcode.productImage: "data:image/png;base64,"+currentBarcode.roomImage} 
                     alt={'product-image for barcodeId: '+currentBarcode.barcodeId}
-                    onMouseEnter={() => {setIsShowProductImg(prevState => !prevState)}}
-                    onMouseLeave={() => {setIsShowProductImg(prevState => !prevState)}}></img>
+                    onMouseEnter={() => {setIsShowProductImg(!(imageDisplayType==="product"))}}
+                    onMouseLeave={() => {setIsShowProductImg((imageDisplayType==="product"))}}></img>
                 </div>
                 <div className='product-mastercard px-2'>
                     <a className='w-100 m-1'><b>{currentBarcode.product.brand.brandName}</b></a>

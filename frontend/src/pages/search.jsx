@@ -16,10 +16,9 @@ import { reloadUserDetail } from '../services/membershipService';
 export const Search = () => {
     const [ searchParams, setSearchParams ] = useSearchParams();
     const [ searchQuery, setSearchQuery ] = useState('');
-    const [ imageDisplayType, setImageDisplayType ] = useState('product')
     const [ filterBarScrollLocation, setFilterBarScrollLocation ] = useState('L') // L, M, R
     const [ productComponent, setProductComponent ] = useState([]);
-    const {userDetail, setUserDetail} = useSharedContext();
+    const {userDetail, setUserDetail, imageDisplayType, setImageDisplayType} = useSharedContext();
 
     const filterBar = useRef(null);
 

@@ -120,6 +120,7 @@
     order: 1;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    z-index: 1;
 }
 
 .search__container__filter-bar__carousel::-webkit-scrollbar {
@@ -183,6 +184,7 @@
     height: 2rem;
     width: 2rem;
     border: 0;
+    z-index: 2;
 }
 
 .filter__carousel__overflowBtn--left {
