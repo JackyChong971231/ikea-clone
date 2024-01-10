@@ -10,7 +10,12 @@ export const ShortProduct = (props) => {
 
     const { barcodesThatBelongToTheSameProductId, ...other } = props;
     const [currentBarcode, setCurrentBarcode] = useState(barcodesThatBelongToTheSameProductId[0]);
-    const [optionsButton, setOptionsButton] = useState();
+    const [optionsButton, setOptionsButton] = useState((barcodesThatBelongToTheSameProductId.length > 1)? 
+    barcodesThatBelongToTheSameProductId.map(eachBarcode => (
+        <div className="product__availableOptions__buttons__eachButton" onClick={() => setCurrentBarcode(eachBarcode)}>
+            <img src={"data:image/png;base64,"+eachBarcode.productImage} alt=""></img>    
+        </div>
+    )): null);
     const [isShowProductImg, setIsShowProductImg] = useState(true);
 
     const starRatingGenerator = (rating) => {
@@ -49,17 +54,8 @@ export const ShortProduct = (props) => {
     }
 
     useEffect(() => {
-        if (barcodesThatBelongToTheSameProductId.length > 1) {
-            setOptionsButton(barcodesThatBelongToTheSameProductId.map(eachBarcode => (
-                <div className="product__availableOptions__buttons__eachButton" onClick={() => setCurrentBarcode(eachBarcode)}>
-                    <img src={"data:image/png;base64,"+eachBarcode.productImage} alt=""></img>    
-                </div>
-            )))
-        } else {setOptionsButton(null)}
-
-        // const url = URL.createObjectURL(currentBarcode.productImage)
-        // setProductImage(url)
-    },[])
+        setIsShowProductImg((imageDisplayType==="product"))
+    },[imageDisplayType])
 
     return (
         <>
