@@ -70,7 +70,8 @@ export const NavBar = () => {
                         name='q' maxLength='150' aria-label='Search for products, inspiration or new arrivals'
                         placeholder='Find what you need to Bring Home to Life' autoComplete='off' spellCheck='false'
                         style={{paddingInlineStart: (isMobile && isInputFieldOnFocus)? '2.5rem': '1rem'}}
-                        onClick={() => {setIsInputFieldOnFocus(true)}}></input>
+                        onClick={() => {setIsInputFieldOnFocus(true)}}
+                        onBlur={() => {setIsInputFieldOnFocus(false)}}></input>
                         <div className='navbar__search__search-box__buttons'>
                             <span className='px-3'><FontAwesomeIcon icon={faXmark} /></span>
                             <span className='px-3'><FontAwesomeIcon icon={faMagnifyingGlass} /></span>
@@ -97,8 +98,14 @@ export const NavBar = () => {
                 <ul className='navbar__icons'>
                     <a className='navbar__icons__item profile px-3' onClick={() => {expandPopUpWindow('profile')}}><FontAwesomeIcon icon={faUser} /></a>
                     <a className='navbar__icons__item wishlist px-3' onClick={() => {navigate('/wishlist')}}><FontAwesomeIcon icon={faHeart} /></a>
-                    <a className='navbar__icons__item cart px-3'><FontAwesomeIcon icon={faShoppingCart} /></a>
-                    <a className='navbar__icons__item bars px-3'><FontAwesomeIcon icon={faBars} /></a>
+                    <a className='navbar__icons__item cart tooltip-parent px-3'>
+                        <span class="tooltip-text"><p>Not activated</p></span>
+                        <FontAwesomeIcon icon={faShoppingCart} />
+                    </a>
+                    <a className='navbar__icons__item bars tooltip-parent px-3'>
+                        <span class="tooltip-text"><p>Not activated</p></span>
+                        <FontAwesomeIcon icon={faBars} />
+                    </a>
                 </ul>
                 <div className='navbar__location py-2'>
                     <div className='col-6 border-bottom' onClick={() => {expandPopUpWindow('location')}}>

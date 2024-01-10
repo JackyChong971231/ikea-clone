@@ -13,3 +13,39 @@
     width: max-content;
     z-index: 9999;
 }
+
+.not-activated-yet {
+    padding-inline: 1rem;
+    color: red;
+    text-decoration-color: red;
+
+}
+
+.tooltip-parent .tooltip-text {
+    visibility: hidden;
+    width: auto;
+    text-align: center;
+    padding: 0px 5px;
+
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    /* top: inherit;
+    right: inherit; */
+    transform: translate(-100%,0%);
+    margin-right: 2rem;
+}
+
+.tooltip-text > p {
+    margin: 0;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    background-color: lightgray;
+    color: rgb(48, 48, 48);
+    border-radius: 0.5rem;
+}
+
+.tooltip-parent:hover .tooltip-text {
+    visibility: visible;
+}

@@ -1,3 +1,7 @@
+.navbar {
+    overflow-y: visible;
+}
+
 .navbar__container {
     display: flex;
     flex-direction: row;
@@ -58,6 +62,7 @@
     position: relative;
     display: block;
     width: auto;
+    z-index: 10;
 }
 
 .navbar__search__search-box__close--show {
@@ -125,15 +130,27 @@
 }
 
 .dropdown {
-    background: rgb(var(--colour-elevation-2));
-    border-radius: 0 0 0.5rem 0.5rem;
-    left: 0;
-    max-height: calc(100vh - 60px);
-    min-height: 76vh;
-    overflow-x: auto;
-    padding: 1rem 1.25rem 2rem;
     position: absolute;
+    /* background: rgb(var(--colour-elevation-2)); */
+    /* background-color: rgb(var(--colour-elevation-2)); */
+    background-color: rgb(var(--colour-neutral-2));
+    border-radius: 1.5rem 1.5rem 0.5rem 0.5rem;
+    left: 0;
+    top: -3.125rem;
+
+    /* max-height: calc(100vh - 60px);
+    min-height: 76vh; */
+    overflow-x: auto;
+    padding: 4rem 1.25rem 2rem;
     width: 100%;
+    /* border: 1px solid black; */
+    z-index: 2;
+}
+
+.navbar__search {
+    position: relative;
+    height: 3.125rem;
+    overflow-y: visible;
 }
 
 .search-suggestions__item {
