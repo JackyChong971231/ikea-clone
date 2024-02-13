@@ -13,11 +13,8 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class VisitRecordRequest {
-    private String ipAddr;
+public class VisitRecordUpdateRequest {
+    private Integer personalWebsiteHttpRequestId;
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime enterTime;
-    private String geolocation;
-    private String connectionType;
-    private String organizationName;
+    private LocalDateTime leaveTime;
 }

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.config.ServerConfig;
 import com.example.demo.request.personalWebsite.VisitRecordRequest;
+import com.example.demo.request.personalWebsite.VisitRecordUpdateRequest;
 import com.example.demo.service.PersonalWebsiteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,5 +20,12 @@ public class PersonalWebsiteController {
             @RequestBody VisitRecordRequest request
     ) {
         return ResponseEntity.ok(personalWebsiteService.addHttpRequestRecord(request));
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Object> updatePersonalWebsiteVisitRecord (
+            @RequestBody VisitRecordUpdateRequest request
+    ) {
+        return ResponseEntity.ok(personalWebsiteService.updateHttpRequestRecord(request));
     }
 }

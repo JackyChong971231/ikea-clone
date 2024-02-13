@@ -23,6 +23,7 @@ public class GeneralResponse {
     public static final String CODE_0002_USER_NOT_FOUND         = "0002";
     public static final String CODE_0003_EMAIL_OR_PW_INVALID    = "0003";
     public static final String CODE_0004_INVALID_TOKEN          = "0004";
+    public static final String CODE_0005_PERSONAL_WEBSITE_VISIT_ID_NOT_FOUND = "0005";
     public static final String CODE_9999_UNKNOWN_ERROR          = "9999";
 
 
@@ -33,6 +34,7 @@ public class GeneralResponse {
         ResponseErrorMap.put(CODE_0002_USER_NOT_FOUND,          "Membership cannot be found with the given email");
         ResponseErrorMap.put(CODE_0003_EMAIL_OR_PW_INVALID,     "Invalid email or password");
         ResponseErrorMap.put(CODE_0004_INVALID_TOKEN,           "Invalid token");
+        ResponseErrorMap.put(CODE_0005_PERSONAL_WEBSITE_VISIT_ID_NOT_FOUND,           "Could not update personal website table because visit id not found");
         ResponseErrorMap.put(CODE_9999_UNKNOWN_ERROR,           "Unknown error");
     }
     public GeneralResponse(String errorCode) {
