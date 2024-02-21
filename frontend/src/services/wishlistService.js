@@ -24,10 +24,7 @@ export const getAllWishlistItems = async(email, signedInToken) => {
     return responseBody.data;
 }
 
-export const updateWishlistItemQuantity = async(wishlistItem, val) => {
-    const responseBody = await updateWishlistItemAPI({
-        ... wishlistItem,
-        quantity: wishlistItem.quantity + val
-    })
+export const updateWishlistItemQuantity = async(wishlistItem) => {
+    const responseBody = await updateWishlistItemAPI(wishlistItem)
     return responseBody.data;
 }

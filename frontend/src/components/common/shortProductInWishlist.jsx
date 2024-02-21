@@ -9,17 +9,19 @@ import { updateWishlistItemQuantity } from "../../services/wishlistService";
 
 export const ShortProductInWishlist = (props) => {
     const { wishlistItem, ...other } = props;
+    const [currentWishlistItem, setCurrentWishlistItem] = useState(wishlistItem)
 
     useEffect(() => {
         // console.log(wishlistItem.barcode.productImage);
+
     },[])
 
-    const updateQuantity = (val) => {
-        updateWishlistItemQuantity({
-            ... wishlistItem,
-            quantity: wishlistItem.quantity + val
+    const updateQuantity = async (val) => {
+        const newWishlistItem = await updateWishlistItemQuantity({
+            ... currentWishlistItem,
+            quantity: currentWishlistItem.quantity + val
         })
-        
+        setCurrentWishlistItem(newWishlistItem)
     }
 
     return (
@@ -59,7 +61,7 @@ export const ShortProductInWishlist = (props) => {
                             <FontAwesomeIcon icon={faMinus} />
                         </button>
                         <input className="wishlist-item-quantity-stepper__input"
-                        value={wishlistItem.quantity}></input>
+                        value={currentWishlistItem.quantity}></input>
                         <button className="wishlist-item-quantity-stepper__btn wishlist-item-quantity-stepper__btn--increase" type="button"
                         onClick={() => {updateQuantity(1)}}>
                             <FontAwesomeIcon icon={faPlus} />

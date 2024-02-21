@@ -57,5 +57,6 @@ export const updateStore = async (profileSavedInLocalStorage, preferredStore) =>
     requestBody.signedInToken       = profileSavedInLocalStorage.signedInToken;
     requestBody.email               = profileSavedInLocalStorage.email;
     requestBody.preferredStore      = preferredStore
+    // console.log(requestBody)
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }

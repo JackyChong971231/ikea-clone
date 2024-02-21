@@ -42,8 +42,9 @@ export const getAllWishlistItemsAPI = async (email, signedInToken) => {
 }
 export const updateWishlistItemAPI = async (wishlistItem) => {
     let controllerMapping = "/wishlistItem/update";
-    var requestBody = {
-        wishlistItem: wishlistItem,
+    const requestBody = {
+        wishlistItemId: wishlistItem.id,
+        quantity: wishlistItem.quantity
     };
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 

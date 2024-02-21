@@ -8,10 +8,7 @@ import com.example.demo.repository.MembershipRepository;
 import com.example.demo.repository.WishlistItemRepository;
 import com.example.demo.repository.WishlistRepository;
 import com.example.demo.request.common.ShortUserDetail;
-import com.example.demo.request.membership.AddWishlistItemRequest;
-import com.example.demo.request.membership.CreateWishlistRequest;
-import com.example.demo.request.membership.DelWishlistItemRequest;
-import com.example.demo.request.membership.RefreshMembershipRequest;
+import com.example.demo.request.membership.*;
 import com.example.demo.response.error.GeneralResponse;
 import com.example.demo.response.wishlist.WishlistFullDataResponse;
 import jakarta.persistence.EntityNotFoundException;
@@ -103,5 +100,19 @@ public class WishlistService {
                 .build();
         response.setData(wishlistFullDataResponse);
         return response;
+    }
+
+    public Object updateWishlistItem(UpdateWishlistItemRequest request) {
+        Optional<WishlistItem> wishlistItemOptional = wishlistItemRepository.findById(request.getWishlistItemId());
+        if (wishlistItemOptional.isPresent()) {
+            WishlistItem wishlistItem = wishlistItemOptional.get();
+            wishlistItem.setQuantity(request.getQuantity());
+            wishlistItemRepository.save(wishlistItem);
+            var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
+            response.setData(wishlistItem);
+            return response;
+        } else {
+            return new GeneralResponse(GeneralResponse.CODE_9999_UNKNOWN_ERROR);
+        }
     }
 }
