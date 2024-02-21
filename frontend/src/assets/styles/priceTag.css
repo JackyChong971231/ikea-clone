@@ -1,0 +1,18 @@
+.price-tag {
+    position: relative;
+    text-align: left;
+}
+
+.price-tag > span {
+    position: relative;
+}
+
+.price-tag__integer {
+    font-size: inherit;
+    /* height: 1.5rem; */
+}
+
+.price-tag__currency, .price-tag__separator, .price-tag__decimal {
+    top: -0.5rem;
+    font-size: 0.5em;
+}

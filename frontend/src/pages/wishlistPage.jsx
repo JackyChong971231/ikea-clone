@@ -1,18 +1,29 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSharedContext } from '../SharedContext';
 import { createNewWishlist, getAllWishlistItems } from '../services/wishlistService';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faH, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { navigate } from '../utils/common';
 
 export const WishlistPage = () => {
     const {userDetail, setUserDetail} = useSharedContext();
-    const [wishlistContainer, setWishlistContainer] = React.useState();
-    const [isAboutToCreateNewWishlist, setIsAboutToCreateNewWishlist] = React.useState(false);
-    const [newWishlistName, setNewWishlistName] = React.useState("");
+    const [wishlistContainer, setWishlistContainer] = useState();
+    const [isAboutToCreateNewWishlist, setIsAboutToCreateNewWishlist] = useState(false);
+    const [newWishlistName, setNewWishlistName] = useState("");
 
+    const handleClick = (eachWishlist, wishlistItemsInEachWishlist) => {
+        // navigate('wishlist');
+        const wishlistSelected = {
+            wishlist: eachWishlist,
+            wishlistItems: wishlistItemsInEachWishlist
+        }
+        // console.log(wishlistId)
+        localStorage.setItem('wishlistSelected',JSON.stringify(wishlistSelected));
+        navigate('wishlist');
+    }
 
-    React.useEffect(() => {
+    useEffect(() => {
         // const wishlistInfo = await getAllWishlistItems(userDetail.email, userDetail.signedInToken);
         getAllWishlistItems(userDetail.email, userDetail.signedInToken)
         .then(wishlistInfo => {
@@ -23,7 +34,8 @@ export const WishlistPage = () => {
                 const eachWishlist = wishlists[eachWishlistObjId];
                 const wishlistItemsInEachWishlist = wishlistItems.filter((eachWishlistItem) => eachWishlistItem.wishlist.wishlistId === eachWishlist.wishlistId)
                 tempWishlistContainer.push(
-                    <div className='eachWishlist__container p-2 col-6 col-sm-4 col-md-3'>
+                    <div className='eachWishlist__container p-2 col-6 col-sm-4 col-md-3'
+                    onClick={() => handleClick(eachWishlist, wishlistItemsInEachWishlist)}>
                         <div className='eachWishlist__container__content h-100'>
                             <div className='eachWishlist__image__container'>
                                 {(wishlistItemsInEachWishlist.length > 0)?

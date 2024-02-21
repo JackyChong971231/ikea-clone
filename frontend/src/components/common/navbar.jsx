@@ -97,7 +97,7 @@ export const NavBar = () => {
                 </div>
                 <ul className='navbar__icons'>
                     <a className='navbar__icons__item profile px-3' onClick={() => {expandPopUpWindow('profile')}}><FontAwesomeIcon icon={faUser} /></a>
-                    <a className='navbar__icons__item wishlist px-3' onClick={() => {navigate('/wishlist')}}><FontAwesomeIcon icon={faHeart} /></a>
+                    <a className='navbar__icons__item wishlist px-3' onClick={() => {navigate('/allWishlists')}}><FontAwesomeIcon icon={faHeart} /></a>
                     <a className='navbar__icons__item cart tooltip-parent px-3'>
                         <span class="tooltip-text"><p>Not activated</p></span>
                         <FontAwesomeIcon icon={faShoppingCart} />

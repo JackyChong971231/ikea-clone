@@ -40,3 +40,11 @@ export const getAllWishlistItemsAPI = async (email, signedInToken) => {
     };
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }
+export const updateWishlistItemAPI = async (wishlistItem) => {
+    let controllerMapping = "/wishlistItem/update";
+    var requestBody = {
+        wishlistItem: wishlistItem,
+    };
+    return apiGateway(POST, endPoint + controllerMapping, requestBody);
+
+}

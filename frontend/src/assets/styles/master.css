@@ -6,7 +6,9 @@
 @import url('store.css');
 @import url('storeSelected.css');
 @import url('shortProduct.css');
+@import url('shortProductInWishlist.css');
 @import url('common.css');
+@import url('priceTag.css');
 
 @import url('search.css');
 @import url('signIn.css');
@@ -14,6 +16,7 @@
 @import url('wishlist.css');
 @import url('wishlistEdit.css');
 @import url('wishlistPage.css');
+@import url('oneWishlist.css');
 
 :root {
 

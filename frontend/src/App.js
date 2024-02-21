@@ -15,6 +15,7 @@ import { SignUp } from './pages/signUp.jsx';
 import { WishlistPage } from './pages/wishlistPage.jsx';
 
 import { SharedProvider } from './SharedContext';
+import { OneWishlist } from './pages/oneWishlist.jsx';
 
 function App() {
 
@@ -32,7 +33,8 @@ function App() {
               <Route path='/search' element={<Search />} />
               <Route path='/sign-in' element={<SignIn />} />
               <Route path='/sign-up' element={<SignUp />} />
-              <Route path='/wishlist' element={<WishlistPage />} />
+              <Route path='/allWishlists' element={<WishlistPage />} />
+              <Route path='/wishlist' element={<OneWishlist />} />
             </Routes>
           </BrowserRouter>
           <PopUp />

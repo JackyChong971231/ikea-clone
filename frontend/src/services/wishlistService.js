@@ -1,4 +1,4 @@
-import { addToWishlistItemAPI, createNewWishlistAPICall, deleteFromWishlistItemAPI, getAllWishlistItemsAPI } from "../apiCalls/apis/wishlistAPI";
+import { addToWishlistItemAPI, createNewWishlistAPICall, deleteFromWishlistItemAPI, getAllWishlistItemsAPI, updateWishlistItemAPI } from "../apiCalls/apis/wishlistAPI";
 
 export const addToWishlistItem = async (email, barcodeObject, wishlistObject) => {
     const responseBody = await addToWishlistItemAPI(email, barcodeObject, wishlistObject);
@@ -21,5 +21,13 @@ export const createNewWishlist = async(email, wishlistName) => {
 
 export const getAllWishlistItems = async(email, signedInToken) => {
     const responseBody = await getAllWishlistItemsAPI(email, signedInToken);
+    return responseBody.data;
+}
+
+export const updateWishlistItemQuantity = async(wishlistItem, val) => {
+    const responseBody = await updateWishlistItemAPI({
+        ... wishlistItem,
+        quantity: wishlistItem.quantity + val
+    })
     return responseBody.data;
 }

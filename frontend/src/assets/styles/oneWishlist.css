@@ -1,0 +1,172 @@
+.wishlist-path > ol {
+    display: flex;
+    font-size: 0.75rem;
+}
+
+.wishlist-path > ol > li:first-child > a {
+    color: black;
+}
+
+.wishlist-path > ol > li:first-child::after {
+    content: '>';
+    font-size: 1rem;
+    line-height: 1rem;
+    margin: 0.5rem;
+}
+
+.wishlist-path > ol > li {
+    list-style: none;
+}
+
+.wishlist-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.wishlist-switch {
+    display: flex;
+    flex-direction: row;
+    padding: .25rem;
+    border-radius: 64px;
+    background: rgb(var(--colour-neutral-2,245,245,245));
+    border: none;
+    margin: 0;
+    gap: .5rem;
+}
+
+.wishlist-switch-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 64px;
+    padding: .25rem 1.5rem;
+    min-height: 2.5rem;
+    background: rgb(var(--colour-neutral-2,245,245,245));
+    color: rgb(var(--colour-text-and-icon-1,17,17,17));
+    font-size: .75rem;
+    transition: all .3s cubic-bezier(.4,0,.4,1);
+
+    line-height: 1.571rem;
+    font-weight: 700;
+}
+
+.wishlist-switch-button--active {
+    background: rgb(var(--colour-neutral-1,255,255,255));
+    color: rgb(var(--colour-text-and-icon-1,17,17,17));
+    box-shadow: 0 4px 16px #0000001a;
+}
+
+.product-list-option-btns {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.product-list-option-btn {
+    position: relative;
+    font-size: 1.2rem;
+    border: 0;
+    padding: 0.4rem;
+    line-height: 1.4285714286rem;
+    width: 2rem;
+    height: 2rem;
+    font-weight: 700;
+    text-align: center;
+    display: inline-flex;
+    border-radius: 64px;
+    cursor: pointer;
+    outline: 0;
+    background: rgb(var(--colour-interactive-secondary-bg-hover,223,223,223));
+}
+
+.product-list-option-btn > FontAwesomeIcon {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-weight: 700;
+}
+
+.wishlist-price-row {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.wishlist-price-tag {
+    font-size: 1.8rem;
+}
+
+.wishlist-add-to-cart {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    font-size: .875rem;
+    /* background: none; */
+    border: 0;
+    padding: 1rem;
+    line-height: 1rem;
+    font-weight: 700;
+    text-align: center;
+    display: inline-flex;
+    border-radius: 64px;
+    cursor: pointer;
+    outline: 0;
+    align-items: center; /* align vertically */
+    justify-content: center; /* align horizontally */
+
+    color: white;
+    background: rgb(var(--colour-interactive-emphasised-bg-default,0,88,163));
+}
+
+.wishlist-add-to-cart > p {
+    padding: 0;
+    margin: 0;
+}
+
+.wishlist-item-download-app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    /* align-items: center; */
+    padding: 2.5rem 1rem;
+        padding-left: 1rem;
+    position: relative;
+    text-align: start;
+}
+
+.wishlist-item-download-app > h2 {
+    color: rgb(var(--colour-static-ikea-family,0,124,193));
+    font-size: 1.125rem;
+    line-height: 1.444;
+    font-weight: 700;
+}
+
+.wishlist-item-download-app > p {
+    color: rgb(var(--colour-text-and-icon-2,72,72,72));
+    font-size: .875rem;
+    line-height: 1.571;
+}
+
+.wishlist-item-download-app > button {
+    position: relative;
+    border: 0;
+    color: white;
+    background-color: black;
+    font-weight: 700;
+    font-size: .75rem;
+    line-height: 1.33;
+    text-align: center;
+    border-radius: 64px;
+    padding-block: 0.7rem;
+}
+
+.wishlist-item-download-app > button:hover {
+    background-color: rgb(59, 59, 59);
+}
