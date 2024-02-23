@@ -107,22 +107,26 @@ export const NavBar = () => {
                         <FontAwesomeIcon icon={faBars} />
                     </a>
                 </ul>
-                <div className='navbar__location py-2'>
-                    <div className='col-6 border-bottom' onClick={() => {expandPopUpWindow('location')}}>
-                        <div className='navbar__location__container postal-code py-3'>
-                            <FontAwesomeIcon className='navbar__location__icon' icon={faTruck} />
-                            {
-                                ((userDetail === emptyUserDetail)? <p>Enter postal Code</p> : (userDetail.postalCode !== null && userDetail.postalCode !== "")? <p>{userDetail.postalCode}</p> : <p>Enter postal Code</p>)
-                            }
+                <div className='navbar__location row w-100 py-2'>
+                    <div className='col-6 border-bottom ' onClick={() => {expandPopUpWindow('location')}}>
+                        <div className='navbar__location__inner-container h-100'>
+                            <div className='navbar__location__container postal-code py-3'>
+                                <FontAwesomeIcon className='navbar__location__icon' icon={faTruck} />
+                                {
+                                    ((userDetail === emptyUserDetail)? <p>Enter postal Code</p> : (userDetail.postalCode !== null && userDetail.postalCode !== "")? <p>{userDetail.postalCode}</p> : <p>Enter postal Code</p>)
+                                }
+                            </div>
                         </div>
                     </div>
-                    <div className='col-6 border-bottom' onClick={() => {expandPopUpWindow('store')}}>
-                        <span></span>
-                        <div className='navbar__location__container store py-3'>
-                            <FontAwesomeIcon className='navbar__location__icon' icon={faStore} />
-                            {
-                                ((userDetail === emptyUserDetail)? <p>{defaultStore}</p>: (userDetail.preferredStore !== null && typeof userDetail.preferredStore !== "undefined")? <p>{userDetail.preferredStore.displayName}</p> : <p>{defaultStore}</p>)
-                            }
+                    <div className='col-6 border-bottom ' onClick={() => {expandPopUpWindow('store')}}>
+                        <div className='navbar__location__inner-container h-100'>
+                            <span></span>
+                            <div className='navbar__location__container store py-3'>
+                                <FontAwesomeIcon className='navbar__location__icon' icon={faStore} />
+                                {
+                                    ((userDetail === emptyUserDetail)? <p>{defaultStore}</p>: (userDetail.preferredStore !== null && typeof userDetail.preferredStore !== "undefined")? <p>{userDetail.preferredStore.displayName}</p> : <p>{defaultStore}</p>)
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

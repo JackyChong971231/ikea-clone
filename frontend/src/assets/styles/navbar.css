@@ -160,13 +160,16 @@
 }
 
 .navbar__location {
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     justify-content: space-between;
-    flex-wrap: wrap;
-    width: 100%;
-    align-items: center;
+    flex-wrap: wrap; */
+    /* width: 100%; */
+    /* align-items: center; */
+    position: relative;
+    padding-left: 1.5rem;
     order: 10;
+    /* border: 1px solid black; */
 }
 
 .navbar__location__icon {
@@ -175,9 +178,13 @@
 
 .navbar__location > div {
     position: relative;
+    cursor: pointer;
+}
+
+.navbar__location__inner-container {
+    position: relative;
     display: flex;
     justify-content: space-between;
-    cursor: pointer;
 }
 
 .navbar__location > div:hover {
@@ -191,7 +198,7 @@
 
 .navbar__location__container > p {
     display: table-cell;
-    vertical-align: middle;
+    /* vertical-align: middle; */
 }
 
 .navbar__location__container.store {

@@ -4,24 +4,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faHeart, faPlus, faMinus, faShoppingCart, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { useSharedContext } from "../../SharedContext";
 import { converPrice2String, starRatingGenerator } from "../../utils/common";
-import { updateWishlistItemQuantity } from "../../services/wishlistService";
+import { deleteFromWishlistItem, updateWishlistItemQuantity } from "../../services/wishlistService";
 
 
 export const ShortProductInWishlist = (props) => {
-    const { wishlistItem, ...other } = props;
+    const { wishlistItem, wishlist, updateWishlistDisplay, ...other } = props;
+    const {userDetail, setUserDetail} = useSharedContext();
     const [currentWishlistItem, setCurrentWishlistItem] = useState(wishlistItem)
 
     useEffect(() => {
-        // console.log(wishlistItem.barcode.productImage);
-
+        
     },[])
 
     const updateQuantity = async (val) => {
-        const newWishlistItem = await updateWishlistItemQuantity({
-            ... currentWishlistItem,
-            quantity: currentWishlistItem.quantity + val
-        })
-        setCurrentWishlistItem(newWishlistItem)
+        const toQuantity = currentWishlistItem.quantity + val;
+        if (toQuantity > 0) {
+            const newWishlistItem = await updateWishlistItemQuantity({
+                ... currentWishlistItem,
+                quantity: toQuantity
+            })
+            setCurrentWishlistItem(newWishlistItem)
+            updateWishlistDisplay(currentWishlistItem, toQuantity);
+        } else {
+            removeWishlistItemFromWishlist()
+            updateWishlistDisplay(currentWishlistItem, toQuantity);
+        }
+    }
+
+    const removeWishlistItemFromWishlist = async () => {
+        const response = await deleteFromWishlistItem(userDetail.email, currentWishlistItem.barcode, wishlist);
+        console.log(response);
     }
 
     return (
@@ -36,11 +48,11 @@ export const ShortProductInWishlist = (props) => {
                     <p className="wishlist-item-description mb-0">{wishlistItem.barcode.product.description}</p>
                     <div className='wishlist-item__price'>
                         <span className='wishlist-item__price__currency'><b>$</b></span>
-                        <span className='wishlist-item__price__integer'><b>{converPrice2String(wishlistItem.barcode.originalPrice*wishlistItem.quantity)[0]}</b></span>
+                        <span className='wishlist-item__price__integer'><b>{converPrice2String(currentWishlistItem.barcode.originalPrice*currentWishlistItem.quantity)[0]}</b></span>
                         <span className='wishlist-item__price__separator'><b>.</b></span>
-                        <span className='wishlist-item__price__decimal'><b>{converPrice2String(wishlistItem.barcode.originalPrice*wishlistItem.quantity)[1]}</b></span>
+                        <span className='wishlist-item__price__decimal'><b>{converPrice2String(currentWishlistItem.barcode.originalPrice*currentWishlistItem.quantity)[1]}</b></span>
                     </div>
-                    {(wishlistItem.quantity > 1)? (<p><small>
+                    {(currentWishlistItem.quantity > 1)? (<p><small>
                         <span>Price per item: </span>
                         <span className='wishlist-item__pricePer1__currency'>$</span>
                         <span className='wishlist-item__pricePer1__integer'>{converPrice2String(wishlistItem.barcode.originalPrice)[0]}</span>
@@ -69,7 +81,8 @@ export const ShortProductInWishlist = (props) => {
                     </div>
                     <div className="wishlist-item-action-btns">
                         <button className="wishlist-item-action-btn__add-to-cart"><FontAwesomeIcon icon = {faShoppingCart} /></button>
-                        <button className="wishlist-item-action-btn__remove"><FontAwesomeIcon icon = {faRemove} /></button>
+                        <button className="wishlist-item-action-btn__remove"
+                        onClick={removeWishlistItemFromWishlist}><FontAwesomeIcon icon = {faRemove} /></button>
                     </div>
                 </div>
                 <ul className="wishlist-item-availability">
@@ -82,7 +95,7 @@ export const ShortProductInWishlist = (props) => {
                         <span className="wishlist-item-available__dot"/>
                     </li>
                     <li>
-                        <span className="wishlist-item-available__description">In stock in IKEA Toronto - North York</span>
+                        <span className="wishlist-item-available__description">In stock in {userDetail.preferredStore.displayName}</span>
                         <span className="wishlist-item-available__dot"/>
                     </li>
                 </ul>

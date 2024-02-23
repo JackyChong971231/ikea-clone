@@ -20,7 +20,8 @@ export const WishlistPage = () => {
         }
         // console.log(wishlistId)
         localStorage.setItem('wishlistSelected',JSON.stringify(wishlistSelected));
-        navigate('wishlist');
+        // console.log(eachWishlist)
+        navigate('wishlist?id='+ eachWishlist.wishlistId);
     }
 
     useEffect(() => {
@@ -28,7 +29,11 @@ export const WishlistPage = () => {
         getAllWishlistItems(userDetail.email, userDetail.signedInToken)
         .then(wishlistInfo => {
             const wishlists = wishlistInfo.wishlists;
-            const wishlistItems = wishlistInfo.wishlistItems;
+            var wishlistItems = [];
+            Object.keys(wishlistInfo.wishlistItems).forEach(wishlistItemId => {
+                wishlistItems.push(wishlistInfo.wishlistItems[wishlistItemId])
+            })
+            console.log(wishlistItems);
             var tempWishlistContainer = [];
             for (const eachWishlistObjId in wishlists) {
                 const eachWishlist = wishlists[eachWishlistObjId];

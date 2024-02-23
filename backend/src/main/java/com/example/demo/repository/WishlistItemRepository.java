@@ -11,6 +11,7 @@ import java.util.List;
 public interface WishlistItemRepository extends JpaRepository<WishlistItem, Integer> {
 
     List<WishlistItem> findBarcodeByWishlistMembership(Membership membership);
+    List<WishlistItem> findBarcodeByWishlistMembershipAndWishlistWishlistId(Membership membership, Integer wishlistId);
 
     WishlistItem findByBarcodeBarcodeIdAndWishlistWishlistId(Integer barcodeId, Integer wishlistId);
 }

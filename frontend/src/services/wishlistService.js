@@ -19,9 +19,16 @@ export const createNewWishlist = async(email, wishlistName) => {
     else {return [false, null]};
 }
 
-export const getAllWishlistItems = async(email, signedInToken) => {
-    const responseBody = await getAllWishlistItemsAPI(email, signedInToken);
-    return responseBody.data;
+export const getAllWishlistItems = async(email, signedInToken, wishlistId = null) => {
+    const responseBody = await getAllWishlistItemsAPI(email, signedInToken, wishlistId);
+    // console.log(responseBody.data)
+    let wishlistAndWishlistItem = responseBody.data;
+    let wishlistItemsMap = {};
+    wishlistAndWishlistItem.wishlistItems.map(eachWishlistItem => {
+        wishlistItemsMap[eachWishlistItem.id] = eachWishlistItem;
+    })
+    wishlistAndWishlistItem.wishlistItems = wishlistItemsMap;
+    return wishlistAndWishlistItem;
 }
 
 export const updateWishlistItemQuantity = async(wishlistItem) => {

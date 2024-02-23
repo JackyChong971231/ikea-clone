@@ -32,11 +32,14 @@ export const createNewWishlistAPICall = async(email, wishlistName) => {
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }
 
-export const getAllWishlistItemsAPI = async (email, signedInToken) => {
+export const getAllWishlistItemsAPI = async (email, signedInToken, wishlistId) => {
     let controllerMapping = "/wishlistItem/get";
     var requestBody = {
-        email: email,
-        signedInToken: signedInToken,
+        shortUserDetail: {
+            email: email,
+            signedInToken: signedInToken,
+        },
+        wishlistId: wishlistId
     };
     return apiGateway(POST, endPoint + controllerMapping, requestBody);
 }

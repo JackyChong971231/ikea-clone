@@ -1,13 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.ServerConfig;
-import com.example.demo.model.Wishlist;
-import com.example.demo.model.WishlistItem;
 import com.example.demo.request.common.ShortUserDetail;
-import com.example.demo.request.membership.AddWishlistItemRequest;
-import com.example.demo.request.membership.CreateWishlistRequest;
-import com.example.demo.request.membership.DelWishlistItemRequest;
-import com.example.demo.request.membership.UpdateWishlistItemRequest;
+import com.example.demo.request.membership.*;
 import com.example.demo.service.WishlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,9 +42,9 @@ public class WishlistController {
 
     @PostMapping("/wishlistItem/get")
     public ResponseEntity<Object> getWishlistItem (
-            @RequestBody ShortUserDetail request
+            @RequestBody GetWishlistRequest request
     ) {
-        return ResponseEntity.ok(wishlistService.getWishlistItemByMembership(request));
+        return ResponseEntity.ok(wishlistService.getWishlistAndWishlistItemByMembership(request));
     }
 
     @PostMapping("/wishlistItem/update")

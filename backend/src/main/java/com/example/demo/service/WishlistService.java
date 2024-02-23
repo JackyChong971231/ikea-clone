@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,16 +89,28 @@ public class WishlistService {
 //        return response;
     }
 
-    public Object getWishlistItemByMembership(ShortUserDetail request) {
+    public Object getWishlistAndWishlistItemByMembership(GetWishlistRequest request) {
         var response = new GeneralResponse(GeneralResponse.CODE_0000_NO_ERROR);
-        Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getEmail());
-        List<WishlistItem> wishlistItemList = wishlistItemRepository.findBarcodeByWishlistMembership(membershipOptional.get());
-        List<Wishlist> wishlistList = wishlistRepository.findByMembership(membershipOptional.get());
-        WishlistFullDataResponse wishlistFullDataResponse = WishlistFullDataResponse.builder()
-                .wishlists(wishlistList)
-                .wishlistItems(wishlistItemList)
-                .build();
-        response.setData(wishlistFullDataResponse);
+        Optional<Membership> membershipOptional = membershipRepository.findByEmail(request.getShortUserDetail().getEmail());
+        if (request.getWishlistId() instanceof java.lang.Integer) {
+            Optional<Wishlist> wishlistOptional = wishlistRepository.findById(request.getWishlistId());
+            List<Wishlist> wishlistList = new ArrayList<Wishlist>();
+            wishlistList.add(wishlistOptional.get());
+            List<WishlistItem> wishlistItemList = wishlistItemRepository.findBarcodeByWishlistMembershipAndWishlistWishlistId(membershipOptional.get(), request.getWishlistId());
+            WishlistFullDataResponse wishlistFullDataResponse = WishlistFullDataResponse.builder()
+                    .wishlists(wishlistList)
+                    .wishlistItems(wishlistItemList)
+                    .build();
+            response.setData(wishlistFullDataResponse);
+        } else {
+            List<Wishlist> wishlistList = wishlistRepository.findByMembership(membershipOptional.get());
+            List<WishlistItem> wishlistItemList = wishlistItemRepository.findBarcodeByWishlistMembership(membershipOptional.get());
+            WishlistFullDataResponse wishlistFullDataResponse = WishlistFullDataResponse.builder()
+                    .wishlists(wishlistList)
+                    .wishlistItems(wishlistItemList)
+                    .build();
+            response.setData(wishlistFullDataResponse);
+        }
         return response;
     }
 
